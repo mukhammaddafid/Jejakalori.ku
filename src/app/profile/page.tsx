@@ -12,15 +12,24 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { useLanguage } from '@/lib/language-provider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Calendar } from '@/components/ui/calendar';
 
 const sleepData = [
-    { day: 'Mon', hours: 6.5 },
-    { day: 'Tue', hours: 7 },
-    { day: 'Wed', hours: 8 },
-    { day: 'Thu', hours: 6 },
-    { day: 'Fri', hours: 7.5 },
-    { day: 'Sat', hours: 9 },
-    { day: 'Sun', hours: 8.5 },
+    { day: 'Mon', hours: 6.5, date: new Date(2024, 6, 1) },
+    { day: 'Tue', hours: 7, date: new Date(2024, 6, 2) },
+    { day: 'Wed', hours: 8, date: new Date(2024, 6, 3) },
+    { day: 'Thu', hours: 6, date: new Date(2024, 6, 4) },
+    { day: 'Fri', hours: 7.5, date: new Date(2024, 6, 5) },
+    { day: 'Sat', hours: 9, date: new Date(2024, 6, 6) },
+    { day: 'Sun', hours: 8.5, date: new Date(2024, 6, 7) },
+    { day: 'Mon', hours: 5.5, date: new Date(2024, 6, 8) },
+    { day: 'Tue', hours: 7, date: new Date(2024, 6, 9) },
+    { day: 'Wed', hours: 8, date: new Date(2024, 6, 10) },
+    { day: 'Thu', hours: 6.5, date: new Date(2024, 6, 11) },
+    { day: 'Fri', hours: 7.5, date: new Date(2024, 6, 12) },
+    { day: 'Sat', hours: 9, date: new Date(2024, 6, 13) },
+    { day: 'Sun', hours: 8, date: new Date(2024, 6, 14) },
 ];
 
 const screenTimeData = [
@@ -108,6 +117,22 @@ export default function ProfilePage() {
     setIsClient(true);
   }, []);
 
+  const sleepDayModifiers = sleepData.reduce((acc, day) => {
+    let color = 'hsl(var(--primary) / 0.3)';
+    if (day.hours >= 8) {
+        color = 'hsl(var(--primary) / 0.8)';
+    } else if (day.hours >= 7) {
+        color = 'hsl(var(--primary) / 0.5)';
+    }
+    acc[day.date.toDateString()] = {
+        style: { 
+            backgroundColor: color,
+            borderRadius: '0.5rem'
+        }
+    };
+    return acc;
+  }, {} as Record<string, { style: React.CSSProperties }>);
+
   if (!isClient) {
     return null; 
   }
@@ -120,20 +145,45 @@ export default function ProfilePage() {
         
         <PremiumFeatureCard
             icon={<Bed />}
-            title={t('sleepDurationTracker')}
+            title={t('sleepTracking')}
             description={t('sleepDurationTrackerDescription')}
         >
             <div className="space-y-4">
-                 <h4 className="font-semibold">{t('weeklySleepTrend')}</h4>
-                <ChartContainer config={{ hours: { label: t('hoursSlept'), color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
-                    <BarChart data={sleepData} accessibilityLayer>
-                        <CartesianGrid vertical={false} />
-                        <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
-                        <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                        <Bar dataKey="hours" fill="var(--color-hours)" radius={4} />
-                    </BarChart>
-                </ChartContainer>
+                <Tabs defaultValue="weekly">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="weekly">{t('weekly')}</TabsTrigger>
+                        <TabsTrigger value="monthly">{t('monthly')}</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="weekly">
+                        <h4 className="font-semibold text-center mb-4 pt-4">{t('weeklySleepTrend')}</h4>
+                        <ChartContainer config={{ hours: { label: t('hoursSlept'), color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
+                            <BarChart data={sleepData.slice(0, 7)} accessibilityLayer>
+                                <CartesianGrid vertical={false} />
+                                <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
+                                <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                                <ChartTooltip content={<ChartTooltipContent />} />
+                                <Bar dataKey="hours" fill="var(--color-hours)" radius={4} />
+                            </BarChart>
+                        </ChartContainer>
+                    </TabsContent>
+                     <TabsContent value="monthly">
+                        <h4 className="font-semibold text-center mb-4 pt-4">{t('monthlySleepView')}</h4>
+                        <div className="flex justify-center">
+                            <Calendar
+                                mode="single"
+                                month={new Date(2024, 6)}
+                                modifiers={sleepDayModifiers}
+                                modifiersStyles={{}}
+                                className="rounded-md border p-0"
+                            />
+                        </div>
+                        <div className="flex justify-center gap-4 text-xs items-center mt-2 text-muted-foreground">
+                            <div className='flex items-center gap-1'><div className='w-3 h-3 rounded-full' style={{backgroundColor: 'hsl(var(--primary) / 0.3)'}}></div>{'<7h'}</div>
+                            <div className='flex items-center gap-1'><div className='w-3 h-3 rounded-full' style={{backgroundColor: 'hsl(var(--primary) / 0.5)'}}></div>{'7-8h'}</div>
+                            <div className='flex items-center gap-1'><div className='w-3 h-3 rounded-full' style={{backgroundColor: 'hsl(var(--primary) / 0.8)'}}></div>{'>8h'}</div>
+                        </div>
+                    </TabsContent>
+                </Tabs>
                 <Button variant="link" className="text-primary p-0">{t('viewFullSleepReport')}</Button>
             </div>
         </PremiumFeatureCard>
