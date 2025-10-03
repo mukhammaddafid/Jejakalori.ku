@@ -2,7 +2,7 @@
   "placeholderImages": [
     {
       "id": "user-avatar-1",
-      "description": "2D character badge",
+      "description": "2D character",
       "imageUrl": "https://images.unsplash.com/photo-1639747280804-dd2d6b3d88ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHwyZCUyMGNoYXJhY3RlciUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MTE0NDQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "2d character"
     },
