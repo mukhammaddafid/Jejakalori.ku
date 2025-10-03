@@ -51,7 +51,7 @@ function PremiumFeatureCard({ icon, title, description, children }: { icon: Reac
                                 <span>Premium</span>
                             </div>
                         </div>
-                        <CardDescription>{description}</CardDescription>
+                        <CardDescription className='text-left'>{description}</CardDescription>
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4">
