@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Flame } from 'lucide-react';
 import {
