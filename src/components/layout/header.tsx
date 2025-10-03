@@ -22,7 +22,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Globe } from 'lucide-react';
+import { Globe, User as UserIcon, Image as ImageIcon } from 'lucide-react';
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
 
@@ -38,9 +38,10 @@ function getPageTitle(pathname: string, t: (key: string) => string) {
 export function Header() {
   const pathname = usePathname();
   const { language, setLanguage, t } = useLanguage();
-  const pageTitle = getPageTitle(pathname, t);
-  const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
-  
+  const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
+
+  const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
+  const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
 
   return (
     <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-card px-4 sm:h-16 sm:px-6">
@@ -64,6 +65,27 @@ export function Header() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <UserIcon className="mr-2 h-4 w-4" />
+            <span>{t('profile')}</span>
+            </DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <ImageIcon className="mr-2 h-4 w-4" />
+              <span>Change Avatar</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
+                  {avatarPlaceholders.map(avatar => (
+                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
+                      {avatar.description}
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
           <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
@@ -77,15 +99,6 @@ export function Header() {
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex items-center gap-2">
-            <Globe className="h-4 w-4" />
-            {t('language')}
-          </DropdownMenuLabel>
-          <DropdownMenuRadioGroup value={language} onValueChange={(value) => setLanguage(value as 'id' | 'en')}>
-            <DropdownMenuRadioItem value="id">Bahasa Indonesia</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem>{t('logout')}</DropdownMenuItem>
         </DropdownMenuContent>
