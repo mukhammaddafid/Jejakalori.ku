@@ -257,6 +257,9 @@ export const translations = {
     challenge3: 'Hit your protein goal 5 times',
     '40thDegreeChallenge': '40th Degree Challenge',
     complete: 'complete',
+    averageSleep: 'Average Sleep',
+    longestSleep: 'Longest Sleep',
+    shortestSleep: 'Shortest Sleep',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -520,6 +523,9 @@ export const translations = {
     challenge3: 'Capai target protein 5 kali',
     '40thDegreeChallenge': 'Tantangan Tingkat 40',
     complete: 'selesai',
+    averageSleep: 'Tidur Rata-rata',
+    longestSleep: 'Tidur Terlama',
+    shortestSleep: 'Tidur Terpendek',
   }
 };
 
@@ -529,3 +535,4 @@ export type TranslationKey = keyof typeof translations['en'];
     
 
     
+

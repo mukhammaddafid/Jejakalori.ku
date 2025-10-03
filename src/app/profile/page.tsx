@@ -4,16 +4,15 @@ import { TdeeCalculator } from '@/components/profile/tdee-calculator';
 import { GoalSetter } from '@/components/profile/goal-setter';
 import { mockUserData } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bed, Smartphone, ShieldCheck, Dumbbell, BookOpen, Music, Code, Brush, CookingPot, Camera } from 'lucide-react';
+import { Bed, Smartphone, ShieldCheck, Dumbbell, BookOpen, Music, Code, Brush, CookingPot, Camera, TrendingUp, TrendingDown, Hourglass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell, LineChart, Line, Tooltip } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLanguage } from '@/lib/language-provider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar } from '@/components/ui/calendar';
 
 const sleepData = [
     { day: 'Mon', hours: 6.5, date: new Date(2024, 6, 1) },
@@ -117,21 +116,15 @@ export default function ProfilePage() {
     setIsClient(true);
   }, []);
 
-  const sleepDayModifiers = sleepData.reduce((acc, day) => {
-    let color = 'hsl(var(--primary) / 0.3)';
-    if (day.hours >= 8) {
-        color = 'hsl(var(--primary) / 0.8)';
-    } else if (day.hours >= 7) {
-        color = 'hsl(var(--primary) / 0.5)';
-    }
-    acc[day.date.toDateString()] = {
-        style: { 
-            backgroundColor: color,
-            borderRadius: '0.5rem'
-        }
+  const sleepStats = React.useMemo(() => {
+    const hours = sleepData.map(d => d.hours);
+    const total = hours.reduce((acc, h) => acc + h, 0);
+    return {
+      average: total / hours.length,
+      longest: Math.max(...hours),
+      shortest: Math.min(...hours),
     };
-    return acc;
-  }, {} as Record<string, { style: React.CSSProperties }>);
+  }, []);
 
   if (!isClient) {
     return null; 
@@ -168,23 +161,41 @@ export default function ProfilePage() {
                     </TabsContent>
                      <TabsContent value="monthly">
                         <h4 className="font-semibold text-center mb-4 pt-4">{t('monthlySleepView')}</h4>
-                        <div className="flex justify-center">
-                            <Calendar
-                                mode="single"
-                                month={new Date(2024, 6)}
-                                modifiers={sleepDayModifiers}
-                                modifiersStyles={{}}
-                                className="rounded-md border p-0"
-                            />
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center my-4">
+                            <Card>
+                                <CardHeader className="p-4">
+                                    <CardTitle className="flex items-center justify-center gap-2 text-base font-semibold"><Hourglass className="h-5 w-5 text-muted-foreground"/> {t('averageSleep')}</CardTitle>
+                                    <p className="text-2xl font-bold font-headline text-primary">{sleepStats.average.toFixed(1)}h</p>
+                                </CardHeader>
+                            </Card>
+                            <Card>
+                                <CardHeader className="p-4">
+                                    <CardTitle className="flex items-center justify-center gap-2 text-base font-semibold"><TrendingUp className="h-5 w-5 text-muted-foreground"/> {t('longestSleep')}</CardTitle>
+                                    <p className="text-2xl font-bold font-headline text-primary">{sleepStats.longest.toFixed(1)}h</p>
+                                </CardHeader>
+                            </Card>
+                            <Card>
+                                <CardHeader className="p-4">
+                                    <CardTitle className="flex items-center justify-center gap-2 text-base font-semibold"><TrendingDown className="h-5 w-5 text-muted-foreground"/> {t('shortestSleep')}</CardTitle>
+                                    <p className="text-2xl font-bold font-headline text-primary">{sleepStats.shortest.toFixed(1)}h</p>
+                                </CardHeader>
+                            </Card>
                         </div>
-                        <div className="flex justify-center gap-4 text-xs items-center mt-2 text-muted-foreground">
-                            <div className='flex items-center gap-1'><div className='w-3 h-3 rounded-full' style={{backgroundColor: 'hsl(var(--primary) / 0.3)'}}></div>{'<7h'}</div>
-                            <div className='flex items-center gap-1'><div className='w-3 h-3 rounded-full' style={{backgroundColor: 'hsl(var(--primary) / 0.5)'}}></div>{'7-8h'}</div>
-                            <div className='flex items-center gap-1'><div className='w-3 h-3 rounded-full' style={{backgroundColor: 'hsl(var(--primary) / 0.8)'}}></div>{'>8h'}</div>
+
+                        <ChartContainer config={{ hours: { label: t('hoursSlept'), color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
+                            <LineChart data={sleepData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
+                                <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                                <Tooltip content={<ChartTooltipContent />} />
+                                <Line type="monotone" dataKey="hours" stroke="var(--color-hours)" strokeWidth={2} dot={{ r: 4, fill: 'var(--color-hours)' }} activeDot={{ r: 6 }}/>
+                            </LineChart>
+                        </ChartContainer>
+                        <div className="flex justify-center mt-4">
+                            <Button variant="link" className="text-primary p-0">{t('viewFullSleepReport')}</Button>
                         </div>
                     </TabsContent>
                 </Tabs>
-                <Button variant="link" className="text-primary p-0">{t('viewFullSleepReport')}</Button>
             </div>
         </PremiumFeatureCard>
         <PremiumFeatureCard
