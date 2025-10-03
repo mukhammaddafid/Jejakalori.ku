@@ -1,4 +1,5 @@
-import type { Food, UserData, RecipeWithIngredients } from '@/lib/types';
+import type { Food, UserData, RecipeWithIngredients, TranslationKey } from '@/lib/types';
+import type { translations } from './translations';
 
 export const foodDatabase: Food[] = [
   { id: 'f1', name: 'Dada Ayam', calories: 165, protein: 31, carbs: 0, fat: 3.6, servingSize: '100g', nutrients: { vitaminC: 0, iron: 1.3, calcium: 15, saturatedFat: 1, unsaturatedFat: 2.1, fiber: 0, animalProtein: 31, plantProtein: 0, starch: 0, sugar: 0 } },
@@ -158,3 +159,9 @@ export const detailedRecipes = {
         })
     ]
 }
+
+export const motivationalQuotes = (t: (key: TranslationKey) => string) => {
+    return Array.from({ length: 40 }, (_, i) => t(`quote${i + 1}` as TranslationKey));
+};
+
+    

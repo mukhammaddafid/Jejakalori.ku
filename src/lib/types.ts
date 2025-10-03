@@ -76,3 +76,7 @@ export interface NutrientTotals {
     sugar: number;
     fiber: number;
 }
+
+export type TranslationKey = keyof import('./translations').translations['en'];
+
+    

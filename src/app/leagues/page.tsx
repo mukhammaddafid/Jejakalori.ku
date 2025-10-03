@@ -9,6 +9,15 @@ import { Badge } from '@/components/ui/badge';
 import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import { motivationalQuotes } from '@/lib/data';
+
 
 const tiers = [
   { name: 'Bronze', color: 'text-yellow-600', bgColor: 'bg-yellow-600/10', points: 0, icon: <Trophy className="h-5 w-5" /> },
@@ -75,6 +84,7 @@ export default function LeaguesPage() {
     const { t } = useLanguage();
     const topTiers = tiers.slice().reverse().slice(0, 3);
     const otherTiers = tiers.slice().reverse().slice(3);
+    const quotes = motivationalQuotes(t);
 
     return (
         <div className="p-4 sm:p-6 space-y-6">
@@ -95,20 +105,32 @@ export default function LeaguesPage() {
                         <h3 className="font-semibold flex items-center gap-2"><Info /> {t('yourMission')}</h3>
                         <p className="text-muted-foreground">{t('missionDescription')}</p>
                     </div>
-                    <Accordion type="single" collapsible>
-                        <AccordionItem value="how-to-succeed">
-                            <AccordionTrigger>
-                                <h3 className="font-semibold flex items-center gap-2"><GraduationCap /> {t('howToSucceed')}</h3>
-                            </AccordionTrigger>
-                            <AccordionContent>
-                                <ul className="list-disc list-inside text-muted-foreground space-y-1 mt-2">
-                                    <li>{t('succeedTip1')}</li>
-                                    <li>{t('succeedTip2')}</li>
-                                    <li>{t('succeedTip3')}</li>
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+                     <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><GraduationCap /> {t('howToSucceed')}</CardTitle>
+                            <CardDescription>{t('howToSucceedDescription')}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Carousel className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+                                <CarouselContent>
+                                    {quotes.map((quote, index) => (
+                                    <CarouselItem key={index}>
+                                        <div className="p-1">
+                                        <Card>
+                                            <CardContent className="flex flex-col items-center justify-center p-6 aspect-square">
+                                                <p className="text-sm font-semibold text-primary">{t('day')} {index + 1}</p>
+                                                <p className="text-lg md:text-xl font-medium text-center mt-2">{quote}</p>
+                                            </CardContent>
+                                        </Card>
+                                        </div>
+                                    </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                                <CarouselPrevious />
+                                <CarouselNext />
+                            </Carousel>
+                        </CardContent>
+                    </Card>
                 </CardContent>
             </Card>
 
@@ -190,3 +212,5 @@ export default function LeaguesPage() {
         </div>
     );
 }
+
+    
