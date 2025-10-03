@@ -146,7 +146,7 @@ export const translations = {
     setBreakReminder: 'Set Break Reminder',
     letsCountCalories: "Let's Count Your Calories!",
     letsCountCaloriesDescription: 'Create your own recipes and see their nutritional breakdown instantly.',
-    healthyMealPlan: 'Healthy Meal Plan Recommendations',
+    healthyMealPlan: 'Meal Plan',
     healthyMealPlanDescription: 'Here are some healthy meal plan examples for 30 days to help you reach your goals.',
     createRecipe: 'Create a Recipe',
     createRecipeDescription: 'Add ingredients to calculate the total nutrition.',
@@ -168,7 +168,6 @@ export const translations = {
     consistencyLeague: 'Consistency League',
     consistencyLeagueDescription: 'Stay consistent, climb the ranks, and earn rewards!',
     seasonEndsIn: 'Season Ends In',
-    missionAndTutorial: 'Mission & Tutorial',
     yourMission: 'Your Mission',
     missionDescription: 'Log your meals daily to earn points and climb the leaderboard. The more consistent you are, the higher you\'ll rank!',
     howToSucceed: 'How to Succeed',
@@ -192,6 +191,7 @@ export const translations = {
     theme: 'Theme',
     internationalMenu: 'International Menu',
     nusantaraMenu: 'Nusantara Menu',
+    stepsAndTargets: 'Steps and Targets',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -340,7 +340,7 @@ export const translations = {
     setBreakReminder: 'Atur Pengingat Istirahat',
     letsCountCalories: 'Ayo Hitung Kalori Anda!',
     letsCountCaloriesDescription: 'Buat resep Anda sendiri dan lihat rincian nutrisinya secara instan.',
-    healthyMealPlan: 'Rekomendasi Rencana Makan Sehat',
+    healthyMealPlan: 'Rencana Makan',
     healthyMealPlanDescription: 'Berikut adalah beberapa contoh rencana makan sehat selama 30 hari untuk membantu Anda mencapai tujuan.',
     createRecipe: 'Buat Resep',
     createRecipeDescription: 'Tambahkan bahan untuk menghitung total nutrisi.',
@@ -366,7 +366,6 @@ export const translations = {
     consistencyLeague: 'Liga Konsistensi',
     consistencyLeagueDescription: 'Tetap konsisten, naiki peringkat, dan dapatkan hadiah!',
     seasonEndsIn: 'Musim Berakhir Dalam',
-    missionAndTutorial: 'Misi &amp; Tutorial',
     yourMission: 'Misi Anda',
     missionDescription: 'Catat makanan Anda setiap hari untuk mendapatkan poin dan menaiki papan peringkat. Semakin konsisten Anda, semakin tinggi peringkat Anda!',
     howToSucceed: 'Cara untuk Berhasil',
@@ -390,6 +389,7 @@ export const translations = {
     theme: 'Tema',
     internationalMenu: 'Menu Internasional',
     nusantaraMenu: 'Menu Nusantara',
+    stepsAndTargets: 'Langkah dan Target',
   }
 };
 

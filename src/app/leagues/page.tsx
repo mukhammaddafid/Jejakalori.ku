@@ -88,7 +88,7 @@ export default function LeaguesPage() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Goal /> Langkah dan Target</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><Goal /> {t('stepsAndTargets')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div>
