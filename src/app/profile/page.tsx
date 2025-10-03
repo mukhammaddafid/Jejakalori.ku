@@ -14,29 +14,29 @@ import { PotentialCard } from '@/components/profile/potential-card';
 
 
 const sleepData = [
-    { day: 'Sen', hours: 6.5 },
-    { day: 'Sel', hours: 7 },
-    { day: 'Rab', hours: 8 },
-    { day: 'Kam', hours: 6 },
-    { day: 'Jum', hours: 7.5 },
-    { day: 'Sab', hours: 9 },
-    { day: 'Min', hours: 8.5 },
+    { day: 'Mon', hours: 6.5 },
+    { day: 'Tue', hours: 7 },
+    { day: 'Wed', hours: 8 },
+    { day: 'Thu', hours: 6 },
+    { day: 'Fri', hours: 7.5 },
+    { day: 'Sat', hours: 9 },
+    { day: 'Sun', hours: 8.5 },
 ];
 
 const screenTimeData = [
-  { day: 'Sen', hours: 5 },
-  { day: 'Sel', hours: 6 },
-  { day: 'Rab', hours: 4.5 },
-  { day: 'Kam', hours: 7 },
-  { day: 'Jum', hours: 8 },
-  { day: 'Sab', hours: 9 },
-  { day: 'Min', hours: 7.5 },
+  { day: 'Mon', hours: 5 },
+  { day: 'Tue', hours: 6 },
+  { day: 'Wed', hours: 4.5 },
+  { day: 'Thu', hours: 7 },
+  { day: 'Fri', hours: 8 },
+  { day: 'Sat', hours: 9 },
+  { day: 'Sun', hours: 7.5 },
 ];
 
 const dailyScreenTimeData = [
-    { name: 'Kerja', value: 4.5, fill: 'hsl(var(--chart-1))' },
-    { name: 'Sosmed', value: 2, fill: 'hsl(var(--chart-2))'},
-    { name: 'Hiburan', value: 1.5, fill: 'hsl(var(--chart-3))' },
+    { name: 'Work', value: 4.5, fill: 'hsl(var(--chart-1))' },
+    { name: 'Social', value: 2, fill: 'hsl(var(--chart-2))'},
+    { name: 'Entertainment', value: 1.5, fill: 'hsl(var(--chart-3))' },
 ];
 
 function PremiumFeatureCard({ icon, title, description, children }: { icon: React.ReactNode, title: string, description: string, children: React.ReactNode }) {
@@ -88,12 +88,12 @@ export default function ProfilePage() {
 
         <PremiumFeatureCard
             icon={<Bed />}
-            title="Pelacak Durasi Tidur"
-            description="Pantau kualitas dan durasi tidur Anda untuk pemulihan optimal."
+            title="Sleep Duration Tracker"
+            description="Monitor your sleep quality and duration for optimal recovery."
         >
             <div className="space-y-4">
-                 <h4 className="font-semibold">Tren Tidur Mingguan</h4>
-                <ChartContainer config={{ hours: { label: 'Jam Tidur', color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
+                 <h4 className="font-semibold">Weekly Sleep Trend</h4>
+                <ChartContainer config={{ hours: { label: 'Hours Slept', color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
                     <BarChart data={sleepData} accessibilityLayer>
                         <CartesianGrid vertical={false} />
                         <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
@@ -102,17 +102,17 @@ export default function ProfilePage() {
                         <Bar dataKey="hours" fill="var(--color-hours)" radius={4} />
                     </BarChart>
                 </ChartContainer>
-                <Button variant="link" className="text-primary p-0">Lihat Laporan Tidur Lengkap</Button>
+                <Button variant="link" className="text-primary p-0">View Full Sleep Report</Button>
             </div>
         </PremiumFeatureCard>
         <PremiumFeatureCard
             icon={<Smartphone />}
-            title="Jeda Menggunakan Gawai"
-            description="Atur pengingat untuk beristirahat dari layar dan menjaga kesehatan mata."
+            title="Device Usage Break"
+            description="Set reminders to take a break from the screen and maintain eye health."
         >
             <div className="grid md:grid-cols-2 gap-6 items-center">
                  <div>
-                    <h4 className="font-semibold mb-2">Penggunaan Harian</h4>
+                    <h4 className="font-semibold mb-2">Daily Usage</h4>
                      <ChartContainer config={{}} className="h-[150px] w-full">
                         <PieChart accessibilityLayer>
                            <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
@@ -125,8 +125,8 @@ export default function ProfilePage() {
                     </ChartContainer>
                  </div>
                  <div>
-                    <h4 className="font-semibold mb-2">Tren Mingguan</h4>
-                    <ChartContainer config={{ hours: { label: 'Jam', color: 'hsl(var(--chart-2))' } }} className="h-[150px] w-full">
+                    <h4 className="font-semibold mb-2">Weekly Trend</h4>
+                    <ChartContainer config={{ hours: { label: 'Hours', color: 'hsl(var(--chart-2))' } }} className="h-[150px] w-full">
                         <BarChart data={screenTimeData} accessibilityLayer margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                             <CartesianGrid vertical={false} />
                             <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
@@ -137,7 +137,7 @@ export default function ProfilePage() {
                     </ChartContainer>
                  </div>
             </div>
-             <Button variant="link" className="text-primary p-0 mt-2">Atur Pengingat Jeda</Button>
+             <Button variant="link" className="text-primary p-0 mt-2">Set Break Reminder</Button>
         </PremiumFeatureCard>
       </div>
     </div>

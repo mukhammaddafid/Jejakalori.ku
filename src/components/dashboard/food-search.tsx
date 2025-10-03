@@ -43,7 +43,7 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
     <div className="space-y-4">
       <Input
         type="text"
-        placeholder="Cari makanan..."
+        placeholder="Search for a food..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="w-full"
@@ -56,7 +56,7 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
                 <div>
                   <p className="font-semibold">{food.name}</p>
                   <p className="text-xs text-muted-foreground">
-                    {food.calories} kkal, {food.servingSize}
+                    {food.calories} kcal, {food.servingSize}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">

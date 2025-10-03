@@ -22,10 +22,10 @@ import { useToast } from '@/hooks/use-toast';
 import { Target } from 'lucide-react';
 
 const goalFormSchema = z.object({
-  calories: z.coerce.number().min(1, { message: 'Kalori harus positif.' }),
-  protein: z.coerce.number().min(1, { message: 'Protein harus positif.' }),
-  carbs: z.coerce.number().min(1, { message: 'Karbohidrat harus positif.' }),
-  fat: z.coerce.number().min(1, { message: 'Lemak harus positif.' }),
+  calories: z.coerce.number().min(1, { message: 'Calories must be positive.' }),
+  protein: z.coerce.number().min(1, { message: 'Protein must be positive.' }),
+  carbs: z.coerce.number().min(1, { message: 'Carbs must be positive.' }),
+  fat: z.coerce.number().min(1, { message: 'Fat must be positive.' }),
 });
 
 type GoalFormValues = z.infer<typeof goalFormSchema>;
@@ -45,17 +45,17 @@ export function GoalSetter({ initialGoals }: GoalSetterProps) {
     // In a real app, you would save this data.
     console.log(data);
     toast({
-      title: 'Target Diperbarui!',
-      description: 'Target nutrisi harian Anda telah disimpan.',
+      title: 'Goals Updated!',
+      description: 'Your daily nutrition goals have been saved.',
     });
   }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Target Nutrisi</CardTitle>
+        <CardTitle>Nutrition Goals</CardTitle>
         <CardDescription>
-          Atur target kalori dan makronutrien harian Anda.
+          Set your daily calorie and macronutrient targets.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -66,7 +66,7 @@ export function GoalSetter({ initialGoals }: GoalSetterProps) {
               name="calories"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Kalori Harian (kkal)</FormLabel>
+                  <FormLabel>Daily Calories (kcal)</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="2000" {...field} />
                   </FormControl>
@@ -93,7 +93,7 @@ export function GoalSetter({ initialGoals }: GoalSetterProps) {
                 name="carbs"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Karbohidrat (g)</FormLabel>
+                    <FormLabel>Carbohydrates (g)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="200" {...field} />
                     </FormControl>
@@ -106,7 +106,7 @@ export function GoalSetter({ initialGoals }: GoalSetterProps) {
                 name="fat"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lemak (g)</FormLabel>
+                    <FormLabel>Fat (g)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="67" {...field} />
                     </FormControl>
@@ -116,11 +116,11 @@ export function GoalSetter({ initialGoals }: GoalSetterProps) {
               />
             </div>
             <FormDescription>
-                Target makronutrien Anda didasarkan pada total target kalori Anda. Sesuaikan seperlunya.
+                Your macronutrient targets are based on your total calorie goal. Adjust as needed.
             </FormDescription>
             <Button type="submit" className="w-full sm:w-auto">
                 <Target className="mr-2 h-4 w-4" />
-                Simpan Target
+                Save Goals
             </Button>
           </form>
         </Form>

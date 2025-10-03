@@ -80,11 +80,11 @@ const PremiumFeatureWithTrial: React.FC<{
     const now = new Date();
     const difference = trialEndDate.getTime() - now.getTime();
 
-    if (difference <= 0) return 'Uji coba berakhir.';
+    if (difference <= 0) return 'Trial ended.';
 
     const days = Math.floor(difference / (1000 * 60 * 60 * 24));
     const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    return `${days} hari ${hours} jam tersisa`;
+    return `${days} days ${hours} hours remaining`;
   };
 
   const isTrialEnded = trialEndDate && new Date() > trialEndDate;
@@ -99,7 +99,7 @@ const PremiumFeatureWithTrial: React.FC<{
         <CardContent className="space-y-4">
             {isTrialActive && !isTrialEnded && (
                 <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
-                    <p className="font-semibold text-primary">Uji Coba Premium Aktif</p>
+                    <p className="font-semibold text-primary">Premium Trial Active</p>
                     <p className="text-primary/80">{getTimeRemaining()}</p>
                 </div>
             )}
@@ -109,11 +109,11 @@ const PremiumFeatureWithTrial: React.FC<{
             <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
                 <div className="text-center p-4">
                     <Zap className="mx-auto h-12 w-12 text-primary" />
-                    <h3 className="mt-2 text-lg font-semibold">Buka Fitur {title}</h3>
+                    <h3 className="mt-2 text-lg font-semibold">Unlock {title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Masa uji coba Anda telah berakhir. Tingkatkan untuk terus menggunakan fitur ini.
+                        Your trial period has ended. Upgrade to continue using this feature.
                     </p>
-                    <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Tingkatkan ke Premium</Button>
+                    <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Upgrade to Premium</Button>
                 </div>
             </div>
         )}
@@ -127,7 +127,7 @@ const AnalysisCalendar: React.FC<{ days: number }> = ({ days }) => {
   
     return (
       <div className="p-4 border-t">
-        <h4 className="text-center font-semibold mb-2">Jadwal Anda untuk {days} Hari ke Depan</h4>
+        <h4 className="text-center font-semibold mb-2">Your Schedule for the Next {days} Days</h4>
         <Calendar
           mode="range"
           selected={{ from: today, to: futureDate }}
@@ -151,7 +151,7 @@ const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: R
           <AccordionContent className="space-y-4 pt-4">
             {children}
             <Button className="w-full" onClick={() => setShowCalendar(!showCalendar)}>
-              {showCalendar ? 'Sembunyikan Kalender' : buttonText}
+              {showCalendar ? 'Hide Calendar' : buttonText}
             </Button>
             {showCalendar && <AnalysisCalendar days={calendarDays} />}
           </AccordionContent>
@@ -197,48 +197,48 @@ export default function DashboardPage() {
           <MicronutrientTracker log={userData.log} />
            <PremiumFeatureWithTrial
             icon={<BrainCircuit />}
-            title="Analisis Kebiasaan"
-            description="AI akan menganalisis pola makan Anda dan memberikan wawasan."
+            title="Habit Analysis"
+            description="AI will analyze your eating patterns and provide insights."
             trialDays={3}
             storageKey="habitAnalysisTrialEnd"
            >
-            <AnalysisFeature title="Pilih Jenis Analisis" buttonText="Mulai Analisis" calendarDays={21}>
-                <RadioGroup defaultValue="pola-makan">
+            <AnalysisFeature title="Select Analysis Type" buttonText="Start Analysis" calendarDays={21}>
+                <RadioGroup defaultValue="eating-pattern">
                     <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="pola-makan" id="pola-makan" />
-                        <Label htmlFor="pola-makan">Analisis Pola Makan</Label>
+                        <RadioGroupItem value="eating-pattern" id="eating-pattern" />
+                        <Label htmlFor="eating-pattern">Eating Pattern Analysis</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="waktu-makan" id="waktu-makan" />
-                        <Label htmlFor="waktu-makan">Analisis Waktu Makan</Label>
+                        <RadioGroupItem value="meal-timing" id="meal-timing" />
+                        <Label htmlFor="meal-timing">Meal Timing Analysis</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="asupan-nutrisi" id="asupan-nutrisi" />
-                        <Label htmlFor="asupan-nutrisi">Analisis Asupan Nutrisi</Label>
+                        <RadioGroupItem value="nutrient-intake" id="nutrient-intake" />
+                        <Label htmlFor="nutrient-intake">Nutrient Intake Analysis</Label>
                     </div>
                 </RadioGroup>
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
            <PremiumFeatureWithTrial
             icon={<Dumbbell />}
-            title="Rencana Latihan Massa"
-            description="Rencana latihan yang dipersonalisasi oleh AI untuk diet Anda."
+            title="Mass Workout Plan"
+            description="Personalized workout plans by AI for your diet."
             trialDays={5}
             storageKey="workoutPlanTrialEnd"
            >
-            <AnalysisFeature title="Pilih Tujuan Latihan" buttonText="Buat Rencana Latihan" calendarDays={30}>
+            <AnalysisFeature title="Select Workout Goal" buttonText="Create Workout Plan" calendarDays={30}>
                 <RadioGroup defaultValue="weight-loss">
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="weight-loss" id="weight-loss" />
-                        <Label htmlFor="weight-loss">Penurunan Berat Badan</Label>
+                        <Label htmlFor="weight-loss">Weight Loss</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="muscle-gain" id="muscle-gain" />
-                        <Label htmlFor="muscle-gain">Peningkatan Massa Otot</Label>
+                        <Label htmlFor="muscle-gain">Muscle Gain</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="stamina" id="stamina" />
-                        <Label htmlFor="stamina">Peningkatan Stamina</Label>
+                        <Label htmlFor="stamina">Stamina Improvement</Label>
                     </div>
                 </RadioGroup>
             </AnalysisFeature>

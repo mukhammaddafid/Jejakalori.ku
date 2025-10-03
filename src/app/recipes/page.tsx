@@ -7,25 +7,25 @@ import { PotentialCard } from '@/components/profile/potential-card';
 
 
 const mealPlanRecommendations = {
-    'Sarapan': [
-        'Oatmeal dengan buah beri dan segenggam kacang almond.',
-        'Smoothie bayam, pisang, dan protein powder.',
-        'Telur orak-arik dengan roti gandum utuh.'
+    'Breakfast': [
+        'Oatmeal with berries and a handful of almonds.',
+        'Spinach, banana, and protein powder smoothie.',
+        'Scrambled eggs with whole wheat toast.'
     ],
-    'Makan Siang': [
-        'Dada ayam panggang dengan nasi merah dan brokoli kukus.',
-        'Salad quinoa dengan buncis, paprika, dan saus lemon.',
-        'Bungkus kalkun dengan selada, tomat, dan hummus.'
+    'Lunch': [
+        'Grilled chicken breast with brown rice and steamed broccoli.',
+        'Quinoa salad with black beans, bell peppers, and lemon dressing.',
+        'Turkey wrap with lettuce, tomato, and hummus.'
     ],
-    'Makan Malam': [
-        'Salad salmon dengan sayuran hijau, tomat ceri, dan saus lemon.',
-        'Sup lentil dengan sayuran akar.',
-        'Tumis tahu dengan paprika, bawang, dan saus kedelai.'
+    'Dinner': [
+        'Salmon salad with mixed greens, cherry tomatoes, and lemon dressing.',
+        'Lentil soup with root vegetables.',
+        'Tofu stir-fry with bell peppers, onions, and soy sauce.'
     ],
-    'Camilan': [
-        'Yogurt Yunani dengan potongan buah apel.',
-        'Wortel dan seledri dengan hummus.',
-        'Segenggam kecil kacang campuran.'
+    'Snacks': [
+        'Greek yogurt with apple slices.',
+        'Carrots and celery with hummus.',
+        'Small handful of mixed nuts.'
     ],
 };
 
@@ -34,9 +34,9 @@ function HealthyMealPlan() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><UtensilsCrossed /> Rekomendasi Rencana Menu Sehat</CardTitle>
+                <CardTitle className="flex items-center gap-2"><UtensilsCrossed /> Healthy Meal Plan Recommendations</CardTitle>
                 <CardDescription>
-                    Berikut adalah contoh rencana makan sehat untuk membantu Anda mencapai tujuan.
+                    Here are some healthy meal plan examples to help you reach your goals.
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -63,9 +63,9 @@ export default function RecipesPage() {
             <Soup size={32} />
         </div>
         <div>
-            <h1 className="text-2xl font-bold font-headline">Ayo Hitung Kalorimu!</h1>
+            <h1 className="text-2xl font-bold font-headline">Let's Count Your Calories!</h1>
             <p className="text-muted-foreground">
-            Buat resep Anda sendiri dan lihat rincian nutrisinya secara instan.
+            Create your own recipes and see their nutritional breakdown instantly.
             </p>
         </div>
       </div>

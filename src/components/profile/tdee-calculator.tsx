@@ -31,11 +31,11 @@ import type { UserProfile } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 
 const profileFormSchema = z.object({
-  age: z.coerce.number().min(1, { message: 'Umur diperlukan.' }),
-  gender: z.enum(['male', 'female'], { required_error: 'Silakan pilih jenis kelamin.' }),
-  height: z.coerce.number().min(1, { message: 'Tinggi badan diperlukan.' }),
-  weight: z.coerce.number().min(1, { message: 'Berat badan diperlukan.' }),
-  activityLevel: z.enum(['sedentary', 'light', 'moderate', 'active', 'very'], { required_error: 'Silakan pilih tingkat aktivitas.' }),
+  age: z.coerce.number().min(1, { message: 'Age is required.' }),
+  gender: z.enum(['male', 'female'], { required_error: 'Please select a gender.' }),
+  height: z.coerce.number().min(1, { message: 'Height is required.' }),
+  weight: z.coerce.number().min(1, { message: 'Weight is required.' }),
+  activityLevel: z.enum(['sedentary', 'light', 'moderate', 'active', 'very'], { required_error: 'Please select an activity level.' }),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -63,17 +63,17 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
     const calculatedTdee = calculateTDEE(data);
     setTdee(calculatedTdee);
     toast({
-      title: 'Energi Harian Dihitung',
-      description: `Perkiraan kebutuhan kalori harian Anda adalah ${calculatedTdee} kkal.`,
+      title: 'Daily Energy Calculated',
+      description: `Your estimated daily calorie need is ${calculatedTdee} kcal.`,
     });
   }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Hitung Energi Harian</CardTitle>
+        <CardTitle>Calculate Daily Energy</CardTitle>
         <CardDescription>
-          Perkirakan Total Pengeluaran Energi Harian (TDEE) Anda untuk menentukan kebutuhan kalori harian.
+          Estimate your Total Daily Energy Expenditure (TDEE) to determine your daily calorie needs.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -85,7 +85,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="age"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Umur</FormLabel>
+                    <FormLabel>Age</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="30" {...field} />
                     </FormControl>
@@ -98,16 +98,16 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Jenis Kelamin</FormLabel>
+                    <FormLabel>Gender</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Pilih jenis kelamin" />
+                          <SelectValue placeholder="Select gender" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="male">Pria</SelectItem>
-                        <SelectItem value="female">Wanita</SelectItem>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -119,7 +119,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="height"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Tinggi (cm)</FormLabel>
+                    <FormLabel>Height (cm)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="165" {...field} />
                     </FormControl>
@@ -132,7 +132,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="weight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Berat (kg)</FormLabel>
+                    <FormLabel>Weight (kg)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="60" {...field} />
                     </FormControl>
@@ -146,19 +146,19 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                   name="activityLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tingkat Aktivitas</FormLabel>
+                      <FormLabel>Activity Level</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Pilih tingkat aktivitas Anda" />
+                            <SelectValue placeholder="Select your activity level" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="sedentary">Sedentari (sedikit atau tanpa olahraga)</SelectItem>
-                          <SelectItem value="light">Aktivitas ringan (olahraga ringan 1-3 hari/minggu)</SelectItem>
-                          <SelectItem value="moderate">Aktivitas sedang (olahraga sedang 3-5 hari/minggu)</SelectItem>
-                          <SelectItem value="active">Sangat aktif (olahraga berat 6-7 hari seminggu)</SelectItem>
-                          <SelectItem value="very">Ekstra aktif (olahraga sangat berat & pekerjaan fisik)</SelectItem>
+                          <SelectItem value="sedentary">Sedentary (little or no exercise)</SelectItem>
+                          <SelectItem value="light">Light activity (light exercise 1-3 days/week)</SelectItem>
+                          <SelectItem value="moderate">Moderate activity (moderate exercise 3-5 days/week)</SelectItem>
+                          <SelectItem value="active">Very active (hard exercise 6-7 days a week)</SelectItem>
+                          <SelectItem value="very">Extra active (very hard exercise & physical job)</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -169,7 +169,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
             </div>
             <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
               <Calculator className="mr-2 h-4 w-4" />
-              Hitung Energi Harian
+              Calculate Daily Energy
             </Button>
           </form>
         </Form>
@@ -177,9 +177,9 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
           <>
             <Separator className="my-8" />
             <div className="text-center p-6 bg-secondary rounded-lg">
-              <p className="text-sm text-muted-foreground">Perkiraan Kebutuhan Kalori Harian Anda</p>
+              <p className="text-sm text-muted-foreground">Estimated Daily Calorie Needs</p>
               <p className="text-4xl font-bold font-headline text-primary">{tdee}</p>
-              <p className="text-sm text-muted-foreground">kkal / hari</p>
+              <p className="text-sm text-muted-foreground">kcal / day</p>
             </div>
           </>
         )}

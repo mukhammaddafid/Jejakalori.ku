@@ -16,7 +16,7 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
   const remaining = goal - consumed;
 
   const chartData = [
-    { name: 'Terkonsumsi', value: consumed, fill: 'hsl(var(--primary))' },
+    { name: 'Consumed', value: consumed, fill: 'hsl(var(--primary))' },
   ];
 
   return (
@@ -46,8 +46,8 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
                     return (
                       <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="flex flex-col">
-                          <span className="text-[0.70rem] uppercase text-muted-foreground">Terkonsumsi</span>
-                          <span className="font-bold text-foreground">{`${Math.round(consumed)} / ${goal} kkal`}</span>
+                          <span className="text-[0.70rem] uppercase text-muted-foreground">Consumed</span>
+                          <span className="font-bold text-foreground">{`${Math.round(consumed)} / ${goal} kcal`}</span>
                         </div>
                       </div>
                     );
@@ -64,21 +64,21 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
 
         <div className="mt-2">
              <span className="text-4xl font-bold font-headline text-primary">{Math.round(consumed)}</span>
-             <p className="text-sm text-muted-foreground">kkal</p>
+             <p className="text-sm text-muted-foreground">kcal</p>
         </div>
         
         <div className="w-full space-y-2 text-sm text-left mt-4">
             <div className="flex items-center justify-between gap-2">
                 <div className='flex items-center gap-2 text-muted-foreground'>
                     <Target className="h-4 w-4" />
-                    <span>Target Harian</span>
+                    <span>Daily Goal</span>
                 </div>
                 <span className="font-semibold">{goal}</span>
             </div>
             <div className="flex items-center justify-between gap-2">
                 <div className='flex items-center gap-2 text-muted-foreground'>
                     <MinusCircle className="h-4 w-4" />
-                    <span>Tersisa</span>
+                    <span>Remaining</span>
                 </div>
                 <span className="font-semibold">{Math.round(remaining)}</span>
             </div>
@@ -88,4 +88,3 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
     </Card>
   );
 }
-

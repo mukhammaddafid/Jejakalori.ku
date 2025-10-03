@@ -21,12 +21,12 @@ export default function LoginPage() {
             <div className="flex justify-center mb-4">
                 <Link href="/" className="flex items-center gap-2">
                     <Flame className="h-8 w-8 text-primary" />
-                    <span className="text-2xl font-headline font-bold">Jejakalori.ku</span>
+                    <span className="text-2xl font-headline font-bold">CalorieTracker.me</span>
                 </Link>
             </div>
-          <CardTitle className="text-2xl">Masuk</CardTitle>
+          <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
-            Masukkan email Anda di bawah untuk masuk ke akun Anda.
+            Enter your email below to login to your account.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -41,12 +41,12 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
             <Link href="/dashboard" className="w-full">
-                <Button className="w-full">Masuk</Button>
+                <Button className="w-full">Login</Button>
             </Link>
           <p className="text-xs text-center text-muted-foreground">
-            Belum punya akun?{" "}
+            Don't have an account?{" "}
             <Link href="#" className="underline">
-              Daftar
+              Sign up
             </Link>
           </p>
         </CardFooter>

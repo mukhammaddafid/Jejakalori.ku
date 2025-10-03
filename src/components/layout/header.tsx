@@ -37,7 +37,7 @@ function getPageTitle(pathname: string, lang: string) {
 
 export function Header() {
   const pathname = usePathname();
-  const [language, setLanguage] = React.useState('id');
+  const [language, setLanguage] = React.useState('en');
   const pageTitle = getPageTitle(pathname, language);
   const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
   
@@ -62,32 +62,32 @@ export function Header() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Pengaturan</DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <span>Dukungan</span>
+              <span>Support</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>Pusat Bantuan</DropdownMenuItem>
-                <DropdownMenuItem>Laporkan Masalah</DropdownMenuItem>
-                <DropdownMenuItem>Hubungi Kami</DropdownMenuItem>
+                <DropdownMenuItem>Help Center</DropdownMenuItem>
+                <DropdownMenuItem>Report a Problem</DropdownMenuItem>
+                <DropdownMenuItem>Contact Us</DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex items-center gap-2">
             <Globe className="h-4 w-4" />
-            Bahasa
+            Language
           </DropdownMenuLabel>
           <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
             <DropdownMenuRadioItem value="id">Bahasa Indonesia</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Keluar</DropdownMenuItem>
+          <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

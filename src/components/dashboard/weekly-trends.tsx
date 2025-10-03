@@ -7,13 +7,13 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const weeklyData = [
-  { date: 'Sen', calories: 1800, protein: 120 },
-  { date: 'Sel', calories: 2100, protein: 150 },
-  { date: 'Rab', calories: 1950, protein: 135 },
-  { date: 'Kam', calories: 2200, protein: 160 },
-  { date: 'Jum', calories: 2300, protein: 155 },
-  { date: 'Sab', calories: 2500, protein: 180 },
-  { date: 'Min', calories: 2150, protein: 140 },
+  { date: 'Mon', calories: 1800, protein: 120 },
+  { date: 'Tue', calories: 2100, protein: 150 },
+  { date: 'Wed', calories: 1950, protein: 135 },
+  { date: 'Thu', calories: 2200, protein: 160 },
+  { date: 'Fri', calories: 2300, protein: 155 },
+  { date: 'Sat', calories: 2500, protein: 180 },
+  { date: 'Sun', calories: 2150, protein: 140 },
 ];
 
 const dailyData = [
@@ -26,7 +26,7 @@ const dailyData = [
 
 const chartConfig = {
   calories: {
-    label: 'Kalori',
+    label: 'Calories',
     color: 'hsl(var(--chart-1))',
   },
   protein: {
@@ -39,14 +39,14 @@ export function WeeklyTrends() {
   return (
     <Card>
         <CardHeader>
-            <CardTitle>Tren</CardTitle>
-            <CardDescription>Analisis asupan Anda berdasarkan waktu.</CardDescription>
+            <CardTitle>Trends</CardTitle>
+            <CardDescription>Analyze your intake over time.</CardDescription>
         </CardHeader>
         <CardContent>
             <Tabs defaultValue="weekly">
                 <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="daily">Harian</TabsTrigger>
-                    <TabsTrigger value="weekly">Mingguan</TabsTrigger>
+                    <TabsTrigger value="daily">Daily</TabsTrigger>
+                    <TabsTrigger value="weekly">Weekly</TabsTrigger>
                 </TabsList>
                 <TabsContent value="daily">
                     <ChartContainer config={chartConfig} className="h-[250px] w-full">

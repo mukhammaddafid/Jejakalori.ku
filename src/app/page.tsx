@@ -2,10 +2,8 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Flame, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
@@ -16,6 +14,15 @@ import {
 
 function ThemeToggle() {
   const { setTheme } = useTheme()
+  const [isClient, setIsClient] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient) {
+    return null
+  }
 
   return (
     <DropdownMenu>
@@ -28,13 +35,13 @@ function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          Terang
+          Light
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Gelap
+          Dark
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          Sistem
+          System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -70,23 +77,18 @@ function ChartCollage() {
 }
 
 export default function WelcomePage() {
-  const [isClient, setIsClient] = React.useState(false)
-
-  React.useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <Link href="/" className="flex items-center justify-center" prefetch={false}>
           <Flame className="h-6 w-6 text-primary" />
-          <span className="sr-only">Jejakalori.ku</span>
+          <span className="sr-only">CalorieTracker.me</span>
         </Link>
         <nav className="ml-auto flex items-center gap-2 sm:gap-4">
-          {isClient && <ThemeToggle />}
+          <ThemeToggle />
           <Link href="/login" passHref>
-            <Button>Daftar</Button>
+            <Button>Sign Up</Button>
           </Link>
         </nav>
       </header>
@@ -97,15 +99,15 @@ export default function WelcomePage() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-4">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
-                    Buka Potensi Sehatmu, Mulai Hari Ini!
+                    Unlock Your Health Potential, Start Today!
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground text-xs">
-                    Setiap langkah kecil adalah kemenangan. kami membantumu melacak, memahami, dan mengubah kebiasaan. Raih energimu kembali dan nikmati hidup yang lebih bugar.
+                    Every small step is a victory. We help you track, understand, and change habits. Regain your energy and enjoy a fitter life.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                     <Link href="/login" passHref>
-                        <Button size="lg">mulai hari ini</Button>
+                        <Button size="lg">start today</Button>
                     </Link>
                 </div>
               </div>
@@ -115,13 +117,13 @@ export default function WelcomePage() {
         </section>
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">&copy; 2024 Jejakalori.ku. Semua Hak Dilindungi.</p>
+        <p className="text-xs text-muted-foreground">&copy; 2024 CalorieTracker.me. All Rights Reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-            Ketentuan Layanan
+            Terms of Service
           </Link>
           <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-            Privasi
+            Privacy
           </Link>
         </nav>
       </footer>

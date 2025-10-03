@@ -6,18 +6,18 @@ import type { DailyLog, UserData } from '@/lib/types';
 function formatFoodIntake(log: DailyLog): string {
   let intake = '';
   if (log.breakfast.length > 0) {
-    intake += 'Sarapan: ' + log.breakfast.map(item => `${item.servings} porsi ${item.food.name}`).join(', ') + '. ';
+    intake += 'Breakfast: ' + log.breakfast.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
   }
   if (log.lunch.length > 0) {
-    intake += 'Makan siang: ' + log.lunch.map(item => `${item.servings} porsi ${item.food.name}`).join(', ') + '. ';
+    intake += 'Lunch: ' + log.lunch.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
   }
   if (log.dinner.length > 0) {
-    intake += 'Makan malam: ' + log.dinner.map(item => `${item.servings} porsi ${item.food.name}`).join(', ') + '. ';
+    intake += 'Dinner: ' + log.dinner.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
   }
   if (log.snacks.length > 0) {
-    intake += 'Camilan: ' + log.snacks.map(item => `${item.servings} porsi ${item.food.name}`).join(', ') + '. ';
+    intake += 'Snacks: ' + log.snacks.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
   }
-  return intake.trim() || 'Tidak ada makanan yang dicatat untuk hari ini.';
+  return intake.trim() || 'No food logged for today.';
 }
 
 export async function getDailySummaryAction(userData: UserData) {
@@ -42,7 +42,7 @@ export async function getDailySummaryAction(userData: UserData) {
     console.error('Error generating daily summary:', error);
     return {
       success: false,
-      error: 'Gagal membuat ringkasan. Silakan coba lagi nanti.',
+      error: 'Failed to generate summary. Please try again later.',
     };
   }
 }

@@ -14,7 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 
 export function PotentialCard() {
   const { toast } = useToast();
-  const [hobbies, setHobbies] = React.useState(['Membaca', 'Olahraga']);
+  const [hobbies, setHobbies] = React.useState(['Reading', 'Sports']);
   const [newHobby, setNewHobby] = React.useState('');
   const [email, setEmail] = React.useState('jane.doe@example.com');
   const [notifications, setNotifications] = React.useState(true);
@@ -36,23 +36,23 @@ export function PotentialCard() {
       setHobbies([...hobbies, newHobby]);
       setNewHobby('');
       toast({
-        title: 'Hobi Ditambahkan',
-        description: `${newHobby} telah ditambahkan ke daftar hobi Anda.`,
+        title: 'Hobby Added',
+        description: `${newHobby} has been added to your hobby list.`,
       });
     }
   };
 
   const handleSaveChanges = () => {
     toast({
-      title: 'Perubahan Disimpan',
-      description: 'Pengaturan potensi dan notifikasi Anda telah diperbarui.',
+      title: 'Changes Saved',
+      description: 'Your potential and notification settings have been updated.',
     });
   };
 
   const handleUpgrade = () => {
     toast({
-      title: 'Segera Hadir!',
-      description: 'Fungsionalitas peningkatan ke premium akan segera tersedia.',
+      title: 'Coming Soon!',
+      description: 'The premium upgrade functionality will be available soon.',
     });
   };
 
@@ -61,24 +61,24 @@ export function PotentialCard() {
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="potential">
           <AccordionTrigger className="px-6 py-4">
-            <CardTitle className="flex items-center gap-2 text-xl"><Star /> Potensi</CardTitle>
+            <CardTitle className="flex items-center gap-2 text-xl"><Star /> Potential</CardTitle>
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 space-y-6">
             <div>
-              <Label htmlFor="hobbies" className="font-semibold">Hobi</Label>
-              <p className="text-sm text-muted-foreground mb-2">Tambahkan hobi untuk mendapatkan rekomendasi aktivitas yang dipersonalisasi.</p>
+              <Label htmlFor="hobbies" className="font-semibold">Hobbies</Label>
+              <p className="text-sm text-muted-foreground mb-2">Add hobbies to get personalized activity recommendations.</p>
               <div className="flex gap-2 mb-2 flex-wrap">
                 {hobbies.map(hobby => <Badge key={hobby} variant="secondary">{hobby}</Badge>)}
               </div>
               <div className="flex gap-2">
                 <Input
                   id="hobbies"
-                  placeholder="e.g. Bersepeda"
+                  placeholder="e.g. Cycling"
                   value={newHobby}
                   onChange={(e) => setNewHobby(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && addHobby()}
                 />
-                <Button onClick={addHobby}>Tambah</Button>
+                <Button onClick={addHobby}>Add</Button>
               </div>
             </div>
 
@@ -98,7 +98,7 @@ export function PotentialCard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bell className="h-5 w-5 text-muted-foreground" />
-                <Label htmlFor="notifications" className="font-semibold cursor-pointer">Notifikasi Jadwal via Email</Label>
+                <Label htmlFor="notifications" className="font-semibold cursor-pointer">Email Schedule Notifications</Label>
               </div>
               <Switch
                 id="notifications"
@@ -109,12 +109,12 @@ export function PotentialCard() {
 
             {premiumCheckDone && !isPremium && (
               <div className="p-4 bg-secondary rounded-lg text-center">
-                <h4 className="font-semibold">Tingkatkan Pengalaman Anda</h4>
-                <p className="text-sm text-muted-foreground mt-1 mb-3">Masa uji coba 7 hari Anda telah berakhir. Tingkatkan ke premium untuk membuka semua fitur.</p>
-                <Button onClick={handleUpgrade}>Tingkatkan ke Premium</Button>
+                <h4 className="font-semibold">Enhance Your Experience</h4>
+                <p className="text-sm text-muted-foreground mt-1 mb-3">Your 7-day trial has ended. Upgrade to premium to unlock all features.</p>
+                <Button onClick={handleUpgrade}>Upgrade to Premium</Button>
               </div>
             )}
-            <Button onClick={handleSaveChanges} className='w-full sm:w-auto'>Simpan Perubahan</Button>
+            <Button onClick={handleSaveChanges} className='w-full sm:w-auto'>Save Changes</Button>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

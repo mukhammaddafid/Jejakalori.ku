@@ -25,7 +25,7 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-2 overflow-hidden">
               <Flame className="h-6 w-6 shrink-0 text-primary" />
-              <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">Jejakalori.ku</span>
+              <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">CalorieTracker.me</span>
             </div>
             <SidebarTrigger className="group-data-[state=collapsed]:hidden"/>
           </div>

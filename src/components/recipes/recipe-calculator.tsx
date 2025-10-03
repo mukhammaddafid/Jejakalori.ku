@@ -25,16 +25,16 @@ interface Totals {
 }
 
 const recipeNameOptions = [
-    "Smoothie Protein Pagi",
-    "Salad Ayam Panggang",
-    "Tumis Udang Bawang Putih",
-    "Sup Lentil Sayuran",
-    "Burger Kacang Hitam",
-    "Pasta Pesto Krim",
-    "Taco Ikan dengan Selada Kubis",
-    "Kari Kelapa Ayam",
-    "Mangkuk Quinoa Mediterania",
-    "Oat Semalam Cokelat",
+    "Morning Protein Smoothie",
+    "Grilled Chicken Salad",
+    "Garlic Shrimp Stir-fry",
+    "Vegetable Lentil Soup",
+    "Black Bean Burgers",
+    "Creamy Pesto Pasta",
+    "Fish Tacos with Slaw",
+    "Chicken Coconut Curry",
+    "Mediterranean Quinoa Bowl",
+    "Chocolate Overnight Oats",
 ];
 
 export function RecipeCalculator() {
@@ -60,8 +60,8 @@ export function RecipeCalculator() {
   const addIngredient = (ingredient: MealLog) => {
     setIngredients(prev => [...prev, ingredient]);
     toast({
-      title: 'Bahan Ditambahkan',
-      description: `${ingredient.servings} x ${ingredient.food.name} ditambahkan ke resep.`,
+      title: 'Ingredient Added',
+      description: `${ingredient.servings} x ${ingredient.food.name} added to the recipe.`,
     })
   };
 
@@ -80,16 +80,16 @@ export function RecipeCalculator() {
 
   const chartData = [
     { name: 'Protein', value: Math.round(perServing.protein), fill: 'hsl(var(--chart-1))' },
-    { name: 'Karbo', value: Math.round(perServing.carbs), fill: 'hsl(var(--chart-2))' },
-    { name: 'Lemak', value: Math.round(perServing.fat), fill: 'hsl(var(--chart-3))' },
+    { name: 'Carbs', value: Math.round(perServing.carbs), fill: 'hsl(var(--chart-2))' },
+    { name: 'Fat', value: Math.round(perServing.fat), fill: 'hsl(var(--chart-3))' },
   ];
 
   const chartDataTotal = [
     { name: 'Protein', value: Math.round(totals.protein), fill: 'hsl(var(--chart-1))' },
-    { name: 'Karbo', value: Math.round(totals.carbs), fill: 'hsl(var(--chart-2))' },
-    { name: 'Lemak', value: Math.round(totals.fat), fill: 'hsl(var(--chart-3))' },
-    { name: 'L. Jenuh', value: Math.round(totals.saturatedFat), fill: 'hsl(var(--chart-4))' },
-    { name: 'L. Tak Jenuh', value: Math.round(totals.unsaturatedFat), fill: 'hsl(var(--chart-5))' },
+    { name: 'Carbs', value: Math.round(totals.carbs), fill: 'hsl(var(--chart-2))' },
+    { name: 'Fat', value: Math.round(totals.fat), fill: 'hsl(var(--chart-3))' },
+    { name: 'Sat. Fat', value: Math.round(totals.saturatedFat), fill: 'hsl(var(--chart-4))' },
+    { name: 'Unsat. Fat', value: Math.round(totals.unsaturatedFat), fill: 'hsl(var(--chart-5))' },
   ];
 
   return (
@@ -98,16 +98,16 @@ export function RecipeCalculator() {
       <div className="lg:col-span-2 space-y-6">
         <Card className="bg-muted/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Soup /> Buat Resep</CardTitle>
-            <CardDescription>Tambahkan bahan untuk menghitung total nutrisi.</CardDescription>
+            <CardTitle className="flex items-center gap-2"><Soup /> Create a Recipe</CardTitle>
+            <CardDescription>Add ingredients to calculate the total nutrition.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="sm:col-span-2 space-y-2">
-                <Label htmlFor="recipe-name">Nama Resep</Label>
+                <Label htmlFor="recipe-name">Recipe Name</Label>
                 <Select onValueChange={setRecipeName} value={recipeName}>
                     <SelectTrigger>
-                        <SelectValue placeholder="Pilih atau ketik nama resep..." />
+                        <SelectValue placeholder="Select or type a recipe name..." />
                     </SelectTrigger>
                     <SelectContent>
                         {recipeNameOptions.map((name) => (
@@ -117,7 +117,7 @@ export function RecipeCalculator() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="servings">Porsi</Label>
+                <Label htmlFor="servings">Servings</Label>
                 <Input id="servings" type="number" value={servings} onChange={e => setServings(Math.max(1, parseInt(e.target.value) || 1))} min="1" />
               </div>
             </div>
@@ -126,26 +126,26 @@ export function RecipeCalculator() {
         
         <Card className="bg-muted/20">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><BookCopy /> Komposisi</CardTitle>
-                <CardDescription>Cari dan tambahkan bahan-bahan ke dalam resep Anda.</CardDescription>
+                <CardTitle className="flex items-center gap-2"><BookCopy /> Composition</CardTitle>
+                <CardDescription>Search and add ingredients to your recipe.</CardDescription>
             </CardHeader>
             <CardContent>
                 <FoodSearch onAddFood={addIngredient} />
                 <Separator className="my-4" />
-                <h3 className="font-semibold mb-2">Bahan Saat Ini</h3>
+                <h3 className="font-semibold mb-2">Current Ingredients</h3>
                 <div className="space-y-2">
                     {ingredients.length > 0 ? ingredients.map((item, index) => (
                         <div key={index} className="flex justify-between items-center p-2 rounded-md bg-secondary">
                             <div>
                                 <p className="font-medium">{item.food.name}</p>
-                                <p className="text-sm text-muted-foreground">{item.servings} porsi</p>
+                                <p className="text-sm text-muted-foreground">{item.servings} serving(s)</p>
                             </div>
                             <Button variant="ghost" size="icon" onClick={() => removeIngredient(index)}>
                                 <Trash2 className="h-4 w-4 text-destructive" />
                             </Button>
                         </div>
                     )) : (
-                        <p className="text-sm text-muted-foreground text-center py-4">Belum ada bahan yang ditambahkan.</p>
+                        <p className="text-sm text-muted-foreground text-center py-4">No ingredients added yet.</p>
                     )}
                 </div>
             </CardContent>
@@ -156,15 +156,15 @@ export function RecipeCalculator() {
       <div className="lg:col-span-1">
         <Card className="sticky top-20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><PieChart />{recipeName || "Nutrisi Resep"}</CardTitle>
-            <CardDescription>Fakta nutrisi total untuk resep Anda.</CardDescription>
+            <CardTitle className="flex items-center gap-2"><PieChart />{recipeName || "Recipe Nutrition"}</CardTitle>
+            <CardDescription>Total nutrition facts for your recipe.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h4 className="font-semibold text-center mb-2">Nutrisi Per Porsi</h4>
+              <h4 className="font-semibold text-center mb-2">Nutrition Per Serving</h4>
               <div className="text-center">
                 <p className="text-3xl font-bold font-headline text-primary">{Math.round(perServing.calories)}</p>
-                <p className="text-sm text-muted-foreground">Kalori</p>
+                <p className="text-sm text-muted-foreground">Calories</p>
               </div>
               <ChartContainer config={{}} className="h-[120px] w-full">
                 <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 10 }}>
@@ -178,7 +178,7 @@ export function RecipeCalculator() {
             <Separator />
             
             <div>
-              <h4 className="font-semibold mb-2">Total untuk Resep ({servings} porsi)</h4>
+              <h4 className="font-semibold mb-2">Total for Recipe ({servings} servings)</h4>
               <ChartContainer config={{}} className="h-[150px] w-full">
                 <BarChart data={chartDataTotal} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                     <CartesianGrid vertical={false} />
@@ -192,13 +192,13 @@ export function RecipeCalculator() {
                 </BarChart>
               </ChartContainer>
                <div className="space-y-1 text-sm mt-2">
-                <div className="flex justify-between"><span>Lemak Jenuh:</span> <span className="font-medium">{Math.round(totals.saturatedFat)} g</span></div>
-                <div className="flex justify-between"><span>Lemak Tak Jenuh:</span> <span className="font-medium">{Math.round(totals.unsaturatedFat)} g</span></div>
+                <div className="flex justify-between"><span>Saturated Fat:</span> <span className="font-medium">{Math.round(totals.saturatedFat)} g</span></div>
+                <div className="flex justify-between"><span>Unsaturated Fat:</span> <span className="font-medium">{Math.round(totals.unsaturatedFat)} g</span></div>
               </div>
             </div>
 
             <Button className="w-full mt-4">
-                <PlusCircle className="mr-2 h-4 w-4" /> Simpan Resep
+                <PlusCircle className="mr-2 h-4 w-4" /> Save Recipe
             </Button>
           </CardContent>
         </Card>
