@@ -16,6 +16,8 @@ import { MicronutrientTracker } from '@/components/dashboard/micronutrient-track
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Calendar } from '@/components/ui/calendar';
+import { addDays } from 'date-fns';
 
 // Helper function to calculate totals on the server
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -47,31 +49,21 @@ function calculateTotals(log: DailyLog): NutrientTotals {
   return totals;
 }
 
-function PremiumFeatureCard({ icon, title, description, children }: { icon: React.ReactNode, title: string, description: string, children: React.ReactNode }) {
-  return (
-    <Card className="relative overflow-hidden">
-       <CardHeader>
-        <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Premium</span>
-            </div>
-        </div>
-         <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        {children}
-      </CardContent>
-    </Card>
-  );
-}
-
-
 export default function DashboardPage() {
   const userData = mockUserData;
   const totals = calculateTotals(userData.log);
   const [isClient, setIsClient] = React.useState(false);
+
+  const [habitAnalysisRange, setHabitAnalysisRange] = React.useState<Date | undefined>(undefined);
+  const [workoutPlanRange, setWorkoutPlanRange] = React.useState<Date | undefined>(undefined);
+
+  const handleStartHabitAnalysis = () => {
+    setHabitAnalysisRange(new Date());
+  };
+
+  const handleCreateWorkoutPlan = () => {
+    setWorkoutPlanRange(new Date());
+  };
 
   React.useEffect(() => {
     setIsClient(true);
@@ -107,8 +99,8 @@ export default function DashboardPage() {
                         <span className="font-semibold">Analisis Kebiasaan</span>
                     </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-6">
-                    <p className="text-sm text-muted-foreground mb-4">AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam.</p>
+                <AccordionContent className="px-6 space-y-4">
+                    <p className="text-sm text-muted-foreground">AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam.</p>
                      <RadioGroup defaultValue="pola-makan">
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem value="pola-makan" id="pola-makan" />
@@ -123,7 +115,17 @@ export default function DashboardPage() {
                             <Label htmlFor="asupan-nutrisi">Analisis Asupan Nutrisi</Label>
                         </div>
                     </RadioGroup>
-                    <Button className="w-full mt-4">Mulai Analisis</Button>
+
+                    {habitAnalysisRange ? (
+                      <Calendar
+                        mode="range"
+                        selected={{ from: habitAnalysisRange, to: addDays(habitAnalysisRange, 20) }}
+                        numberOfMonths={1}
+                        className="rounded-md border justify-center flex"
+                      />
+                    ) : (
+                      <Button onClick={handleStartHabitAnalysis} className="w-full">Mulai Analisis</Button>
+                    )}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
@@ -133,7 +135,7 @@ export default function DashboardPage() {
                         <span className="font-semibold">Rencana Latihan Massa</span>
                     </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-6">
+                <AccordionContent className="px-6 space-y-4">
                     <p className="text-sm text-muted-foreground mb-4">Rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda.</p>
                     <RadioGroup defaultValue="weight-loss">
                         <div className="flex items-center space-x-2">
@@ -149,7 +151,17 @@ export default function DashboardPage() {
                         <Label htmlFor="stamina">Peningkatan Stamina</Label>
                         </div>
                     </RadioGroup>
-                    <Button className="w-full mt-4">Buat Rencana Latihan</Button>
+                    
+                    {workoutPlanRange ? (
+                      <Calendar
+                        mode="range"
+                        selected={{ from: workoutPlanRange, to: addDays(workoutPlanRange, 29) }}
+                        numberOfMonths={1}
+                        className="rounded-md border justify-center flex"
+                      />
+                    ) : (
+                      <Button onClick={handleCreateWorkoutPlan} className="w-full">Buat Rencana Latihan</Button>
+                    )}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
