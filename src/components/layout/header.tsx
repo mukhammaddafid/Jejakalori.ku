@@ -45,6 +45,10 @@ export function Header() {
   const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
   const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
 
+  const simpleAvatars = avatarPlaceholders.filter(a => a.id === 'user-avatar-1' || a.id === 'user-avatar-3');
+  const badgeAvatar = avatarPlaceholders.find(a => a.id === 'user-avatar-2');
+
+
   return (
     <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-card px-4 sm:h-16 sm:px-6">
       <SidebarTrigger className="md:hidden" />
@@ -55,7 +59,7 @@ export function Header() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
             <Avatar className="h-9 w-9">
-              {userAvatar && 
+              {userAvatar && selectedAvatarId !== 'initials' &&
                 <AvatarImage 
                   src={userAvatar.imageUrl} 
                   alt="User avatar" 
@@ -83,11 +87,18 @@ export function Header() {
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
                   <DropdownMenuRadioItem value="initials">Initials</DropdownMenuRadioItem>
-                  {avatarPlaceholders.map(avatar => (
+                   <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Simple Style</DropdownMenuLabel>
+                  {simpleAvatars.map(avatar => (
                     <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
                       {avatar.description}
                     </DropdownMenuRadioItem>
                   ))}
+                  <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Badge Style</DropdownMenuLabel>
+                  {badgeAvatar && (
+                    <DropdownMenuRadioItem key={badgeAvatar.id} value={badgeAvatar.id}>
+                      {badgeAvatar.description}
+                    </DropdownMenuRadioItem>
+                  )}
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
