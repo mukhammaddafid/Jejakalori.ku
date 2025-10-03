@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Flame, Monitor, Tablet, Smartphone, Globe } from 'lucide-react';
+import { Flame, Monitor, Tablet, Smartphone, Globe, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -24,9 +24,9 @@ function ChartCollage() {
             </div>
           </div>
           <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            {/* Pie chart placeholder */}
-            <div className="w-24 h-24 rounded-full bg-background flex items-center justify-center">
-                <div className="w-full h-full rounded-full border-[16px] border-transparent border-t-primary/80 border-r-primary/80 rotate-45"></div>
+            {/* Open book icon */}
+            <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-inner">
+                <BookOpen className="w-16 h-16 text-red-600" />
             </div>
           </div>
           <div className="col-span-2 p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
