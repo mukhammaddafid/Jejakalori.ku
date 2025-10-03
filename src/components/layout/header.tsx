@@ -23,7 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone } from 'lucide-react';
+import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone, LifeBuoy, LogOut } from 'lucide-react';
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
 import Link from 'next/link';
@@ -46,8 +46,8 @@ export function Header() {
   const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
   const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
 
-  const badgeAvatars = avatarPlaceholders.filter(a => a.id === 'user-avatar-2' || a.id === 'user-avatar-3' || a.id === 'user-avatar-5');
-  const simpleAvatars = avatarPlaceholders.filter(a => a.id === 'user-avatar-1' || a.id === 'user-avatar-4');
+  const badgeAvatars = avatarPlaceholders.filter(a => a.id.includes('user-avatar-2'));
+  const simpleAvatars = avatarPlaceholders.filter(a => a.id.includes('user-avatar-1') || a.id.includes('user-avatar-3') || a.id.includes('user-avatar-4') || a.id.includes('user-avatar-5'));
 
 
   return (
@@ -86,7 +86,7 @@ export function Header() {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ImageIcon className="mr-2 h-4 w-4" />
-              <span>Avatar</span>
+              <span>{t('avatar' as any)}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
@@ -147,6 +147,7 @@ export function Header() {
           </DropdownMenuSub>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
+              <LifeBuoy className="mr-2 h-4 w-4" />
               <span>{t('support')}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
@@ -158,7 +159,10 @@ export function Header() {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>{t('logout')}</DropdownMenuItem>
+          <DropdownMenuItem>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>{t('logout')}</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

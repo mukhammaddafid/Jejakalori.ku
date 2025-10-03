@@ -280,12 +280,13 @@ export const translations = {
     selectProvider: 'Select Provider',
     activate: 'Activate',
     apiKeyActivated: 'API Key Activated',
-    apiKeyActivatedDescription: 'API Key for {{provider}} has been activated.',
+apiKeyActivatedDescription: 'API Key for {{provider}} has been activated.',
     apiKeyRequired: 'API Key is required.',
     apiKeyNotActivated: 'Please activate your API key first.',
     other: 'Other',
     customProvider: 'Custom Provider Name',
     customProviderPlaceholder: 'Enter provider name...',
+    avatar: 'Avatar',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -578,6 +579,7 @@ export const translations = {
     other: 'Lainnya',
     customProvider: 'Nama Penyedia Kustom',
     customProviderPlaceholder: 'Masukkan nama penyedia...',
+    avatar: 'Avatar',
   }
 };
 
