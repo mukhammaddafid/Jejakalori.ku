@@ -260,6 +260,19 @@ export const translations = {
     averageSleep: 'Average Sleep',
     longestSleep: 'Longest Sleep',
     shortestSleep: 'Shortest Sleep',
+    scientificSources: 'Scientific Sources',
+    scientificSourcesDescription: 'The foundation of our features.',
+    quoteCollage: 'Quote Collage',
+    quoteCollageDescription: 'Inspiration from great minds.',
+    brainTime: 'Brain Time',
+    brainTimeDescription: 'Track your reading habits and progress.',
+    bookTitle: 'Book Title',
+    startDate: 'Start Date',
+    startTime: 'Start Time',
+    trackReading: 'Track Reading',
+    readingHistory: 'Reading History (Last Year)',
+    booksRead: 'Books Read',
+    readingDuration: 'Reading Duration (hours)',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -526,13 +539,20 @@ export const translations = {
     averageSleep: 'Tidur Rata-rata',
     longestSleep: 'Tidur Terlama',
     shortestSleep: 'Tidur Terpendek',
+    scientificSources: 'Sumber Ilmiah',
+    scientificSourcesDescription: 'Landasan fitur-fitur kami.',
+    quoteCollage: 'Kolase Kutipan',
+    quoteCollageDescription: 'Inspirasi dari para pemikir hebat.',
+    brainTime: 'Waktu Otak',
+    brainTimeDescription: 'Lacak kebiasaan dan kemajuan membaca Anda.',
+    bookTitle: 'Judul Buku',
+    startDate: 'Tanggal Mulai',
+    startTime: 'Waktu Mulai',
+    trackReading: 'Lacak Bacaan',
+    readingHistory: 'Riwayat Membaca (1 Tahun Terakhir)',
+    booksRead: 'Buku Dibaca',
+    readingDuration: 'Durasi Membaca (jam)',
   }
 };
 
 export type TranslationKey = keyof typeof translations['en'];
-
-    
-    
-
-    
-
