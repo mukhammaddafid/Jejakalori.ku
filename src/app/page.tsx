@@ -3,13 +3,73 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Flame } from 'lucide-react';
+import { Flame, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useTheme } from 'next-themes';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+function ThemeToggle() {
+  const { setTheme } = useTheme()
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Terang
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Gelap
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          Sistem
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+function ChartCollage() {
+    return (
+        <div className="mx-auto grid max-w-4xl grid-cols-2 grid-rows-2 gap-4">
+          <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
+            {/* Bar Chart placeholder */}
+            <div className="w-full h-full flex flex-col justify-end gap-1 p-2">
+                <div className="h-1/2 bg-primary/30 rounded-t-sm"></div>
+                <div className="h-1/4 bg-primary/60 rounded-t-sm"></div>
+                <div className="h-3/4 bg-primary rounded-t-sm"></div>
+            </div>
+          </div>
+          <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
+            {/* Pie chart placeholder */}
+            <div className="w-24 h-24 rounded-full bg-background flex items-center justify-center">
+                <div className="w-full h-full rounded-full border-[16px] border-transparent border-t-primary/80 border-r-primary/80 rotate-45"></div>
+            </div>
+          </div>
+          <div className="col-span-2 p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
+            {/* Radial chart placeholder */}
+            <div className="relative w-32 h-32">
+                <div className="w-full h-full rounded-full border-8 border-muted"></div>
+                <div className="absolute top-0 left-0 w-full h-full rounded-full border-8 border-transparent border-t-accent border-l-accent -rotate-45"></div>
+            </div>
+          </div>
+        </div>
+    );
+}
 
 export default function WelcomePage() {
-  const heroImage = PlaceHolderImages.find(img => img.id === 'welcome-hero');
-
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -17,10 +77,8 @@ export default function WelcomePage() {
           <Flame className="h-6 w-6 text-primary" />
           <span className="sr-only">Jejakalori.ku</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="/login" passHref>
-            <Button variant="ghost">Masuk</Button>
-          </Link>
+        <nav className="ml-auto flex items-center gap-2 sm:gap-4">
+          <ThemeToggle />
           <Link href="/login" passHref>
             <Button>Daftar</Button>
           </Link>
@@ -35,24 +93,17 @@ export default function WelcomePage() {
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
                     Buka Potensi Sehatmu, Mulai Hari Ini!
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Setiap langkah kecil adalah kemenangan. Jejakalori.ku membantumu melacak, memahami, dan mengubah kebiasaan. Raih energimu kembali dan nikmati hidup yang lebih bugar.
+                  <p className="max-w-[600px] text-muted-foreground text-xs">
+                    Setiap langkah kecil adalah kemenangan. kami membantumu melacak, memahami, dan mengubah kebiasaan. Raih energimu kembali dan nikmati hidup yang lebih bugar.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                     <Link href="/login" passHref>
-                        <Button size="lg">Mulai Transformasi Anda</Button>
+                        <Button size="lg">mulai hari ini</Button>
                     </Link>
                 </div>
               </div>
-              {heroImage && <Image
-                src={heroImage.imageUrl}
-                width="600"
-                height="600"
-                alt="Hero"
-                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
-                data-ai-hint={heroImage.imageHint}
-              />}
+              <ChartCollage />
             </div>
           </div>
         </section>
