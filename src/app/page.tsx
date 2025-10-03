@@ -18,19 +18,16 @@ function ChartCollage() {
     return (
         <div className="mx-auto grid max-w-4xl grid-cols-2 gap-4">
           <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            {/* Open book icon */}
             <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-inner">
                 <BookOpen className="w-16 h-16 text-red-600" />
             </div>
           </div>
           <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            {/* Green gradient circle */}
             <div className="relative w-24 h-24">
                 <div className="w-full h-full rounded-full bg-gradient-to-tr from-green-300 via-green-500 to-green-700"></div>
             </div>
           </div>
           <div className="col-span-2 p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            {/* Bar Chart placeholder */}
             <div className="w-full h-32 flex items-end justify-around gap-2 p-2">
                 <div className="h-1/2 w-8 bg-primary/30 rounded-t-lg"></div>
                 <div className="h-3/4 w-8 bg-primary/60 rounded-t-lg"></div>

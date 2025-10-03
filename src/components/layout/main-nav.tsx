@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   ChefHat,
-  User,
   Trophy,
   BookOpen,
 } from 'lucide-react';
@@ -17,6 +16,8 @@ import {
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import { useLanguage } from '@/lib/language-provider';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export const getMenuItems = (t: (key: string) => string) => [
   {
@@ -28,11 +29,6 @@ export const getMenuItems = (t: (key: string) => string) => [
     href: '/recipes',
     label: t('recipes'),
     icon: ChefHat,
-  },
-  {
-    href: '/profile',
-    label: t('profile'),
-    icon: User,
   },
   {
     href: '/leagues',
@@ -50,6 +46,8 @@ export function MainNav() {
   const pathname = usePathname();
   const { t } = useLanguage();
   const menuItems = getMenuItems(t);
+  const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
+  const userAvatar = PlaceHolderImages.find(img => img.id === selectedAvatarId);
 
   return (
     <SidebarMenu>
@@ -67,6 +65,21 @@ export function MainNav() {
           </SidebarMenuButton>
         </SidebarMenuItem>
       ))}
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          asChild
+          isActive={pathname.startsWith('/profile')}
+          tooltip={t('profile')}
+        >
+          <Link href="/profile">
+            <Avatar className="h-6 w-6">
+              {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <span>{t('profile')}</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
     </SidebarMenu>
   );
 }

@@ -17,7 +17,6 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
-  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -25,6 +24,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone } from 'lucide-react';
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
+import Link from 'next/link';
 
 function getPageTitle(pathname: string, t: (key: string) => string) {
   const menuItems = getMenuItems(t);
@@ -50,21 +50,6 @@ export function Header() {
       <h1 className="text-xl font-semibold md:text-2xl">{pageTitle}</h1>
       <div className="flex-1" />
 
-      <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Monitor className="h-5 w-5" />
-          <span className="sr-only">Desktop</span>
-        </Button>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Tablet className="h-5 w-5" />
-          <span className="sr-only">Tablet</span>
-        </Button>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Smartphone className="h-5 w-5" />
-          <span className="sr-only">Mobile</span>
-        </Button>
-      </div>
-
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
@@ -82,10 +67,34 @@ export function Header() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <UserIcon className="mr-2 h-4 w-4" />
-            <span>{t('profile')}</span>
-            </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/profile">
+              <UserIcon className="mr-2 h-4 w-4" />
+              <span>{t('profile')}</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Smartphone className="mr-2 h-4 w-4" />
+              <span>{t('theme')}</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem>
+                  <Monitor className="mr-2 h-4 w-4" />
+                  <span>Desktop</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Tablet className="mr-2 h-4 w-4" />
+                  <span>Tablet</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Smartphone className="mr-2 h-4 w-4" />
+                  <span>Mobile</span>
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ImageIcon className="mr-2 h-4 w-4" />
