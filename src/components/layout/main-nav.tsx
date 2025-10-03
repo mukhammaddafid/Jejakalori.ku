@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   ChefHat,
   User,
+  Trophy,
 } from 'lucide-react';
 
 import {
@@ -32,6 +33,11 @@ export const getMenuItems = (t: (key: string) => string) => [
     label: t('profile'),
     icon: User,
   },
+  {
+    href: '/leagues',
+    label: t('leagues'),
+    icon: Trophy,
+  },
 ];
 
 export function MainNav() {
@@ -45,7 +51,7 @@ export function MainNav() {
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname === item.href}
+            isActive={pathname.startsWith(item.href)}
             tooltip={item.label}
           >
             <Link href={item.href}>

@@ -28,13 +28,10 @@ import { useLanguage } from '@/lib/language-provider';
 
 function getPageTitle(pathname: string, t: (key: string) => string) {
   const menuItems = getMenuItems(t);
-  const item = menuItems.find(item => item.href === pathname);
+  const item = menuItems.find(item => pathname.startsWith(item.href));
   if (item) {
     return item.label;
   }
-  if (pathname.startsWith('/dashboard')) return t('dashboard');
-  if (pathname.startsWith('/recipes')) return t('recipes');
-  if (pathname.startsWith('/profile')) return t('profile');
   return t('dashboard');
 }
 
