@@ -12,6 +12,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
@@ -160,12 +162,13 @@ const PIE_CHART_COLORS = [
 
 function WellnessHub({ brainTime }: { brainTime: number }) {
     const { t } = useLanguage();
-    const [hobbies, setHobbies] = React.useState<{ [key: string]: number }>({ 'Brain Time': brainTime });
+    const [hobbies, setHobbies] = React.useState<{ [key: string]: number }>({});
     const [selectedHobby, setSelectedHobby] = React.useState(HOBBY_LIST[0]);
     const [hobbyDuration, setHobbyDuration] = React.useState('');
+    const [hobbyLog, setHobbyLog] = React.useState<{ name: string, duration: number, time: Date }[]>([]);
 
     const hobbyIcons: { [key: string]: React.ReactNode } = {
-        'Brain Time': <Brain className="h-10 w-10 text-muted-foreground" />,
+        'Reading': <BookOpen className="h-10 w-10 text-muted-foreground" />,
         'Sports': <Dumbbell className="h-10 w-10 text-muted-foreground" />,
         'Music': <Music className="h-10 w-10 text-muted-foreground" />,
         'Coding': <Code className="h-10 w-10 text-muted-foreground" />,
@@ -175,7 +178,7 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
     };
 
     React.useEffect(() => {
-        setHobbies(prev => ({ ...prev, 'Brain Time': brainTime }));
+        setHobbies(prev => ({ ...prev, 'Reading': brainTime }));
     }, [brainTime]);
 
     const handleLogHobby = () => {
@@ -185,6 +188,7 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                 ...prev,
                 [selectedHobby]: (prev[selectedHobby] || 0) + duration,
             }));
+            setHobbyLog(prev => [...prev, { name: selectedHobby, duration, time: new Date() }]);
             setHobbyDuration('');
         }
     };
@@ -217,9 +221,9 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                             {ActiveHobbyIcon}
                             <p className="mt-2 text-sm font-medium text-muted-foreground">{selectedHobby}</p>
                         </div>
-                        <ResponsiveContainer width="100%" height={200}>
+                        <ResponsiveContainer width="100%" height={150}>
                             <PieChart>
-                                <Pie data={hobbyChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                                <Pie data={hobbyChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60}>
                                      {hobbyChartData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
                                     ))}
@@ -248,6 +252,28 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                                 <Button onClick={handleLogHobby}>{t('log')}</Button>
                             </div>
                         </div>
+
+                         <ScrollArea className="h-[150px] w-full rounded-md border">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Hobby</TableHead>
+                                        <TableHead className="text-right">Duration</TableHead>
+                                        <TableHead className="text-right">Time</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {hobbyLog.map((log, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{log.name}</TableCell>
+                                            <TableCell className="text-right">{log.duration} min</TableCell>
+                                            <TableCell className="text-right text-xs">{log.time.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(',', '')}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </ScrollArea>
+
                     </TabsContent>
                     <TabsContent value="deviceUsageBreak" className="space-y-4 pt-4">
                          <p className="text-sm text-muted-foreground px-1">{t('deviceUsageBreakDescription')}</p>
@@ -387,7 +413,7 @@ export default function ReadingPage() {
                                         </div>
                                     </AccordionTrigger>
                                     <AccordionContent className="pt-4">
-                                        <ResponsiveContainer width="100%" height={250}>
+                                        <ResponsiveContainer width="100%" height={200}>
                                             <LineChart data={readingData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                                                 <CartesianGrid strokeDasharray="3 3" />
                                                 <XAxis dataKey="month" />
@@ -415,5 +441,6 @@ export default function ReadingPage() {
     
 
     
+
 
 
