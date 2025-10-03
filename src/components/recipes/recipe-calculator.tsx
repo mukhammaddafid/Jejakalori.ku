@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -10,8 +11,9 @@ import { FoodSearch } from '@/components/dashboard/food-search';
 import { Separator } from '@/components/ui/separator';
 import { PlusCircle, Trash2, Soup, BookCopy, PieChart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Bar, BarChart, CartesianGrid, XAxis, Tooltip, Legend } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from 'recharts';
 import { ChartContainer } from '@/components/ui/chart';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface Totals {
   calories: number;
@@ -21,6 +23,19 @@ interface Totals {
   saturatedFat: number;
   unsaturatedFat: number;
 }
+
+const recipeNameOptions = [
+    "Smoothie Protein Pagi",
+    "Salad Ayam Panggang",
+    "Tumis Udang Bawang Putih",
+    "Sup Lentil Sayuran",
+    "Burger Kacang Hitam",
+    "Pasta Pesto Krim",
+    "Taco Ikan dengan Selada Kubis",
+    "Kari Kelapa Ayam",
+    "Mangkuk Quinoa Mediterania",
+    "Oat Semalam Cokelat",
+];
 
 export function RecipeCalculator() {
   const [recipeName, setRecipeName] = React.useState('');
@@ -90,7 +105,16 @@ export function RecipeCalculator() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="sm:col-span-2 space-y-2">
                 <Label htmlFor="recipe-name">Nama Resep</Label>
-                <Input id="recipe-name" value={recipeName} onChange={e => setRecipeName(e.target.value)} placeholder="cth., Smoothie Protein Saya" />
+                <Select onValueChange={setRecipeName} value={recipeName}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Pilih atau ketik nama resep..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {recipeNameOptions.map((name) => (
+                            <SelectItem key={name} value={name}>{name}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="servings">Porsi</Label>
