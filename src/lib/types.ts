@@ -30,6 +30,11 @@ export interface Recipe {
   ingredients: MealLog[];
 }
 
+export interface RecipeWithIngredients {
+  name: string;
+  ingredients: MealLog[];
+}
+
 export interface UserGoals {
   calories: number;
   protein: number;

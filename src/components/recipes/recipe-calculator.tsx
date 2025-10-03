@@ -14,7 +14,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from 'recharts';
 import { ChartContainer } from '@/components/ui/chart';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/lib/language-provider';
-import { mealPlan30Days } from '@/lib/data';
+import { mealPlan30Days, detailedRecipes } from '@/lib/data';
 
 interface Totals {
   calories: number;
@@ -52,6 +52,17 @@ export function RecipeCalculator() {
     });
     setTotals(newTotals);
   }, [ingredients]);
+  
+  React.useEffect(() => {
+    if (recipeName) {
+      const selectedRecipe = detailedRecipes[language].find(r => r.name === recipeName);
+      if (selectedRecipe && selectedRecipe.ingredients.length > 0) {
+        setIngredients(selectedRecipe.ingredients);
+      } else {
+        setIngredients([]);
+      }
+    }
+  }, [recipeName, language]);
 
   const addIngredient = (ingredient: MealLog) => {
     setIngredients(prev => [...prev, ingredient]);
