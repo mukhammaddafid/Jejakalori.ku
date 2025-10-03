@@ -88,9 +88,9 @@ export function Header() {
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
-                  <DropdownMenuRadioItem value="user-avatar-1">Color 1</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="user-avatar-2">Color 2</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="user-avatar-3">Color 3</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-1">Grey</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-2">Sage</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-3">Skyblue</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
