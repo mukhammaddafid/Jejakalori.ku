@@ -12,7 +12,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSub,
@@ -29,9 +28,7 @@ import { menuItems } from './main-nav';
 function getPageTitle(pathname: string, lang: string) {
   const item = menuItems.find(item => item.href === pathname);
   if (!item) {
-    return lang === 'id' ? 'Utama' : 'Dashboard';
-  }
-  if (item.href === '/') {
+    if (pathname.startsWith('/dashboard')) return lang === 'id' ? 'Utama' : 'Dashboard';
     return lang === 'id' ? 'Utama' : 'Dashboard';
   }
   return item.label;

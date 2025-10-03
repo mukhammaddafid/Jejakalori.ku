@@ -18,7 +18,7 @@ import {
 
 export const menuItems = [
   {
-    href: '/',
+    href: '/dashboard',
     label: 'Utama',
     icon: LayoutDashboard,
   },
