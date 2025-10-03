@@ -5,59 +5,13 @@ import { RecipeCalculator } from '@/components/recipes/recipe-calculator';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { UtensilsCrossed, Soup } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
-
-
-const mealPlanRecommendations = {
-    'Breakfast': [
-        'Oatmeal with berries and a handful of almonds.',
-        'Spinach, banana, and protein powder smoothie.',
-        'Scrambled eggs with whole wheat toast.'
-    ],
-    'Lunch': [
-        'Grilled chicken breast with brown rice and steamed broccoli.',
-        'Quinoa salad with black beans, bell peppers, and lemon dressing.',
-        'Turkey wrap with lettuce, tomato, and hummus.'
-    ],
-    'Dinner': [
-        'Salmon salad with mixed greens, cherry tomatoes, and lemon dressing.',
-        'Lentil soup with root vegetables.',
-        'Tofu stir-fry with bell peppers, onions, and soy sauce.'
-    ],
-    'Snacks': [
-        'Greek yogurt with apple slices.',
-        'Carrots and celery with hummus.',
-        'Small handful of mixed nuts.'
-    ],
-};
-
-const mealPlanRecommendationsId = {
-    'Sarapan': [
-        'Oatmeal dengan buah beri dan segenggam almond.',
-        'Smoothie bayam, pisang, dan bubuk protein.',
-        'Telur orak-arik dengan roti gandum.'
-    ],
-    'Makan Siang': [
-        'Dada ayam panggang dengan nasi merah dan brokoli kukus.',
-        'Salad quinoa dengan kacang hitam, paprika, dan saus lemon.',
-        'Wrap kalkun dengan selada, tomat, dan hummus.'
-    ],
-    'Makan Malam': [
-        'Salad salmon dengan sayuran campur, tomat ceri, dan saus lemon.',
-        'Sup lentil dengan sayuran akar.',
-        'Tumis tahu dengan paprika, bawang, dan kecap.'
-    ],
-    'Camilan': [
-        'Yogurt Yunani dengan irisan apel.',
-        'Wortel dan seledri dengan hummus.',
-        'Segenggam kecil kacang campur.'
-    ],
-};
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { mealPlan30Days } from '@/lib/data';
 
 function HealthyMealPlan() {
     const { t, language } = useLanguage();
-    const recommendations = language === 'id' ? mealPlanRecommendationsId : mealPlanRecommendations;
-    const mealTitles = language === 'id' ? Object.keys(mealPlanRecommendationsId) : Object.keys(mealPlanRecommendations);
+    const plans = mealPlan30Days[language];
 
     return (
         <Card>
@@ -68,16 +22,62 @@ function HealthyMealPlan() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                {Object.values(recommendations).map((suggestions, i) => (
-                     <div key={mealTitles[i]}>
-                        <h3 className="font-semibold text-lg mb-2">{mealTitles[i]}</h3>
-                        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                            {suggestions.map((suggestion, index) => (
-                                <li key={index}>{suggestion}</li>
+                <Tabs defaultValue="international">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="international">{t('internationalMenu')}</TabsTrigger>
+                        <TabsTrigger value="nusantara">{t('nusantaraMenu')}</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="international">
+                        <Accordion type="single" collapsible className="w-full">
+                            {plans.international.map((day, index) => (
+                                <AccordionItem value={`day-${index + 1}`} key={index}>
+                                    <AccordionTrigger>{t('day')} {index + 1}</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div className="space-y-4">
+                                            <div>
+                                                <h4 className="font-semibold">{t('breakfast')}</h4>
+                                                <p className="text-muted-foreground">{day.breakfast}</p>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold">{t('lunch')}</h4>
+                                                <p className="text-muted-foreground">{day.lunch}</p>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold">{t('dinner')}</h4>
+                                                <p className="text-muted-foreground">{day.dinner}</p>
+                                            </div>
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
                             ))}
-                        </ul>
-                    </div>
-                ))}
+                        </Accordion>
+                    </TabsContent>
+                    <TabsContent value="nusantara">
+                         <Accordion type="single" collapsible className="w-full">
+                            {plans.nusantara.map((day, index) => (
+                                <AccordionItem value={`day-${index + 1}`} key={index}>
+                                    <AccordionTrigger>{t('day')} {index + 1}</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div className="space-y-4">
+                                            <div>
+                                                <h4 className="font-semibold">{t('breakfast')}</h4>
+                                                <p className="text-muted-foreground">{day.breakfast}</p>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold">{t('lunch')}</h4>
+                                                <p className="text-muted-foreground">{day.lunch}</p>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold">{t('dinner')}</h4>
+                                                <p className="text-muted-foreground">{day.dinner}</p>
+                                            </div>
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    </TabsContent>
+                </Tabs>
             </CardContent>
         </Card>
     );

@@ -64,3 +64,45 @@ export const micronutrientGoals = {
   iron: 18, // mg
   fiber: 25, // g
 };
+
+const internationalMenu = Array.from({ length: 30 }, (_, i) => {
+    const menus = [
+        { breakfast: 'Oatmeal with berries and nuts', lunch: 'Grilled Chicken Salad', dinner: 'Salmon with Quinoa and Asparagus' },
+        { breakfast: 'Scrambled eggs with spinach and whole wheat toast', lunch: 'Lentil Soup and a side salad', dinner: 'Beef Stir-fry with mixed vegetables' },
+        { breakfast: 'Greek yogurt with granola and honey', lunch: 'Turkey and avocado wrap', dinner: 'Pasta with marinara sauce and a side of broccoli' },
+        { breakfast: 'Smoothie with protein powder, banana, and almond milk', lunch: 'Tuna salad sandwich on whole wheat', dinner: 'Baked cod with roasted potatoes and green beans' },
+        { breakfast: 'Cottage cheese with peaches', lunch: 'Leftover beef stir-fry', dinner: 'Chicken and vegetable skewers' },
+    ];
+    return menus[i % menus.length];
+});
+
+const nusantaraMenu = Array.from({ length: 30 }, (_, i) => {
+    const menus = [
+        { breakfast: 'Bubur ayam tanpa kerupuk', lunch: 'Gado-gado dengan sedikit saus kacang', dinner: 'Pepes ikan dengan nasi merah' },
+        { breakfast: 'Nasi uduk (porsi kecil) dengan telur dadar', lunch: 'Soto ayam bening dengan bihun', dinner: 'Sayur asem dengan ikan bakar' },
+        { breakfast: 'Lontong sayur dengan tahu dan tempe', lunch: 'Urap sayuran dengan dada ayam rebus', dinner: 'Tumis kangkung dengan udang' },
+        { breakfast: 'Ketan serundeng', lunch: 'Ikan pindang kuah bening', dinner: 'Sate ayam (tanpa lemak) dengan lontong' },
+        { breakfast: 'Bubur kacang hijau tanpa santan', lunch: 'Leftover sayur asem', dinner: 'Gulai ikan patin (kuah lebih encer)' },
+    ];
+    return menus[i % menus.length];
+});
+
+
+export const mealPlan30Days = {
+    en: {
+        international: internationalMenu,
+        nusantara: nusantaraMenu.map(day => ({
+             breakfast: day.breakfast.replace('Bubur ayam tanpa kerupuk', 'Chicken porridge without crackers').replace('Nasi uduk (porsi kecil) dengan telur dadar', 'Small portion of coconut rice with omelette').replace('Lontong sayur dengan tahu dan tempe', 'Rice cake with vegetable stew, tofu, and tempeh').replace('Ketan serundeng', 'Sticky rice with spiced grated coconut').replace('Bubur kacang hijau tanpa santan', 'Mung bean porridge without coconut milk'),
+             lunch: day.lunch.replace('Gado-gado dengan sedikit saus kacang', 'Mixed vegetable salad with light peanut sauce').replace('Soto ayam bening dengan bihun', 'Clear chicken soup with rice vermicelli').replace('Urap sayuran dengan dada ayam rebus', 'Mixed vegetables with spiced coconut and boiled chicken breast').replace('Ikan pindang kuah bening', 'Clear-broth spiced fish soup').replace('Leftover sayur asem', 'Leftover tamarind vegetable soup'),
+             dinner: day.dinner.replace('Pepes ikan dengan nasi merah', 'Steamed spiced fish with red rice').replace('Sayur asem dengan ikan bakar', 'Tamarind vegetable soup with grilled fish').replace('Tumis kangkung dengan udang', 'Stir-fried water spinach with shrimp').replace('Sate ayam (tanpa lemak) dengan lontong', 'Lean chicken satay with rice cakes').replace('Gulai ikan patin (kuah lebih encer)', 'Patin fish curry (thinner broth)'),
+        }))
+    },
+    id: {
+        international: internationalMenu.map(day => ({
+            breakfast: day.breakfast.replace('Oatmeal with berries and nuts', 'Oatmeal dengan buah beri dan kacang').replace('Scrambled eggs with spinach and whole wheat toast', 'Telur orak-arik dengan bayam dan roti gandum').replace('Greek yogurt with granola and honey', 'Yogurt Yunani dengan granola dan madu').replace('Smoothie with protein powder, banana, and almond milk', 'Smoothie dengan bubuk protein, pisang, dan susu almond').replace('Cottage cheese with peaches', 'Keju cottage dengan buah persik'),
+            lunch: day.lunch.replace('Grilled Chicken Salad', 'Salad Ayam Panggang').replace('Lentil Soup and a side salad', 'Sup Lentil dan salad pendamping').replace('Turkey and avocado wrap', 'Wrap kalkun dan alpukat').replace('Tuna salad sandwich on whole wheat', 'Sandwich salad tuna dengan roti gandum').replace('Leftover beef stir-fry', 'Sisa tumis daging sapi'),
+            dinner: day.dinner.replace('Salmon with Quinoa and Asparagus', 'Salmon dengan Quinoa dan Asparagus').replace('Beef Stir-fry with mixed vegetables', 'Tumis daging sapi dengan sayuran campur').replace('Pasta with marinara sauce and a side of broccoli', 'Pasta dengan saus marinara dan brokoli').replace('Baked cod with roasted potatoes and green beans', 'Ikan kod panggang dengan kentang panggang dan buncis').replace('Chicken and vegetable skewers', 'Sate ayam dan sayuran'),
+        })),
+        nusantara: nusantaraMenu
+    }
+};
