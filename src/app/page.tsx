@@ -15,7 +15,6 @@ import { useLanguage } from '@/lib/language-provider';
 
 function ThemeToggle() {
   const { setTheme } = useTheme()
-  const { t } = useLanguage();
 
   return (
     <DropdownMenu>
