@@ -19,7 +19,12 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     unsaturatedFat: 0,
   };
 
-  const allMeals: MealLog[] = Object.values(log).flat();
+  const allMeals = [
+    ...log.breakfast,
+    ...log.lunch,
+    ...log.dinner,
+    ...log.snacks,
+  ];
 
   allMeals.forEach(item => {
     totals.calories += (item.food.calories || 0) * item.servings;

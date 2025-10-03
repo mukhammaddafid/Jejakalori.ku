@@ -41,7 +41,7 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
       </Sidebar>
       <div className="flex flex-col flex-1">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-background">
+        <main className="flex-1 overflow-y-auto bg-secondary/20">
             {children}
         </main>
       </div>

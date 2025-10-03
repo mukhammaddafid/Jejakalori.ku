@@ -12,7 +12,6 @@ interface CalorieSummaryProps {
 }
 
 export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
-  const percentage = goal > 0 ? (consumed / goal) * 100 : 0;
   const remaining = goal - consumed;
 
   const chartData = [
@@ -31,11 +30,13 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               startAngle={90}
               endAngle={450}
               barSize={12}
+              maxBarSize={12}
+              domain={[0, goal]}
             >
               <RadialBar
                 dataKey="value"
                 background={{ fill: 'hsl(var(--muted))' }}
-                cornerRadius={5}
+                cornerRadius={6}
               />
               <Tooltip
                 cursor={{ fill: 'transparent' }}
@@ -45,7 +46,7 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
                       <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="flex flex-col">
                           <span className="text-[0.70rem] uppercase text-muted-foreground">Terkonsumsi</span>
-                          <span className="font-bold text-foreground">{`${Math.round(consumed)} kkal`}</span>
+                          <span className="font-bold text-foreground">{`${Math.round(consumed)} / ${goal} kkal`}</span>
                         </div>
                       </div>
                     );
@@ -56,7 +57,8 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
             </RadialBarChart>
           </ChartContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <Flame className="h-10 w-10 text-primary" />
+             <span className="text-3xl font-bold font-headline text-primary">{Math.round(consumed)}</span>
+             <span className="text-xs text-muted-foreground">kkal</span>
           </div>
         </div>
         
