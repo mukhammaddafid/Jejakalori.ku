@@ -5,7 +5,7 @@ import { Smartphone, BookOpen, Clock, Calendar, BarChart as BarChartIcon, LineCh
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell, Bar as RechartsBar, BarChart as RechartsBarChart } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell, Bar as RechartsBar, BarChart as RechartsBarChart, PieChart } from 'recharts';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
@@ -415,4 +415,5 @@ export default function ReadingPage() {
     
 
     
+
 
