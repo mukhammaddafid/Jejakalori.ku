@@ -46,7 +46,8 @@ export function Header() {
   const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
   const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
 
-  const badgeAvatar = avatarPlaceholders.find(a => a.id === 'user-avatar-2');
+  const badgeAvatars = avatarPlaceholders.filter(a => a.id === 'user-avatar-2' || a.id === 'user-avatar-3' || a.id === 'user-avatar-5');
+  const simpleAvatars = avatarPlaceholders.filter(a => a.id === 'user-avatar-1' || a.id === 'user-avatar-4');
 
 
   return (
@@ -85,18 +86,25 @@ export function Header() {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ImageIcon className="mr-2 h-4 w-4" />
-              <span>Change Avatar</span>
+              <span>Avatar</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
+                  <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Initial</DropdownMenuLabel>
                   <DropdownMenuRadioItem value="initials">Initials</DropdownMenuRadioItem>
                   <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Badge Style</DropdownMenuLabel>
-                  {badgeAvatar && (
-                    <DropdownMenuRadioItem key={badgeAvatar.id} value={badgeAvatar.id}>
-                      {badgeAvatar.description}
+                  {badgeAvatars.map((avatar) => (
+                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
+                      {avatar.description}
                     </DropdownMenuRadioItem>
-                  )}
+                  ))}
+                   <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Simple Style</DropdownMenuLabel>
+                  {simpleAvatars.map((avatar) => (
+                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
+                      {avatar.description}
+                    </DropdownMenuRadioItem>
+                  ))}
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
