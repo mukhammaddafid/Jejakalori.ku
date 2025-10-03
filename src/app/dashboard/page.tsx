@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { useLanguage } from '@/lib/language-provider';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { BarChart as RechartsBarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar, ResponsiveContainer, Legend, Cell } from 'recharts';
+import { Input } from '@/components/ui/input';
 
 // Helper function to calculate totals
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -60,9 +61,9 @@ function calculateTotals(log: DailyLog): NutrientTotals {
 }
 
 const workoutOptions = {
-    "Strength Training": Array.from({ length: 40 }, (_, i) => `Strength workout #${i + 1}`),
-    "Cardio": Array.from({ length: 40 }, (_, i) => `Cardio workout #${i + 1}`),
-    "Flexibility & Mobility": Array.from({ length: 40 }, (_, i) => `Flexibility workout #${i + 1}`),
+    "Strength Training": ["Full Body Dumbbell", "Bodyweight Circuit", "Kettlebell Flow"],
+    "Cardio": ["Running (Intervals)", "Cycling (HIIT)", "Jump Rope"],
+    "Flexibility & Mobility": ["Dynamic Warm-up", "Yoga Flow", "Full Body Stretch"],
 };
 
 const habitAnalysisOptions = {
@@ -186,28 +187,52 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 
-const WorkoutPlanVisualizer = () => {
-    const workoutData = [
-        { name: 'Strength', energy: 350, fill: 'hsl(var(--chart-1))' },
-        { name: 'Cardio', energy: 500, fill: 'hsl(var(--chart-2))' },
-        { name: 'Flexibility', energy: 150, fill: 'hsl(var(--chart-3))' },
-    ];
+const WorkoutPlanVisualizer = ({ selectedWorkouts }: { selectedWorkouts: { [key: string]: number } }) => {
+    const energyPerMinute = {
+        "Full Body Dumbbell": 8,
+        "Bodyweight Circuit": 10,
+        "Kettlebell Flow": 12,
+        "Running (Intervals)": 15,
+        "Cycling (HIIT)": 13,
+        "Jump Rope": 18,
+        "Dynamic Warm-up": 4,
+        "Yoga Flow": 3,
+        "Full Body Stretch": 2,
+    };
+
+    const workoutData = Object.entries(selectedWorkouts).map(([name, duration]) => {
+        const category = Object.keys(workoutOptions).find(cat => workoutOptions[cat as keyof typeof workoutOptions].includes(name)) || '';
+        let fill = 'hsl(var(--chart-3))';
+        if (category === 'Strength Training') fill = 'hsl(var(--chart-1))';
+        if (category === 'Cardio') fill = 'hsl(var(--chart-2))';
+        
+        return {
+            name,
+            energy: (energyPerMinute[name as keyof typeof energyPerMinute] || 5) * duration,
+            fill,
+        }
+    }).filter(item => item.energy > 0);
+
+    const selectedActivities = workoutData.map(w => `${w.name} (${selectedWorkouts[w.name]} min)`);
+
     return (
         <div className="p-4 border-t space-y-4">
             <h4 className="text-center font-semibold">Workout Plan & Energy Analysis</h4>
             <div>
                 <h5 className="font-semibold mb-2">Selected Activities:</h5>
-                <ul className="list-disc list-inside text-muted-foreground text-sm space-y-1">
-                    <li>Strength workout #1, #5, #12</li>
-                    <li>Cardio workout #2, #8</li>
-                    <li>Flexibility workout #3</li>
-                </ul>
+                {selectedActivities.length > 0 ? (
+                    <ul className="list-disc list-inside text-muted-foreground text-sm space-y-1">
+                        {selectedActivities.map((activity, i) => <li key={i}>{activity}</li>)}
+                    </ul>
+                ) : (
+                    <p className="text-sm text-muted-foreground text-center">No activities selected or duration set.</p>
+                )}
             </div>
              <div className="h-48">
                  <ResponsiveContainer width="100%" height="100%">
                     <RechartsBarChart data={workoutData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false}/>
-                        <XAxis dataKey="name" />
+                        <XAxis dataKey="name" fontSize={10} interval={0} />
                         <YAxis label={{ value: 'Energy (kcal)', angle: -90, position: 'insideLeft' }}/>
                         <Tooltip />
                         <Legend />
@@ -226,21 +251,25 @@ const WorkoutPlanVisualizer = () => {
 const AnalysisFeature: React.FC<{ 
     title: string; 
     buttonText: string;
-    visualization: 'calendar' | 'analysis' | 'workout';
-    calendarDays?: number; 
-    children: React.ReactNode, 
-    trialTimeRemaining?: string, 
-    isTrialActive?: boolean 
-}> = ({ title, buttonText, visualization, calendarDays, children, trialTimeRemaining, isTrialActive }) => {
+    visualization: 'analysis' | 'workout';
+    children: React.ReactElement; 
+    trialTimeRemaining?: string; 
+    isTrialActive?: boolean;
+}> = ({ title, buttonText, visualization, children, trialTimeRemaining, isTrialActive }) => {
     const [showVisualization, setShowVisualization] = React.useState(false);
     const { t } = useLanguage();
+    
+    // State to be lifted up from children
+    const [selectedWorkouts, setSelectedWorkouts] = React.useState<{ [key: string]: number }>({});
+    
+    const childrenWithProps = React.cloneElement(children, { setSelectedWorkouts });
 
     const renderVisualization = () => {
         switch (visualization) {
             case 'analysis':
                 return <AnalysisPlanVisualizer />;
             case 'workout':
-                return <WorkoutPlanVisualizer />;
+                return <WorkoutPlanVisualizer selectedWorkouts={selectedWorkouts} />;
             default:
                 return null;
         }
@@ -259,7 +288,7 @@ const AnalysisFeature: React.FC<{
                     <p className="text-primary/80">{trialTimeRemaining}</p>
                 </div>
             )}
-            {children}
+            {childrenWithProps}
             <Button className="w-full" onClick={() => setShowVisualization(!showVisualization)}>
               {showVisualization ? t('hideCalendar') : buttonText}
             </Button>
@@ -270,38 +299,51 @@ const AnalysisFeature: React.FC<{
     );
 };
 
-const WorkoutSelector = () => {
+const WorkoutSelector: React.FC<{ setSelectedWorkouts?: React.Dispatch<React.SetStateAction<{[key: string]: number}>> }> = ({ setSelectedWorkouts }) => {
     const categoryIcons: { [key: string]: React.ReactNode } = {
         "Strength Training": <Scale className="h-5 w-5" />,
         "Cardio": <Heart className="h-5 w-5" />,
         "Flexibility & Mobility": <Activity className="h-5 w-5" />,
     };
 
+    const [internalSelections, setInternalSelections] = React.useState<{ [key: string]: number }>({});
+
+    const handleDurationChange = (workout: string, duration: string) => {
+        const newSelections = {
+            ...internalSelections,
+            [workout]: parseInt(duration) || 0,
+        };
+        setInternalSelections(newSelections);
+        setSelectedWorkouts?.(newSelections);
+    };
+
     return (
-        <Accordion type="multiple" className="w-full">
+        <div className="space-y-4">
             {Object.entries(workoutOptions).map(([category, options]) => (
-                <AccordionItem value={category} key={category}>
-                    <AccordionTrigger>
-                        <div className="flex items-center gap-2 font-semibold">
-                            {categoryIcons[category]}
-                            {category}
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                        <ScrollArea className="h-40">
-                            <div className="space-y-2 pr-4">
-                                {options.map((option, index) => (
-                                    <div key={index} className="flex items-center space-x-2">
-                                        <Checkbox id={`${category}-${index}`} />
-                                        <Label htmlFor={`${category}-${index}`} className="font-normal">{option}</Label>
-                                    </div>
-                                ))}
+                <div key={category}>
+                    <h4 className="flex items-center gap-2 font-semibold mb-2">
+                        {categoryIcons[category]}
+                        {category}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
+                        {options.map((option) => (
+                             <div key={option} className="flex items-center space-x-2">
+                                <Label htmlFor={`workout-${option}`} className="flex-1 font-normal">{option}</Label>
+                                <Input
+                                    id={`workout-${option}`}
+                                    type="number"
+                                    min="0"
+                                    step="5"
+                                    placeholder="min"
+                                    className="h-8 w-20"
+                                    onChange={(e) => handleDurationChange(option, e.target.value)}
+                                />
                             </div>
-                        </ScrollArea>
-                    </AccordionContent>
-                </AccordionItem>
+                        ))}
+                    </div>
+                </div>
             ))}
-        </Accordion>
+        </div>
     );
 };
 
@@ -410,3 +452,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
