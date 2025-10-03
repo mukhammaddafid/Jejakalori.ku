@@ -17,7 +17,7 @@ import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLanguage } from '@/lib/language-provider';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { BarChart as RechartsBarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar, ResponsiveContainer, Legend } from 'recharts';
+import { BarChart as RechartsBarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar, ResponsiveContainer, Legend, Cell } from 'recharts';
 
 // Helper function to calculate totals
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -66,7 +66,7 @@ const workoutOptions = {
 };
 
 const habitAnalysisOptions = {
-    "Meal Composition": Array-from({ length: 25 }, (_, i) => `Composition analysis #${i + 1}`),
+    "Meal Composition": Array.from({ length: 25 }, (_, i) => `Composition analysis #${i + 1}`),
     "Timing & Frequency": Array.from({ length: 25 }, (_, i) => `Timing analysis #${i + 1}`),
     "Nutrient Quality": Array.from({ length: 20 }, (_, i) => `Nutrient analysis #${i + 1}`),
 };
@@ -159,10 +159,10 @@ const AnalysisPlanVisualizer = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" domain={[0, 21]} label={{ value: 'Days', position: 'insideBottom', offset: -5 }} />
                     <YAxis type="category" dataKey="name" width={80} />
-                    <Tooltip content={CustomTooltip} />
+                    <Tooltip content={<CustomTooltip />} />
                     <Bar dataKey="duration" stackId="a" background={{ fill: '#eee' }}>
                          {analysisData.map((entry, index) => (
-                            <div key={`cell-${index}`} fill={entry.fill} />
+                            <Cell key={`cell-${index}`} fill={entry.fill} />
                         ))}
                     </Bar>
                 </RechartsBarChart>
@@ -213,7 +213,7 @@ const WorkoutPlanVisualizer = () => {
                         <Legend />
                         <Bar dataKey="energy" name="Energy Release" >
                             {workoutData.map((entry, index) => (
-                                <div key={`cell-${index}`} fill={entry.fill} />
+                                <Cell key={`cell-${index}`} fill={entry.fill} />
                             ))}
                         </Bar>
                     </RechartsBarChart>
@@ -410,5 +410,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    
