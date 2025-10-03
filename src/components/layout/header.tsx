@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useTheme } from 'next-themes';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 import {
@@ -23,7 +22,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Sun, Moon } from 'lucide-react';
+import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone } from 'lucide-react';
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
 
@@ -41,8 +40,7 @@ export function Header() {
   const { t, language, setLanguage } = useLanguage();
   const pageTitle = getPageTitle(pathname, t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
-  const { setTheme } = useTheme();
-
+  
   const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
   const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
 
@@ -51,6 +49,22 @@ export function Header() {
       <SidebarTrigger className="md:hidden" />
       <h1 className="text-xl font-semibold md:text-2xl">{pageTitle}</h1>
       <div className="flex-1" />
+
+      <div className="flex items-center gap-2">
+        <Button variant="ghost" size="icon" className="h-9 w-9">
+          <Monitor className="h-5 w-5" />
+          <span className="sr-only">Desktop</span>
+        </Button>
+        <Button variant="ghost" size="icon" className="h-9 w-9">
+          <Tablet className="h-5 w-5" />
+          <span className="sr-only">Tablet</span>
+        </Button>
+        <Button variant="ghost" size="icon" className="h-9 w-9">
+          <Smartphone className="h-5 w-5" />
+          <span className="sr-only">Mobile</span>
+        </Button>
+      </div>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
@@ -87,29 +101,6 @@ export function Header() {
                   ))}
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-                <Sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute mr-2 h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span>{t('theme')}</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                    <DropdownMenuItem onClick={() => setTheme("light")}>
-                        <Sun className="mr-2 h-4 w-4" />
-                        <span>Light</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("dark")}>
-                        <Moon className="mr-2 h-4 w-4" />
-                        <span>Dark</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("system")}>
-                        <Monitor className="mr-2 h-4 w-4" />
-                        <span>System</span>
-                    </DropdownMenuItem>
-                </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSub>
