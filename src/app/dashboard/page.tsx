@@ -9,15 +9,16 @@ import { FoodLog } from '@/components/dashboard/food-log';
 import { WeeklyTrends } from '@/components/dashboard/weekly-trends';
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { Dumbbell, BrainCircuit, Zap } from 'lucide-react';
+import { Dumbbell, BrainCircuit, Zap, Flame, BarChart, Activity, Heart, Scale, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Calendar } from '@/components/ui/calendar';
 import { addDays } from 'date-fns';
 import { useLanguage } from '@/lib/language-provider';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 // Helper function to calculate totals
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -58,6 +59,18 @@ function calculateTotals(log: DailyLog): NutrientTotals {
 
   return totals;
 }
+
+const workoutOptions = {
+    "Strength Training": Array.from({ length: 40 }, (_, i) => `Strength workout #${i + 1}`),
+    "Cardio": Array.from({ length: 40 }, (_, i) => `Cardio workout #${i + 1}`),
+    "Flexibility & Mobility": Array.from({ length: 40 }, (_, i) => `Flexibility workout #${i + 1}`),
+};
+
+const habitAnalysisOptions = {
+    "Meal Composition": Array.from({ length: 25 }, (_, i) => `Composition analysis #${i + 1}`),
+    "Timing & Frequency": Array.from({ length: 25 }, (_, i) => `Timing analysis #${i + 1}`),
+    "Nutrient Quality": Array.from({ length: 20 }, (_, i) => `Nutrient analysis #${i + 1}`),
+};
 
 const PremiumFeatureWithTrial: React.FC<{
   icon: React.ReactNode;
@@ -179,6 +192,76 @@ const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: R
     );
 };
 
+const WorkoutSelector = () => {
+    const categoryIcons: { [key: string]: React.ReactNode } = {
+        "Strength Training": <Scale className="h-5 w-5" />,
+        "Cardio": <Heart className="h-5 w-5" />,
+        "Flexibility & Mobility": <Activity className="h-5 w-5" />,
+    };
+
+    return (
+        <Accordion type="multiple" className="w-full">
+            {Object.entries(workoutOptions).map(([category, options]) => (
+                <AccordionItem value={category} key={category}>
+                    <AccordionTrigger>
+                        <div className="flex items-center gap-2 font-semibold">
+                            {categoryIcons[category]}
+                            {category}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <ScrollArea className="h-40">
+                            <div className="space-y-2 pr-4">
+                                {options.map((option, index) => (
+                                    <div key={index} className="flex items-center space-x-2">
+                                        <Checkbox id={`${category}-${index}`} />
+                                        <Label htmlFor={`${category}-${index}`} className="font-normal">{option}</Label>
+                                    </div>
+                                ))}
+                            </div>
+                        </ScrollArea>
+                    </AccordionContent>
+                </AccordionItem>
+            ))}
+        </Accordion>
+    );
+};
+
+const HabitAnalysisSelector = () => {
+    const categoryIcons: { [key: string]: React.ReactNode } = {
+        "Meal Composition": <Flame className="h-5 w-5" />,
+        "Timing & Frequency": <Clock className="h-5 w-5" />,
+        "Nutrient Quality": <BarChart className="h-5 w-5" />,
+    };
+    return (
+        <Accordion type="multiple" className="w-full">
+            {Object.entries(habitAnalysisOptions).map(([category, options]) => (
+                <AccordionItem value={category} key={category}>
+                    <AccordionTrigger>
+                        <div className="flex items-center gap-2 font-semibold">
+                            {categoryIcons[category]}
+                            {category}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <ScrollArea className="h-40">
+                            <div className="space-y-2 pr-4">
+                                {options.map((option, index) => (
+                                    <div key={index} className="flex items-center space-x-2">
+                                        <Checkbox id={`habit-${category}-${index}`} />
+                                        <Label htmlFor={`habit-${category}-${index}`} className="font-normal">{option}</Label>
+                                    </div>
+                                ))}
+                            </div>
+                        </ScrollArea>
+                    </AccordionContent>
+                </AccordionItem>
+            ))}
+        </Accordion>
+    );
+};
+
+
 export default function DashboardPage() {
   const userData = mockUserData;
   const totals = calculateTotals(userData.log);
@@ -222,20 +305,7 @@ export default function DashboardPage() {
             storageKey="habitAnalysisTrialEnd"
            >
             <AnalysisFeature title={t('selectAnalysisType')} buttonText={t('startAnalysis')} calendarDays={21}>
-                <RadioGroup defaultValue="eating-pattern">
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="eating-pattern" id="eating-pattern" />
-                        <Label htmlFor="eating-pattern">{t('eatingPatternAnalysis')}</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="meal-timing" id="meal-timing" />
-                        <Label htmlFor="meal-timing">{t('mealTimingAnalysis')}</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="nutrient-intake" id="nutrient-intake" />
-                        <Label htmlFor="nutrient-intake">{t('nutrientIntakeAnalysis')}</Label>
-                    </div>
-                </RadioGroup>
+                <HabitAnalysisSelector />
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
            <PremiumFeatureWithTrial
@@ -246,20 +316,7 @@ export default function DashboardPage() {
             storageKey="workoutPlanTrialEnd"
            >
             <AnalysisFeature title={t('selectWorkoutGoal')} buttonText={t('createWorkoutPlan')} calendarDays={30}>
-                <RadioGroup defaultValue="weight-loss">
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="weight-loss" id="weight-loss" />
-                        <Label htmlFor="weight-loss">{t('weightLoss')}</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="muscle-gain" id="muscle-gain" />
-                        <Label htmlFor="muscle-gain">{t('muscleGain')}</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="stamina" id="stamina" />
-                        <Label htmlFor="stamina">{t('staminaImprovement')}</Label>
-                    </div>
-                </RadioGroup>
+                <WorkoutSelector />
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
         </div>
