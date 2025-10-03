@@ -5,11 +5,14 @@ import { Smartphone, BookOpen, Clock, Calendar, BarChart, LineChart as LineChart
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell, Bar as RechartsBar } from 'recharts';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
   month: new Date(0, i).toLocaleString('default', { month: 'short' }),
@@ -126,7 +129,7 @@ const scientificSources = [
     { title: "Macronutrient Roles in Health", source: "Institute of Medicine. 2005. Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids. Washington, DC: The National Academies Press." },
 ];
 
-const screenTimeData = [
+const screenTimeDataWeekly = [
   { day: 'Mon', hours: 5 },
   { day: 'Tue', hours: 6 },
   { day: 'Wed', hours: 4.5 },
@@ -135,6 +138,10 @@ const screenTimeData = [
   { day: 'Sat', hours: 9 },
   { day: 'Sun', hours: 7.5 },
 ];
+const screenTimeDataMonthly = Array.from({ length: 30 }, (_, i) => ({
+    day: `${i + 1}`,
+    hours: Math.floor(Math.random() * 8) + 2,
+}));
 
 const HOBBY_LIST = ['Sports', 'Music', 'Coding', 'Art', 'Cooking', 'Photography'];
 
@@ -149,32 +156,7 @@ const PIE_CHART_COLORS = [
     '#8A2BE2', // BlueViolet
 ];
 
-function DeviceUsageBreak() {
-    const { t } = useLanguage();
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Smartphone /> {t('deviceUsageBreak')}</CardTitle>
-                <CardDescription>{t('deviceUsageBreakDescription')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <h4 className="font-semibold mb-2 text-center">{t('weeklyTrend')}</h4>
-                <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={screenTimeData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="day" />
-                        <YAxis label={{ value: 'Hours', angle: -90, position: 'insideLeft' }}/>
-                        <Tooltip />
-                        <Line type="monotone" dataKey="hours" stroke="hsl(var(--primary))" strokeWidth={2} />
-                    </LineChart>
-                </ResponsiveContainer>
-                <Button className="w-full mt-4">{t('setBreakReminder')}</Button>
-            </CardContent>
-        </Card>
-    );
-}
-
-function TimeWellSpent({ brainTime }: { brainTime: number }) {
+function WellnessHub({ brainTime }: { brainTime: number }) {
     const { t } = useLanguage();
     const [hobbies, setHobbies] = React.useState<{ [key: string]: number }>({ 'Brain Time': brainTime });
     const [selectedHobby, setSelectedHobby] = React.useState(HOBBY_LIST[0]);
@@ -195,7 +177,14 @@ function TimeWellSpent({ brainTime }: { brainTime: number }) {
         }
     };
 
-    const chartData = Object.entries(hobbies).map(([name, value]) => ({ name, value }));
+    const hobbyChartData = Object.entries(hobbies).map(([name, value]) => ({ name, value }));
+
+    const chartConfig = {
+        hours: {
+            label: t('hoursSlept'), // Reusing translation, can be changed
+            color: "hsl(var(--chart-1))",
+        },
+    };
 
     return (
         <Card>
@@ -203,43 +192,82 @@ function TimeWellSpent({ brainTime }: { brainTime: number }) {
                 <CardTitle className="flex items-center gap-2"><Activity /> {t('timeWellSpent')}</CardTitle>
                 <CardDescription>{t('timeWellSpentDescription')}</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-                 <ResponsiveContainer width="100%" height={200}>
-                    <PieChart>
-                        <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
-                             {chartData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                    </PieChart>
-                </ResponsiveContainer>
-                <div className="space-y-2">
-                    <Label>{t('logHobby')}</Label>
-                    <div className="flex gap-2">
-                        <Select value={selectedHobby} onValueChange={setSelectedHobby}>
-                            <SelectTrigger>
-                                <SelectValue placeholder={t('selectHobby')} />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {HOBBY_LIST.map(hobby => <SelectItem key={hobby} value={hobby}>{t(hobby.toLowerCase() as any) || hobby}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                        <Input 
-                            type="number" 
-                            placeholder={t('durationInMinutes')}
-                            value={hobbyDuration}
-                            onChange={(e) => setHobbyDuration(e.target.value)}
-                        />
-                        <Button onClick={handleLogHobby}>{t('log')}</Button>
-                    </div>
-                </div>
+            <CardContent>
+                <Tabs defaultValue="hobbies">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="hobbies">{t('hobbies')}</TabsTrigger>
+                        <TabsTrigger value="deviceUsageBreak">{t('deviceUsageBreak')}</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="hobbies" className="space-y-4 pt-4">
+                        <ResponsiveContainer width="100%" height={200}>
+                            <PieChart>
+                                <Pie data={hobbyChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                                     {hobbyChartData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
+                        <div className="space-y-2">
+                            <Label>{t('logHobby')}</Label>
+                            <div className="flex gap-2">
+                                <Select value={selectedHobby} onValueChange={setSelectedHobby}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder={t('selectHobby')} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {HOBBY_LIST.map(hobby => <SelectItem key={hobby} value={hobby}>{t(hobby.toLowerCase() as any) || hobby}</SelectItem>)}
+                                    </SelectContent>
+                                </Select>
+                                <Input 
+                                    type="number" 
+                                    placeholder={t('durationInMinutes')}
+                                    value={hobbyDuration}
+                                    onChange={(e) => setHobbyDuration(e.target.value)}
+                                />
+                                <Button onClick={handleLogHobby}>{t('log')}</Button>
+                            </div>
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="deviceUsageBreak" className="space-y-4 pt-4">
+                         <Tabs defaultValue="weekly">
+                            <TabsList className="grid w-full grid-cols-2">
+                                <TabsTrigger value="weekly">{t('weekly')}</TabsTrigger>
+                                <TabsTrigger value="monthly">{t('monthly')}</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="weekly">
+                                 <ChartContainer config={chartConfig} className="h-[200px] w-full">
+                                    <RechartsBarChart data={screenTimeDataWeekly} accessibilityLayer>
+                                        <CartesianGrid vertical={false} />
+                                        <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
+                                        <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                                        <ChartTooltip content={<ChartTooltipContent />} />
+                                        <RechartsBar dataKey="hours" fill="var(--color-hours)" radius={4} />
+                                    </RechartsBarChart>
+                                </ChartContainer>
+                            </TabsContent>
+                             <TabsContent value="monthly">
+                                <ChartContainer config={chartConfig} className="h-[200px] w-full">
+                                     <RechartsBarChart data={screenTimeDataMonthly} accessibilityLayer>
+                                        <CartesianGrid vertical={false} />
+                                        <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} fontSize={10} interval={2} />
+                                        <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                                        <ChartTooltip content={<ChartTooltipContent />} />
+                                        <RechartsBar dataKey="hours" fill="var(--color-hours)" radius={4} />
+                                    </RechartsBarChart>
+                                </ChartContainer>
+                            </TabsContent>
+                        </Tabs>
+                        <Button className="w-full">{t('setBreakReminder')}</Button>
+                    </TabsContent>
+                </Tabs>
             </CardContent>
         </Card>
-    )
-
+    );
 }
+
 
 export default function ReadingPage() {
     const { t } = useLanguage();
@@ -360,8 +388,7 @@ export default function ReadingPage() {
                     </Card>
                 </div>
                 <div className="lg:col-span-1 space-y-6">
-                    <DeviceUsageBreak />
-                    <TimeWellSpent brainTime={readingDuration} />
+                    <WellnessHub brainTime={readingDuration} />
                 </div>
             </div>
         </div>
