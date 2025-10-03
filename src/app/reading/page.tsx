@@ -19,16 +19,106 @@ const readingData = Array.from({ length: 12 }, (_, i) => ({
 }));
 
 const quotes = [
-  { quote: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.", author: "Dr. Seuss" },
-  { quote: "A reader lives a thousand lives before he dies . . . The man who never reads lives only one.", author: "George R.R. Martin" },
-  { quote: "There is no friend as loyal as a book.", author: "Ernest Hemingway" },
-  { quote: "I have always imagined that Paradise will be a kind of library.", author: "Jorge Luis Borges" },
-  { quote: "You can never get a cup of tea large enough or a book long enough to suit me.", author: "C.S. Lewis" },
-  { quote: "Reading is essential for those who seek to rise above the ordinary.", author: "Jim Rohn" },
-  { quote: "Think before you speak. Read before you think.", author: "Fran Lebowitz" },
-  { quote: "A book is a dream that you hold in your hands.", author: "Neil Gaiman" },
-  { quote: "The reading of all good books is like a conversation with the finest minds of past centuries.", author: "René Descartes" },
-  { quote: "Books are a uniquely portable magic.", author: "Stephen King" },
+    { quote: "Menulis adalah bekerja untuk keabadian.", author: "Pramoedya Ananta Toer" },
+    { quote: "Orang boleh pandai setinggi langit, tapi selama ia tidak menulis, ia akan hilang di dalam masyarakat dan dari sejarah.", author: "Pramoedya Ananta Toer" },
+    { quote: "Bermimpilah, karena Tuhan akan memeluk mimpi-mimpimu.", author: "Andrea Hirata" },
+    { quote: "Hidup ini singkat, jangan sia-siakan waktumu untuk hal yang tidak kamu sukai.", author: "Andrea Hirata" },
+    { quote: "Cinta mungkin buta, tapi kadang, untuk bisa melihatnya dengan jelas, kita hanya butuh kacamata yang pas.", author: "Dewi Lestari" },
+    { quote: "Setiap kisah cinta adalah sebuah semesta kecil.", author: "Dewi Lestari" },
+    { quote: "Seperti dendam, rindu harus dibayar tuntas.", author: "Eka Kurniawan" },
+    { quote: "Kecantikan hanyalah kulit luar. Yang penting adalah apa yang ada di dalam.", author: "Eka Kurniawan" },
+    { quote: "Jangan pernah meremehkan kekuatan doa. Bahkan di saat kita merasa tidak pantas.", author: "Tere Liye" },
+    { quote: "Hidup harus terus berlanjut, tidak peduli seberapa menyakitkan atau membahagiakan, biar waktu yang menjadi obat.", author: "Tere Liye" },
+    { quote: "Aku ingin mencintaimu dengan sederhana.", author: "Sapardi Djoko Damono" },
+    { quote: "Yang fana adalah waktu. Kita abadi.", author: "Sapardi Djoko Damono" },
+    { quote: "Alangkah mengerikannya menjadi tua dengan kenangan masa muda yang hanya berisi kemacetan lalu lintas.", author: "Seno Gumira Ajidarma" },
+    { quote: "Man jadda wajada. Siapa yang bersungguh-sungguh, akan berhasil.", author: "Ahmad Fuadi" },
+    { quote: "Banyak hal yang bisa menjatuhkanmu. Tapi satu-satunya hal yang benar-benar dapat menjatuhkanmu adalah sikapmu sendiri.", author: "R.A. Kartini" },
+    { quote: "Habis gelap terbitlah terang.", author: "R.A. Kartini" },
+    { quote: "Aku ini binatang jalang dari kumpulannya terbuang.", author: "Chairil Anwar" },
+    { quote: "Sekali berarti, sudah itu mati.", author: "Chairil Anwar" },
+    { quote: "Kebenaran akan terus hidup, sekalipun kau lenyapkan. Jangan berharap kebenaran akan mati.", author: "Wiji Thukul" },
+    { quote: "Pendidikan adalah senjata paling ampuh untuk mengubah dunia.", author: "Nelson Mandela (diadaptasi)" },
+    { quote: "Hidup adalah serangkaian pilihan. Pilihlah dengan bijak.", author: "Anonim" },
+    { quote: "Kegagalan adalah guru terbaik. Belajarlah darinya.", author: "Anonim" },
+    { quote: "Jangan menunggu kesempatan, ciptakanlah.", author: "Anonim" },
+    { quote: "Satu-satunya batasan adalah pikiranmu sendiri.", author: "Anonim" },
+    { quote: "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka.", author: "Eleanor Roosevelt (diadaptasi)" },
+    { quote: "Jadilah perubahan yang ingin kamu lihat di dunia.", author: "Mahatma Gandhi (diadaptasi)" },
+    { quote: "Membaca adalah jendela dunia.", author: "Anonim" },
+    { quote: "Buku adalah sahabat paling setia.", author: "Anonim" },
+    { quote: "Setiap lembar buku membawa petualangan baru.", author: "Anonim" },
+    { quote: "Dengan membaca, kau tak akan pernah merasa sendirian.", author: "Anonim" },
+    { quote: "Ilmu adalah cahaya yang menerangi kegelapan.", author: "Anonim" },
+    { quote: "Berani melangkah adalah awal dari sebuah perjalanan besar.", author: "Anonim" },
+    { quote_id: 33, quote: "Jangan takut salah, karena dari kesalahan kita belajar.", author: "Anonim" },
+    { quote_id: 34, quote: "Konsistensi adalah kunci kesuksesan.", author: "Anonim" },
+    { quote_id: 35, quote: "Kesabaran adalah seni dalam berharap.", author: "Anonim" },
+    { quote_id: 36, quote: "Cinta kepada sesama adalah wujud cinta kepada Tuhan.", author: "Gus Dur" },
+    { quote_id: 37, quote: "Tuhan tidak akan mengubah nasib suatu bangsa sebelum bangsa itu mengubah nasibnya sendiri.", author: "Soekarno" },
+    { quote_id: 38, quote: "Beri aku 1.000 orang tua, niscaya akan kucabut semeru dari akarnya. Beri aku 10 pemuda niscaya akan kuguncangkan dunia.", author: "Soekarno" },
+    { quote_id: 39, quote: "Lebih baik kita hancur lebur daripada tidak merdeka.", author: "Bung Tomo" },
+    { quote_id: 40, quote: "Kemerdekaan hanyalah didapat dan dimiliki oleh bangsa yang jiwanya berkobar-kobar dengan tekad 'Merdeka, merdeka atau mati'!", author: "Jenderal Soedirman" },
+    { quote_id: 41, quote: "Terkadang, kesulitan harus kamu rasakan terlebih dahulu sebelum kebahagiaan yang sempurna datang kepadamu.", author: "R.A. Kartini" },
+    { quote_id: 42, quote: "Cita-cita persatuan Indonesia itu bukan omong kosong, tetapi benar-benar didukung oleh kekuatan-kekuatan yang timbul pada akar sejarah bangsa kita sendiri.", author: "Mohammad Yamin" },
+    { quote_id: 43, quote: "Kurang cerdas dapat diperbaiki dengan belajar, kurang cakap dapat dihilangkan dengan pengalaman. Namun tidak jujur itu sulit diperbaiki.", author: "Mohammad Hatta" },
+    { quote_id: 44, quote: "Jatuh bangunnya negara ini, sangat tergantung dari bangsa ini sendiri.", author: "Mohammad Hatta" },
+    { quote_id: 45, quote: "Pahlawan yang setia itu berkorban, bukan buat dikenal namanya, tetapi semata-mata untuk membela cita-cita.", author: "Mohammad Hatta" },
+    { quote_id: 46, quote: "Keberanian bukanlah ketidakhadiran rasa takut, melainkan kemenangan atasnya.", author: "Nelson Mandela (diadaptasi)" },
+    { quote_id: 47, quote: "Masa lalu adalah pelajaran, masa kini adalah kenyataan, dan masa depan adalah harapan.", author: "Anonim" },
+    { quote_id: 48, quote: "Hargai waktu, karena waktu tidak akan pernah kembali.", author: "Anonim" },
+    { quote_id: 49, quote: "Kejujuran adalah mata uang yang berlaku di mana saja.", author: "Anonim" },
+    { quote_id: 50, quote: "Senyum adalah ibadah termudah.", author: "Anonim" },
+    { quote_id: 51, quote: "Berpikir positif akan membawamu pada hasil yang positif.", author: "Anonim" },
+    { quote_id: 52, quote: "Jangan biarkan hari kemarin menyita terlalu banyak hari ini.", author: "Will Rogers (diadaptasi)" },
+    { quote_id: 53, quote: "Hidup itu seperti bersepeda. Untuk menjaga keseimbangan, kamu harus terus bergerak.", author: "Albert Einstein (diadaptasi)" },
+    { quote_id: 54, quote: "Dalam setiap kesulitan, selalu ada kesempatan.", author: "Anonim" },
+    { quote_id: 55, quote: "Jadilah dirimu sendiri, orang lain sudah ada.", author: "Oscar Wilde (diadaptasi)" },
+    { quote_id: 56, quote: "Keindahan sejati terpancar dari hati yang baik.", author: "Anonim" },
+    { quote_id: 57, quote: "Doa adalah senjata orang beriman.", author: "Anonim" },
+    { quote_id: 58, quote: "Kebersihan adalah sebagian dari iman.", author: "Hadis" },
+    { quote_id: 59, quote: "Setiap langkah adalah sebuah awal yang baru.", author: "Anonim" },
+    { quote_id: 60, quote: "Belajar sepanjang hayat.", author: "Anonim" },
+    { quote_id: 61, quote: "Kata-kata memiliki kekuatan untuk membangun dan meruntuhkan.", author: "Anonim" },
+    { quote_id: 62, quote: "Sastra adalah cara kita memahami dunia dengan lebih dalam.", author: "Goenawan Mohamad" },
+    { quote_id: 63, quote: "Puisi adalah napas kata-kata.", author: "Joko Pinurbo" },
+    { quote_id: 64, quote: "Di dalam sajak, aku menemukan diriku yang lain.", author: "Joko Pinurbo" },
+    { quote_id: 65, quote: "Sejarah adalah cermin bagi generasi masa kini dan masa depan.", author: "Sartono Kartodirdjo" },
+    { quote_id: 66, quote: "Memahami sejarah adalah memahami jati diri bangsa.", author: "Sartono Kartodirdjo" },
+    { quote_id: 67, quote: "Kopi pertama pagi ini: pahit, seperti rindu yang tak sampai.", author: "Fiersa Besari" },
+    { quote_id: 68, quote: "Beberapa orang tinggal dalam hidupmu agar kau belajar, beberapa pergi agar kau lebih bijaksana.", author: "Fiersa Besari" },
+    { quote_id: 69, quote: "Humor adalah cara Tuhan menghibur kita di tengah keseriusan dunia.", author: "Abdurrahman Wahid (Gus Dur)" },
+    { quote_id: 70, quote: "Perbedaan adalah rahmat.", author: "Abdurrahman Wahid (Gus Dur)" },
+    { quote_id: 71, quote: "Seni adalah kebohongan yang membuat kita menyadari kebenaran.", author: "Pablo Picasso (diadaptasi)" },
+    { quote_id: 72, quote: "Musik adalah bahasa universal umat manusia.", author: "Henry Wadsworth Longfellow (diadaptasi)" },
+    { quote_id: 73, quote: "Tawa adalah musik terindah dari jiwa.", author: "Anonim" },
+    { quote_id: 74, quote: "Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan.", author: "Anonim" },
+    { quote_id: 75, quote: "Kebaikan adalah investasi yang tak pernah merugi.", author: "Anonim" },
+    { quote_id: 76, quote: "Berbagi tidak akan membuatmu miskin.", author: "Anonim" },
+    { quote_id: 77, quote: "Syukur adalah kunci pintu kebahagiaan.", author: "Anonim" },
+    { quote_id: 78, quote: "Setiap hari adalah kesempatan kedua.", author: "Anonim" },
+    { quote_id: 79, quote: "Fokus pada tujuan, abaikan gangguan.", author: "Anonim" },
+    { quote_id: 80, quote: "Kerja keras mengalahkan bakat ketika bakat tidak bekerja keras.", author: "Tim Notke (diadaptasi)" },
+    { quote_id: 81, quote: "Keberanian adalah awal dari kemenangan.", author: "Anonim" },
+    { quote_id: 82, quote: "Waktu adalah aset paling berharga. Gunakan dengan bijak.", author: "Anonim" },
+    { quote_id: 83, quote: "Impian tidak akan terwujud dengan sendirinya, butuh aksi nyata.", author: "Anonim" },
+    { quote_id: 84, quote: "Jadilah versi terbaik dari dirimu sendiri.", author: "Anonim" },
+    { quote_id: 85, quote: "Kesalahan adalah bukti bahwa kamu sedang mencoba.", author: "Anonim" },
+    { quote_id: 86, quote: "Jangan bandingkan dirimu dengan orang lain. Bandingkan dengan dirimu yang kemarin.", author: "Anonim" },
+    { quote_id: 87, quote: "Rintangan adalah ujian untuk melihat seberapa besar keinginanmu.", author: "Anonim" },
+    { quote_id: 88, quote: "Berpikir besar, mulai dari yang kecil.", author: "Anonim" },
+    { quote_id: 89, quote: "Lingkungan yang baik akan membentuk karakter yang baik.", author: "Anonim" },
+    { quote_id: 90, quote: "Kesehatan adalah kekayaan yang sesungguhnya.", author: "Anonim" },
+    { quote_id: 91, quote: "Cinta sejati adalah ketika dua jiwa saling menyempurnakan.", author: "Anonim" },
+    { quote_id: 92, quote: "Keluarga adalah tempat di mana hidup dimulai dan cinta tak pernah berakhir.", author: "Anonim" },
+    { quote_id: 93, quote: "Sahabat adalah saudara yang kita pilih sendiri.", author: "Anonim" },
+    { quote_id: 94, quote: "Maafkanlah, agar hatimu damai.", author: "Anonim" },
+    { quote_id: 95, quote: "Ikhlas adalah puncak tertinggi dari ilmu.", author: "Anonim" },
+    { quote_id: 96, quote: "Percaya pada proses, nikmati perjalanannya.", author: "Anonim" },
+    { quote_id: 97, quote: "Setiap awan gelap pasti memiliki sisi terang.", author: "Anonim" },
+    { quote_id: 98, quote: "Hidup ini indah jika kita tahu cara menikmatinya.", author: "Anonim" },
+    { quote_id: 99, quote: "Teruslah bergerak maju, jangan pernah menyerah.", author: "Anonim" },
+    { quote_id: 100, quote: "Jadilah cahaya, bahkan dalam kegelapan.", author: "Anonim" }
 ];
 
 const scientificSources = [
@@ -103,7 +193,7 @@ export default function ReadingPage() {
                             ))}
                         </CarouselContent>
                         <CarouselPrevious className="-left-4" />
-                        <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2" />
+                        <CarouselNext className="absolute -right-4 top-[-1.5rem]"/>
                     </Carousel>
                      <Accordion type="single" collapsible className="w-full mt-6">
                         <AccordionItem value="sources">
@@ -131,11 +221,11 @@ export default function ReadingPage() {
                     <CardTitle className="flex items-center gap-2"><Brain /> {t('brainTime')}</CardTitle>
                     <CardDescription>{t('brainTimeDescription')}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="book-title">{t('bookTitle')}</Label>
-                            <Input id="book-title" placeholder="e.g. Atomic Habits" />
+                            <Input id="book-title" placeholder="e.g., Sapiens" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="start-date">{t('startDate')}</Label>
@@ -146,28 +236,36 @@ export default function ReadingPage() {
                             <Input id="start-time" type="time" />
                         </div>
                     </div>
-                    <Button className="w-full sm:w-auto">{t('trackReading')}</Button>
-
-                    <div className="pt-4">
-                         <h4 className="text-center font-semibold mb-4">{t('readingHistory')}</h4>
-                         <ResponsiveContainer width="100%" height={250}>
-                            <LineChart data={readingData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="month" />
-                                <YAxis yAxisId="left" label={{ value: t('booksRead'), angle: -90, position: 'insideLeft' }} />
-                                <YAxis yAxisId="right" orientation="right" label={{ value: t('readingDuration'), angle: -90, position: 'insideRight' }} />
-                                <Tooltip />
-                                <Legend />
-                                <Line yAxisId="left" type="monotone" dataKey="books" name={t('booksRead')} stroke="hsl(var(--chart-1))" />
-                                <Line yAxisId="right" type="monotone" dataKey="duration" name={t('readingDuration')} stroke="hsl(var(--chart-2))" />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
+                    <Button className="w-full">{t('trackReading')}</Button>
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="history">
+                            <AccordionTrigger>
+                                <div className="flex items-center gap-2 font-semibold">
+                                    <LineChartIcon className="h-5 w-5" />
+                                    {t('readingHistory')}
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4">
+                                <ResponsiveContainer width="100%" height={250}>
+                                    <LineChart data={readingData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="month" />
+                                        <YAxis yAxisId="left" label={{ value: 'Books', angle: -90, position: 'insideLeft' }}/>
+                                        <YAxis yAxisId="right" orientation="right" label={{ value: 'Hours', angle: -90, position: 'insideRight' }}/>
+                                        <Tooltip />
+                                        <Legend />
+                                        <Line yAxisId="left" type="monotone" dataKey="books" name={t('booksRead')} stroke="hsl(var(--primary))" strokeWidth={2} />
+                                        <Line yAxisId="right" type="monotone" dataKey="duration" name={t('readingDuration')} stroke="hsl(var(--chart-2))" strokeWidth={2} />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </CardContent>
             </Card>
-            
-            <DeviceUsageBreak />
 
+            <DeviceUsageBreak />
         </div>
     );
 }
+    
