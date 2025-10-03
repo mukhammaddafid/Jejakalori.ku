@@ -22,15 +22,15 @@ function MacroBar({ label, consumed, goal, colorClass }: { label: string; consum
 
 export function MacroSummary({ protein, carbs, fat }: MacroSummaryProps) {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>Macronutrients</CardTitle>
-        <CardDescription>Your daily macro intake.</CardDescription>
+        <CardTitle>Makronutrien</CardTitle>
+        <CardDescription>Asupan makro harian Anda.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <MacroBar label="Protein" consumed={protein.consumed} goal={protein.goal} colorClass='hsl(var(--chart-1))' />
-        <MacroBar label="Carbohydrates" consumed={carbs.consumed} goal={carbs.goal} colorClass='hsl(var(--chart-2))' />
-        <MacroBar label="Fat" consumed={fat.consumed} goal={fat.goal} colorClass='hsl(var(--chart-3))' />
+        <MacroBar label="Karbohidrat" consumed={carbs.consumed} goal={carbs.goal} colorClass='hsl(var(--chart-2))' />
+        <MacroBar label="Lemak" consumed={fat.consumed} goal={fat.goal} colorClass='hsl(var(--chart-3))' />
       </CardContent>
     </Card>
   );

@@ -41,10 +41,10 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bot className="h-5 w-5" />
-          <span>AI Daily Summary</span>
+          <span>Ringkasan Harian</span>
         </CardTitle>
         <CardDescription>
-          Get a personalized summary and suggestions for your day.
+          Dapatkan ringkasan dan saran yang dipersonalisasi untuk hari Anda.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -60,23 +60,23 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
         ) : summary ? (
           <div className="space-y-4 text-sm">
             <div>
-              <h4 className="font-semibold">Summary</h4>
+              <h4 className="font-semibold">Ringkasan</h4>
               <p className="text-muted-foreground">{summary}</p>
             </div>
             <div>
-              <h4 className="font-semibold">Suggestions for Tomorrow</h4>
+              <h4 className="font-semibold">Saran untuk Besok</h4>
               <p className="text-muted-foreground">{suggestions}</p>
             </div>
           </div>
         ) : (
           <div className="text-center text-muted-foreground py-8">
-            <p>Click the button to generate your daily analysis.</p>
+            <p>Klik tombol untuk menghasilkan analisis harian Anda.</p>
           </div>
         )}
 
         <Button onClick={handleGenerateSummary} disabled={isLoading} className="w-full bg-primary hover:bg-primary/90">
           <Sparkles className="mr-2 h-4 w-4" />
-          {isLoading ? 'Generating...' : 'Generate My Summary'}
+          {isLoading ? 'Membuat...' : 'Buat Ringkasan Saya'}
         </Button>
       </CardContent>
     </Card>

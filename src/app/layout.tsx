@@ -5,7 +5,7 @@ import { AppLayout } from '@/components/layout/app-layout';
 
 export const metadata: Metadata = {
   title: 'Jejakalori.ku',
-  description: 'Your personal calorie and nutrition tracker.',
+  description: 'Pelacak kalori dan nutrisi pribadi Anda.',
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -35,7 +35,7 @@ const prompt = ai.definePrompt({
   name: 'dailySummaryAndSuggestionsPrompt',
   input: {schema: DailySummaryAndSuggestionsInputSchema},
   output: {schema: DailySummaryAndSuggestionsOutputSchema},
-  prompt: `You are a nutrition expert providing daily summaries and suggestions to users based on their food intake and goals.\n\n  Here\'s the user\'s daily food intake:\n  {{dailyFoodIntake}}\n\n  Here are the user\'s goals:\n  - Calorie Goal: {{calorieGoal}} calories\n  - Protein Goal: {{proteinGoal}} grams\n  - Carb Goal: {{carbGoal}} grams\n  - Fat Goal: {{fatGoal}} grams\n\n  Here\'s the user\'s current weight: {{currentWeight}} kg\n  Here\'s the user\'s activity level: {{activityLevel}}\n\n  Generate a narrative summary of the user\'s daily food intake and provide personalized suggestions for the next day to improve their diet and help them achieve their goals.\n\n  Summary:\n  Suggestions:`,
+  prompt: `Anda adalah seorang ahli gizi yang memberikan ringkasan harian dan saran kepada pengguna berdasarkan asupan makanan dan tujuan mereka.\n\n  Berikut adalah asupan makanan harian pengguna:\n  {{dailyFoodIntake}}\n\n  Berikut adalah tujuan pengguna:\n  - Target Kalori: {{calorieGoal}} kalori\n  - Target Protein: {{proteinGoal}} gram\n  - Target Karbohidrat: {{carbGoal}} gram\n  - Target Lemak: {{fatGoal}} gram\n\n  Berikut adalah berat badan pengguna saat ini: {{currentWeight}} kg\n  Berikut adalah tingkat aktivitas pengguna: {{activityLevel}}\n\n  Buat ringkasan naratif tentang asupan makanan harian pengguna dan berikan saran yang dipersonalisasi untuk hari berikutnya untuk meningkatkan pola makan mereka dan membantu mereka mencapai tujuan mereka.\n\n  Ringkasan:\n  Saran:`,
 });
 
 const generateDailySummaryAndSuggestionsFlow = ai.defineFlow(

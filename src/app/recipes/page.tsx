@@ -5,9 +5,9 @@ export default function RecipesPage() {
   return (
     <div className="p-4 sm:p-6 space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold font-headline">Recipe Calculator</h1>
+        <h1 className="text-2xl font-bold font-headline">Kalkulator Resep</h1>
         <p className="text-muted-foreground">
-          Build your own recipes and instantly see the nutritional breakdown.
+          Buat resep Anda sendiri dan lihat rincian nutrisinya secara instan.
         </p>
       </div>
       

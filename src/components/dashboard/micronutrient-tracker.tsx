@@ -44,29 +44,29 @@ export function MicronutrientTracker({ log }: MicronutrientTrackerProps) {
     <Card className="relative overflow-hidden">
       <CardHeader>
         <div className="flex items-center justify-between">
-            <CardTitle>Micronutrients</CardTitle>
+            <CardTitle>Mikronutrien</CardTitle>
             <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 <ShieldCheck className="h-4 w-4" />
                 <span>Premium</span>
             </div>
         </div>
-        <CardDescription>Track key vitamins and minerals.</CardDescription>
+        <CardDescription>Lacak vitamin dan mineral utama.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <MicroBar label="Fiber" unit="g" consumed={totals.fiber} goal={micronutrientGoals.fiber} />
-            <MicroBar label="Iron" unit="mg" consumed={totals.iron} goal={micronutrientGoals.iron} />
-            <MicroBar label="Calcium" unit="mg" consumed={totals.calcium} goal={micronutrientGoals.calcium} />
+            <MicroBar label="Serat" unit="g" consumed={totals.fiber} goal={micronutrientGoals.fiber} />
+            <MicroBar label="Zat Besi" unit="mg" consumed={totals.iron} goal={micronutrientGoals.iron} />
+            <MicroBar label="Kalsium" unit="mg" consumed={totals.calcium} goal={micronutrientGoals.calcium} />
             <MicroBar label="Vitamin C" unit="mg" consumed={totals.vitaminC} goal={micronutrientGoals.vitaminC} />
         </div>
         <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="text-center p-4">
                 <Zap className="mx-auto h-12 w-12 text-primary" />
-                <h3 className="mt-2 text-lg font-semibold">Unlock Full Tracking</h3>
+                <h3 className="mt-2 text-lg font-semibold">Buka Pelacakan Penuh</h3>
                 <p className="mt-1 text-sm text-muted-foreground">
-                    Upgrade to Premium to track 12+ micronutrients and get detailed insights.
+                    Tingkatkan ke Premium untuk melacak 12+ mikronutrien dan dapatkan wawasan terperinci.
                 </p>
-                <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Upgrade Now</Button>
+                <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Tingkatkan Sekarang</Button>
             </div>
         </div>
       </CardContent>

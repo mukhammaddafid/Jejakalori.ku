@@ -25,6 +25,13 @@ interface FoodLogProps {
   initialLog: DailyLog;
 }
 
+const mealNames: { [key in MealName]: string } = {
+  breakfast: 'Sarapan',
+  lunch: 'Makan Siang',
+  dinner: 'Makan Malam',
+  snacks: 'Camilan',
+};
+
 const mealIcons = {
   breakfast: <Sandwich className="h-5 w-5 mr-2" />,
   lunch: <Utensils className="h-5 w-5 mr-2" />,
@@ -47,8 +54,8 @@ export function FoodLog({ initialLog }: FoodLogProps) {
     });
     setOpenDialog(false);
     toast({
-      title: 'Food Added',
-      description: `${mealLog.servings} x ${mealLog.food.name} added to ${currentMeal}.`,
+      title: 'Makanan Ditambahkan',
+      description: `${mealLog.servings} x ${mealLog.food.name} ditambahkan ke ${mealNames[currentMeal]}.`,
     });
   };
 
@@ -60,7 +67,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Today's Log</CardTitle>
+        <CardTitle>Catatan Hari Ini</CardTitle>
       </CardHeader>
       <CardContent>
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
@@ -70,7 +77,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                 <AccordionTrigger className="text-lg font-semibold capitalize">
                   <div className="flex items-center">
                     {mealIcons[mealName]}
-                    {mealName}
+                    {mealNames[mealName]}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -80,17 +87,17 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                         <div key={index} className="flex justify-between items-center p-2 rounded-md bg-secondary">
                           <div>
                             <p className="font-medium">{item.food.name}</p>
-                            <p className="text-sm text-muted-foreground">{item.servings} serving(s)</p>
+                            <p className="text-sm text-muted-foreground">{item.servings} porsi</p>
                           </div>
-                          <p className="font-mono text-sm">{Math.round(item.food.calories * item.servings)} kcal</p>
+                          <p className="font-mono text-sm">{Math.round(item.food.calories * item.servings)} kkal</p>
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-muted-foreground text-center py-4">No food logged for {mealName} yet.</p>
+                      <p className="text-sm text-muted-foreground text-center py-4">Belum ada makanan yang dicatat untuk {mealNames[mealName]}.</p>
                     )}
                     <DialogTrigger asChild>
                       <Button variant="ghost" className="w-full mt-2" onClick={() => openAddFoodDialog(mealName)}>
-                        <Plus className="mr-2 h-4 w-4" /> Add Food
+                        <Plus className="mr-2 h-4 w-4" /> Tambah Makanan
                       </Button>
                     </DialogTrigger>
                   </div>
@@ -101,7 +108,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
 
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Add food to {currentMeal}</DialogTitle>
+              <DialogTitle>Tambah makanan ke {mealNames[currentMeal]}</DialogTitle>
             </DialogHeader>
             <FoodSearch onAddFood={handleAddFood} />
           </DialogContent>

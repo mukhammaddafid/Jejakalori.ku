@@ -20,10 +20,10 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
   ];
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col w-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Calories</CardTitle>
-        <Flame className="h-4 w-4 text-muted-foreground" />
+        <CardTitle className="text-sm font-medium">Kalori</CardTitle>
+        <Flame className="h-4 w-4 text-primary" />
       </CardHeader>
       <CardContent className="flex flex-1 flex-col items-center justify-center gap-4">
         <div className="relative h-32 w-32">
@@ -45,14 +45,14 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
           </ChartContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <p className="text-2xl font-bold font-headline">{consumed}</p>
-            <p className="text-xs text-muted-foreground">Consumed</p>
+            <p className="text-xs text-muted-foreground">Terkonsumsi</p>
           </div>
         </div>
         <div className="text-center">
           <p className="text-lg font-semibold">{goal}</p>
-          <p className="text-sm text-muted-foreground">Daily Goal</p>
+          <p className="text-sm text-muted-foreground">Target Harian</p>
         </div>
-        <p className="text-xs text-muted-foreground">{remaining >= 0 ? `${remaining} kcal remaining` : `${Math.abs(remaining)} kcal over`}</p>
+        <p className="text-xs text-muted-foreground">{remaining >= 0 ? `${remaining} kkal tersisa` : `${Math.abs(remaining)} kkal berlebih`}</p>
       </CardContent>
     </Card>
   );

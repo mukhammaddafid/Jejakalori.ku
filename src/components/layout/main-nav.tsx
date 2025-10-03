@@ -18,17 +18,17 @@ import {
 const menuItems = [
   {
     href: '/',
-    label: 'Dashboard',
+    label: 'Dasbor',
     icon: LayoutDashboard,
   },
   {
     href: '/recipes',
-    label: 'Recipes',
+    label: 'Resep',
     icon: ChefHat,
   },
   {
     href: '/profile',
-    label: 'Profile',
+    label: 'Profil',
     icon: User,
   },
 ];
