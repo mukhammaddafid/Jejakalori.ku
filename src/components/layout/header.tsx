@@ -76,6 +76,24 @@ export function Header() {
           </DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
+              <ImageIcon className="mr-2 h-4 w-4" />
+              <span>Change Avatar</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
+                  <DropdownMenuRadioItem value="initials">Initials</DropdownMenuRadioItem>
+                  {avatarPlaceholders.map(avatar => (
+                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
+                      {avatar.description}
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
               <Smartphone className="mr-2 h-4 w-4" />
               <span>{t('theme')}</span>
             </DropdownMenuSubTrigger>
@@ -93,23 +111,6 @@ export function Header() {
                   <Smartphone className="mr-2 h-4 w-4" />
                   <span>Mobile</span>
                 </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <ImageIcon className="mr-2 h-4 w-4" />
-              <span>Change Avatar</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
-                  {avatarPlaceholders.map(avatar => (
-                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
-                      {avatar.description}
-                    </DropdownMenuRadioItem>
-                  ))}
-                </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
