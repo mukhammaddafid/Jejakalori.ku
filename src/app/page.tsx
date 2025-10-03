@@ -44,7 +44,7 @@ function calculateTotals(log: DailyLog): NutrientTotals {
   return totals;
 }
 
-function PremiumFeatureCard({ icon, title, description, buttonText }: { icon: React.ReactNode, title: string, description: string, buttonText: string }) {
+function PremiumFeatureCard({ icon, title, description, children }: { icon: React.ReactNode, title: string, description: string, children: React.ReactNode }) {
   return (
     <Card className="relative overflow-hidden">
        <CardHeader>
@@ -55,17 +55,10 @@ function PremiumFeatureCard({ icon, title, description, buttonText }: { icon: Re
                 <span>Premium</span>
             </div>
         </div>
+         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-            <div className="text-center p-4">
-                <h3 className="mt-2 text-lg font-semibold">Buka Fitur Ini</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                    {description}
-                </p>
-                <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">{buttonText}</Button>
-            </div>
-        </div>
+        {children}
       </CardContent>
     </Card>
   );
@@ -105,15 +98,21 @@ export default function DashboardPage() {
           <PremiumFeatureCard 
             icon={<Dumbbell/>}
             title="Rencana Latihan AI"
-            description="Dapatkan rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda."
-            buttonText="Tingkatkan ke Premium"
-          />
+            description="Rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda."
+          >
+            <div className="text-center p-4 text-muted-foreground">
+                <p>Fitur ini sedang dalam pengembangan.</p>
+            </div>
+          </PremiumFeatureCard>
           <PremiumFeatureCard 
             icon={<BrainCircuit />}
             title="Analisis Kebiasaan"
-            description="AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam tentang kebiasaan Anda."
-            buttonText="Tingkatkan ke Premium"
-          />
+            description="AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam."
+          >
+             <div className="text-center p-4 text-muted-foreground">
+                <p>Fitur ini sedang dalam pengembangan.</p>
+            </div>
+          </PremiumFeatureCard>
         </div>
       </div>
     </div>
