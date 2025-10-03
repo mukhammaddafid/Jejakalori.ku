@@ -80,9 +80,9 @@
     },
     {
       "id": "welcome-hero",
-      "description": "A simple, 2D illustration of a character meditating, representing a healthy and mindful lifestyle.",
-      "imageUrl": "https://images.unsplash.com/photo-1617933612810-1d88b0b00c35?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHwyZCUyMGNoYXJhY3RlciUyMGZpdG5lc3MlMjBpbGx1c3RyYXRpb258ZW58MHx8fHwxNzYwNDAwNzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "2d illustration"
+      "description": "A simple, modern, and energetic illustration of a person running, conveying a healthy and active lifestyle.",
+      "imageUrl": "https://images.unsplash.com/photo-1533681018255-635b2365a6f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMHJ1bm5pbmclMjBpbGx1c3RyYXRpb258ZW58MHx8fHwxNzYxMDcwODQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "energetic illustration"
     }
   ]
 }
