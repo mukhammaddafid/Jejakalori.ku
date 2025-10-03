@@ -5,11 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, Shield, Goal, Award, Star, Diamond, Zap, BookOpen, ChevronDown, CheckSquare, Target, Calendar } from 'lucide-react';
+import { Trophy, Shield, Award, Star, Diamond, Zap, BookOpen, CheckSquare, Target, Calendar, Flame } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
 
 const tiers = [
   { name: 'Bronze', color: 'text-yellow-600', bgColor: 'bg-yellow-600/10', points: 0, icon: <Trophy className="h-5 w-5" /> },
@@ -72,27 +73,27 @@ const CountdownTimer = () => {
     );
 };
 
-const FortyWeekChallenge = () => {
+const FortyDegreeChallenge = () => {
     const { t } = useLanguage();
+    const [currentWeek, setCurrentWeek] = React.useState(5);
+    const progress = (currentWeek / 40) * 100;
+    
     return (
         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5" />
-                    {t('40WeekChallenge')}
+                    <Flame className="h-5 w-5 text-red-500" />
+                    {t('40thDegreeChallenge')}
                 </CardTitle>
                 <CardDescription>{t('40WeekChallengeDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-4">
-                    {Array.from({ length: 40 }, (_, i) => (
-                        <div key={i} className="flex items-center space-x-2">
-                            <Checkbox id={`week-${i + 1}`} />
-                            <Label htmlFor={`week-${i + 1}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                {t('week')} {i + 1}
-                            </Label>
-                        </div>
-                    ))}
+                 <div className="space-y-2">
+                    <Progress value={progress} className="h-2" />
+                    <div className="flex justify-between text-sm text-muted-foreground">
+                        <span>{t('week')} {currentWeek}</span>
+                        <span>{progress.toFixed(0)}% {t('complete')}</span>
+                    </div>
                 </div>
             </CardContent>
         </Card>
@@ -118,7 +119,7 @@ export default function LeaguesPage() {
                 <div className="lg:col-span-2 space-y-6">
                     <Card>
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2"><Goal /> {t('stepsAndTargets')}</CardTitle>
+                            <CardTitle className="flex items-center gap-2">{t('stepsAndTargets')}</CardTitle>
                             <CardDescription>{t('missionDescription')}</CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -139,7 +140,7 @@ export default function LeaguesPage() {
                             </Accordion>
                         </CardContent>
                     </Card>
-                    <FortyWeekChallenge />
+                    <FortyDegreeChallenge />
                     <Card>
                         <CardHeader className="flex flex-row items-start justify-between">
                             <div>
@@ -240,4 +241,6 @@ export default function LeaguesPage() {
         </div>
     );
 }
+    
+
     

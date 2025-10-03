@@ -253,6 +253,8 @@ export const translations = {
     challenge1: 'Log meals for 7 consecutive days',
     challenge2: 'Try 3 new healthy recipes',
     challenge3: 'Hit your protein goal 5 times',
+    '40thDegreeChallenge': '40th Degree Challenge',
+    complete: 'complete',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -512,10 +514,14 @@ export const translations = {
     challenge1: 'Catat makanan selama 7 hari berturut-turut',
     challenge2: 'Coba 3 resep sehat baru',
     challenge3: 'Capai target protein 5 kali',
+    '40thDegreeChallenge': 'Tantangan Tingkat 40',
+    complete: 'selesai',
   }
 };
 
 export type TranslationKey = keyof typeof translations['en'];
 
     
+    
+
     
