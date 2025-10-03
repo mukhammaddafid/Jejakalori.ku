@@ -33,15 +33,15 @@ export default function WelcomePage() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-4">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
-                    Transformasi Kesehatan Anda, Satu Langkah Setiap Hari
+                    Buka Potensi Sehatmu, Mulai Hari Ini!
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Jejakalori.ku adalah partner Anda dalam membangun kebiasaan sehat. Lacak asupan, pahami nutrisi, dan capai versi terbaik dari diri Anda.
+                    Setiap langkah kecil adalah kemenangan. Jejakalori.ku membantumu melacak, memahami, dan mengubah kebiasaan. Raih energimu kembali dan nikmati hidup yang lebih bugar.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                     <Link href="/login" passHref>
-                        <Button size="lg">Mulai Perjalanan Anda</Button>
+                        <Button size="lg">Mulai Transformasi Anda</Button>
                     </Link>
                 </div>
               </div>
