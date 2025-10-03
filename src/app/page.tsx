@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Flame, Moon, Sun, Globe } from 'lucide-react';
+import { Flame, Globe, Monitor, Tablet, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -79,6 +79,20 @@ export default function WelcomePage() {
                 </DropdownMenuContent>
               </DropdownMenu>
           </ClientOnly>
+           <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              <Monitor className="h-5 w-5" />
+              <span className="sr-only">Desktop</span>
+            </Button>
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              <Tablet className="h-5 w-5" />
+              <span className="sr-only">Tablet</span>
+            </Button>
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              <Smartphone className="h-5 w-5" />
+              <span className="sr-only">Mobile</span>
+            </Button>
+          </div>
           <Link href="/login" passHref>
             <Button>{t('signUp')}</Button>
           </Link>
