@@ -244,6 +244,15 @@ export const translations = {
     quote38: "Discipline is choosing between what you want now and what you want most.",
     quote39: "If you want something you've never had, you must be willing to do something you've never done.",
     quote40: "The body achieves what the mind believes.",
+    showMoreTiers: 'Show More Tiers',
+    week: 'Week',
+    '40WeekChallenge': '40-Week Consistency Challenge',
+    '40WeekChallengeDescription': 'Check off each week to build a powerful habit of consistency.',
+    weeklyChallenge: 'Weekly Challenge',
+    weeklyChallengeDescription: 'Complete these tasks for bonus points!',
+    challenge1: 'Log meals for 7 consecutive days',
+    challenge2: 'Try 3 new healthy recipes',
+    challenge3: 'Hit your protein goal 5 times',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -494,9 +503,19 @@ export const translations = {
     quote38: "Disiplin adalah memilih antara apa yang Anda inginkan sekarang dan apa yang paling Anda inginkan.",
     quote39: "Jika Anda menginginkan sesuatu yang belum pernah Anda miliki, Anda harus bersedia melakukan sesuatu yang belum pernah Anda lakukan.",
     quote40: "Tubuh mencapai apa yang diyakini pikiran.",
+    showMoreTiers: 'Tampilkan Lebih Banyak Tingkatan',
+    week: 'Minggu',
+    '40WeekChallenge': 'Tantangan Konsistensi 40 Minggu',
+    '40WeekChallengeDescription': 'Centang setiap minggu untuk membangun kebiasaan konsistensi yang kuat.',
+    weeklyChallenge: 'Tantangan Mingguan',
+    weeklyChallengeDescription: 'Selesaikan tugas-tugas ini untuk poin bonus!',
+    challenge1: 'Catat makanan selama 7 hari berturut-turut',
+    challenge2: 'Coba 3 resep sehat baru',
+    challenge3: 'Capai target protein 5 kali',
   }
 };
 
 export type TranslationKey = keyof typeof translations['en'];
 
+    
     

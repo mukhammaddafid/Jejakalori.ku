@@ -3,28 +3,13 @@
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { Trophy, Shield, Goal, Award, Star, Diamond, Zap, BookOpen, ChevronDown, CheckSquare, Target, Calendar } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import { motivationalQuotes } from '@/lib/data';
-import Image from 'next/image';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 const tiers = [
   { name: 'Bronze', color: 'text-yellow-600', bgColor: 'bg-yellow-600/10', points: 0, icon: <Trophy className="h-5 w-5" /> },
@@ -87,11 +72,37 @@ const CountdownTimer = () => {
     );
 };
 
+const FortyWeekChallenge = () => {
+    const { t } = useLanguage();
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    {t('40WeekChallenge')}
+                </CardTitle>
+                <CardDescription>{t('40WeekChallengeDescription')}</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-4">
+                    {Array.from({ length: 40 }, (_, i) => (
+                        <div key={i} className="flex items-center space-x-2">
+                            <Checkbox id={`week-${i + 1}`} />
+                            <Label htmlFor={`week-${i + 1}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                {t('week')} {i + 1}
+                            </Label>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
+    );
+};
+
 export default function LeaguesPage() {
     const { t } = useLanguage();
     const topTiers = tiers.slice().reverse().slice(0, 3);
     const otherTiers = tiers.slice().reverse().slice(3);
-    const quotes = motivationalQuotes(t);
 
     return (
         <div className="p-4 sm:p-6 space-y-6">
@@ -103,142 +114,130 @@ export default function LeaguesPage() {
                 <p className="text-muted-foreground">{t('consistencyLeagueDescription')}</p>
             </div>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Goal /> {t('stepsAndTargets')}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div>
-                        <h3 className="font-semibold flex items-center gap-2"><Info /> {t('yourMission')}</h3>
-                        <p className="text-muted-foreground">{t('missionDescription')}</p>
-                    </div>
-                     <Card>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 space-y-6">
+                    <Card>
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2"><GraduationCap /> {t('howToSucceed')}</CardTitle>
-                            <CardDescription>{t('howToSucceedDescription')}</CardDescription>
+                            <CardTitle className="flex items-center gap-2"><Goal /> {t('stepsAndTargets')}</CardTitle>
+                            <CardDescription>{t('missionDescription')}</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <Carousel className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-                                <CarouselContent>
-                                    {quotes.map((quote, index) => (
-                                    <CarouselItem key={index}>
-                                        <div className="p-1">
-                                        <Card>
-                                            <CardContent className="flex flex-col items-center justify-center p-6 aspect-square relative">
-                                                <div className="absolute top-2 right-2">
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent>
-                                                            <DropdownMenuItem>Share</DropdownMenuItem>
-                                                            <DropdownMenuItem>Set as Reminder</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </div>
-                                                <p className="text-sm font-semibold text-primary">{t('day')} {index + 1}</p>
-                                                <Image 
-                                                    src={`https://picsum.photos/seed/${100 + index}/100/100`}
-                                                    width={100}
-                                                    height={100}
-                                                    alt={`Motivation illustration ${index + 1}`}
-                                                    className="my-4 rounded-lg"
-                                                    data-ai-hint="motivation illustration"
-                                                />
-                                                <p className="text-base md:text-lg font-medium text-center">{quote}</p>
-                                            </CardContent>
-                                        </Card>
+                             <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="how-to-succeed">
+                                    <AccordionTrigger>
+                                        <div className="flex items-center gap-2 font-semibold">
+                                            <CheckSquare className="h-5 w-5" />
+                                            {t('howToSucceed')}
                                         </div>
-                                    </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                            </Carousel>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pt-4 space-y-2 text-muted-foreground">
+                                        <p>{t('succeedTip1')}</p>
+                                        <p>{t('succeedTip2')}</p>
+                                        <p>{t('succeedTip3')}</p>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
                         </CardContent>
                     </Card>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>{t('consistencyTiers')}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    {topTiers.map((tier) => (
-                        <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
-                                    <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
-                                </div>
-                                <span className="text-sm font-mono">{tier.points} {t('points')}</span>
+                    <FortyWeekChallenge />
+                    <Card>
+                        <CardHeader className="flex flex-row items-start justify-between">
+                            <div>
+                                <CardTitle>{t('leaderboard')}</CardTitle>
+                                <CardDescription>{t('leaderboardDescription')}</CardDescription>
                             </div>
-                        </div>
-                    ))}
-                     <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="more-tiers">
-                            <AccordionTrigger className="text-sm text-muted-foreground justify-center">
-                                Show More Tiers
-                            </AccordionTrigger>
-                            <AccordionContent className="space-y-4 pt-4">
-                                {otherTiers.map((tier) => (
-                                    <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-2">
-                                                {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
-                                                <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
-                                            </div>
-                                            <span className="text-sm font-mono">{tier.points} {t('points')}</span>
+                            <CountdownTimer />
+                        </CardHeader>
+                        <CardContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead className="w-[50px]">{t('rank')}</TableHead>
+                                        <TableHead>{t('user')}</TableHead>
+                                        <TableHead>{t('tier')}</TableHead>
+                                        <TableHead className="text-right">{t('points')}</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {leaderboardData.map(user => (
+                                        <TableRow key={user.rank} className={user.name === 'You' ? 'bg-primary/10' : ''}>
+                                            <TableCell className="font-bold">{user.rank}</TableCell>
+                                            <TableCell>{user.name}</TableCell>
+                                            <TableCell>
+                                                <Badge variant="outline" className={`border-0 ${tiers.find(t => t.name === user.tier)?.bgColor} ${tiers.find(t => t.name === user.tier)?.color}`}>
+                                                    {t(user.tier.toLowerCase() as any)}
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell className="text-right font-mono">{user.points}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>{t('consistencyTiers')}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {topTiers.map((tier) => (
+                                <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                            {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
+                                            <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
                                         </div>
+                                        <span className="text-sm font-mono">{tier.points} {t('points')}</span>
                                     </div>
-                                ))}
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader className="flex flex-row items-start justify-between">
-                    <div>
-                        <CardTitle>{t('leaderboard')}</CardTitle>
-                        <CardDescription>{t('leaderboardDescription')}</CardDescription>
-                    </div>
-                    <CountdownTimer />
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[50px]">{t('rank')}</TableHead>
-                                <TableHead>{t('user')}</TableHead>
-                                <TableHead>{t('tier')}</TableHead>
-                                <TableHead className="text-right">{t('points')}</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {leaderboardData.map(user => (
-                                <TableRow key={user.rank} className={user.name === 'You' ? 'bg-primary/10' : ''}>
-                                    <TableCell className="font-bold">{user.rank}</TableCell>
-                                    <TableCell>{user.name}</TableCell>
-                                    <TableCell>
-                                        <Badge variant="outline" className={`border-0 ${tiers.find(t => t.name === user.tier)?.bgColor} ${tiers.find(t => t.name === user.tier)?.color}`}>
-                                            {t(user.tier.toLowerCase() as any)}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell className="text-right font-mono">{user.points}</TableCell>
-                                </TableRow>
+                                </div>
                             ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
-
+                            <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="more-tiers">
+                                    <AccordionTrigger className="text-sm text-muted-foreground justify-center">
+                                        {t('showMoreTiers')}
+                                    </AccordionTrigger>
+                                    <AccordionContent className="space-y-4 pt-4">
+                                        {otherTiers.map((tier) => (
+                                            <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-2">
+                                                        {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
+                                                        <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
+                                                    </div>
+                                                    <span className="text-sm font-mono">{tier.points} {t('points')}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><Target /> {t('weeklyChallenge')}</CardTitle>
+                            <CardDescription>{t('weeklyChallengeDescription')}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox id="challenge1" defaultChecked />
+                                <Label htmlFor="challenge1">{t('challenge1')}</Label>
+                            </div>
+                             <div className="flex items-center space-x-2">
+                                <Checkbox id="challenge2" />
+                                <Label htmlFor="challenge2">{t('challenge2')}</Label>
+                            </div>
+                             <div className="flex items-center space-x-2">
+                                <Checkbox id="challenge3" />
+                                <Label htmlFor="challenge3">{t('challenge3')}</Label>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
         </div>
     );
 }
-
     
