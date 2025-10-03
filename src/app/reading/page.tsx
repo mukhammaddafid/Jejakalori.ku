@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Smartphone, BookOpen, Clock, Calendar, BarChart, LineChart as LineChartIcon, FileText, FlaskConical, Brain } from 'lucide-react';
+import { Smartphone, BookOpen, Clock, Calendar, BarChart, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,6 +9,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import Image from 'next/image';
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
   month: new Date(0, i).toLocaleString('default', { month: 'short' }),
@@ -84,7 +86,6 @@ export default function ReadingPage() {
                     <Carousel
                         opts={{
                             align: "start",
-                            loop: true,
                         }}
                         className="w-full"
                     >
@@ -101,8 +102,8 @@ export default function ReadingPage() {
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselPrevious className="ml-10" />
-                        <CarouselNext className="mr-10" />
+                        <CarouselPrevious className="-left-4" />
+                        <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2" />
                     </Carousel>
                      <Accordion type="single" collapsible className="w-full mt-6">
                         <AccordionItem value="sources">
