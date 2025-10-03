@@ -46,7 +46,6 @@ export function Header() {
   const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
   const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
 
-  const simpleAvatars = avatarPlaceholders.filter(a => a.id === 'user-avatar-1' || a.id === 'user-avatar-3');
   const badgeAvatar = avatarPlaceholders.find(a => a.id === 'user-avatar-2');
 
 
@@ -74,12 +73,6 @@ export function Header() {
           <DropdownMenuLabel>
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">{t('myAccount')}</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                {mockUserData.profile.name}
-              </p>
-              <p className="text-xs leading-none text-muted-foreground">
-                jane.doe@example.com
-              </p>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -98,12 +91,6 @@ export function Header() {
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
                   <DropdownMenuRadioItem value="initials">Initials</DropdownMenuRadioItem>
-                   <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Simple Style</DropdownMenuLabel>
-                  {simpleAvatars.map(avatar => (
-                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
-                      {avatar.description}
-                    </DropdownMenuRadioItem>
-                  ))}
                   <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Badge Style</DropdownMenuLabel>
                   {badgeAvatar && (
                     <DropdownMenuRadioItem key={badgeAvatar.id} value={badgeAvatar.id}>
