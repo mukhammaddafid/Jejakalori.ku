@@ -10,12 +10,15 @@ import { FoodLog } from '@/components/dashboard/food-log';
 import { WeeklyTrends } from '@/components/dashboard/weekly-trends';
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { ShieldCheck, Dumbbell, BrainCircuit, Zap } from 'lucide-react';
+import { Dumbbell, BrainCircuit, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Calendar } from '@/components/ui/calendar';
+import { addDays } from 'date-fns';
+import { PotentialCard } from '@/components/profile/potential-card';
 
 // Helper function to calculate totals
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -88,53 +91,89 @@ const PremiumFeatureWithTrial: React.FC<{
   };
 
   const isTrialEnded = trialEndDate && new Date() > trialEndDate;
+  const isFeatureLocked = !isTrialActive && (isTrialEnded || !trialEndDate);
+
 
   return (
     <Card className="relative overflow-hidden">
-      <CardHeader>
-        <div className="flex items-center justify-between">
+        <CardHeader>
             <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Premium</span>
+            <CardDescription>{description}</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+            {isTrialActive && !isTrialEnded && (
+                <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
+                    <p className="font-semibold text-primary">Uji Coba Premium Aktif</p>
+                    <p className="text-primary/80">{getTimeRemaining()}</p>
+                </div>
+            )}
+            {children}
+        </CardContent>
+        {isFeatureLocked && (
+            <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+                <div className="text-center p-4">
+                    <Zap className="mx-auto h-12 w-12 text-primary" />
+                    <h3 className="mt-2 text-lg font-semibold">Buka Fitur {title}</h3>
+                    {isTrialEnded ? (
+                        <>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                                Masa uji coba Anda telah berakhir. Tingkatkan untuk terus menggunakan fitur ini.
+                            </p>
+                            <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Tingkatkan ke Premium</Button>
+                        </>
+                    ) : (
+                        <>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                                Coba fitur ini GRATIS selama {trialDays} hari dan dapatkan wawasan penuh.
+                            </p>
+                            <Button onClick={startTrial} className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Mulai Uji Coba {trialDays} Hari</Button>
+                        </>
+                    )}
+                </div>
             </div>
-        </div>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {isTrialActive && 
-          <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
-            <p className="font-semibold text-primary">Uji Coba Premium Aktif</p>
-            <p className="text-primary/80">{getTimeRemaining()}</p>
-          </div>
-        }
-        {children}
-      </CardContent>
-      {(!isTrialActive && !trialEndDate || isTrialEnded) && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-            <div className="text-center p-4">
-                <Zap className="mx-auto h-12 w-12 text-primary" />
-                <h3 className="mt-2 text-lg font-semibold">Buka Fitur {title}</h3>
-                {isTrialEnded ? (
-                    <>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            Masa uji coba Anda telah berakhir. Tingkatkan untuk terus menggunakan fitur ini.
-                        </p>
-                        <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Tingkatkan ke Premium</Button>
-                    </>
-                ) : (
-                    <>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            Coba fitur ini GRATIS selama {trialDays} hari dan dapatkan wawasan penuh.
-                        </p>
-                        <Button onClick={startTrial} className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Mulai Uji Coba {trialDays} Hari</Button>
-                    </>
-                )}
-            </div>
-        </div>
         )}
     </Card>
   );
+};
+
+
+const AnalysisCalendar: React.FC<{ days: number }> = ({ days }) => {
+    const today = new Date();
+    const futureDate = addDays(today, days);
+  
+    return (
+      <div className="p-4 border-t">
+        <h4 className="text-center font-semibold mb-2">Jadwal Anda untuk {days} Hari ke Depan</h4>
+        <Calendar
+          mode="range"
+          selected={{ from: today, to: futureDate }}
+          numberOfMonths={1}
+          disabled
+          className="flex justify-center"
+        />
+      </div>
+    );
+};
+  
+const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: React.ReactNode, calendarDays: number }> = ({ title, buttonText, children, calendarDays }) => {
+    const [showCalendar, setShowCalendar] = React.useState(false);
+  
+    return (
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>
+            <span className="font-semibold">{title}</span>
+          </AccordionTrigger>
+          <AccordionContent className="space-y-4 pt-4">
+            {children}
+            <Button className="w-full" onClick={() => setShowCalendar(!showCalendar)}>
+              {showCalendar ? 'Sembunyikan Kalender' : buttonText}
+            </Button>
+            {showCalendar && <AnalysisCalendar days={calendarDays} />}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
 };
 
 export default function DashboardPage() {
@@ -164,6 +203,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <FoodLog initialLog={userData.log} />
+          <PotentialCard />
         </div>
 
         {/* Right Column */}
@@ -178,30 +218,22 @@ export default function DashboardPage() {
             trialDays={3}
             storageKey="habitAnalysisTrialEnd"
            >
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>
-                  <span className="font-semibold">Pilih Jenis Analisis</span>
-                </AccordionTrigger>
-                <AccordionContent className="space-y-4 pt-4">
-                    <RadioGroup defaultValue="pola-makan">
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="pola-makan" id="pola-makan" />
-                            <Label htmlFor="pola-makan">Analisis Pola Makan</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="waktu-makan" id="waktu-makan" />
-                            <Label htmlFor="waktu-makan">Analisis Waktu Makan</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="asupan-nutrisi" id="asupan-nutrisi" />
-                            <Label htmlFor="asupan-nutrisi">Analisis Asupan Nutrisi</Label>
-                        </div>
-                    </RadioGroup>
-                    <Button className="w-full">Mulai Analisis</Button>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <AnalysisFeature title="Pilih Jenis Analisis" buttonText="Mulai Analisis" calendarDays={21}>
+                <RadioGroup defaultValue="pola-makan">
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="pola-makan" id="pola-makan" />
+                        <Label htmlFor="pola-makan">Analisis Pola Makan</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="waktu-makan" id="waktu-makan" />
+                        <Label htmlFor="waktu-makan">Analisis Waktu Makan</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="asupan-nutrisi" id="asupan-nutrisi" />
+                        <Label htmlFor="asupan-nutrisi">Analisis Asupan Nutrisi</Label>
+                    </div>
+                </RadioGroup>
+            </AnalysisFeature>
            </PremiumFeatureWithTrial>
            <PremiumFeatureWithTrial
             icon={<Dumbbell />}
@@ -210,30 +242,22 @@ export default function DashboardPage() {
             trialDays={5}
             storageKey="workoutPlanTrialEnd"
            >
-            <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                    <AccordionTrigger>
-                        <span className="font-semibold">Pilih Tujuan Latihan</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="space-y-4 pt-4">
-                        <RadioGroup defaultValue="weight-loss">
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="weight-loss" id="weight-loss" />
-                                <Label htmlFor="weight-loss">Penurunan Berat Badan</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="muscle-gain" id="muscle-gain" />
-                                <Label htmlFor="muscle-gain">Peningkatan Massa Otot</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="stamina" id="stamina" />
-                                <Label htmlFor="stamina">Peningkatan Stamina</Label>
-                            </div>
-                        </RadioGroup>
-                        <Button className="w-full">Buat Rencana Latihan</Button>
-                    </AccordionContent>
-                </AccordionItem>
-            </Accordion>
+            <AnalysisFeature title="Pilih Tujuan Latihan" buttonText="Buat Rencana Latihan" calendarDays={30}>
+                <RadioGroup defaultValue="weight-loss">
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="weight-loss" id="weight-loss" />
+                        <Label htmlFor="weight-loss">Penurunan Berat Badan</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="muscle-gain" id="muscle-gain" />
+                        <Label htmlFor="muscle-gain">Peningkatan Massa Otot</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="stamina" id="stamina" />
+                        <Label htmlFor="stamina">Peningkatan Stamina</Label>
+                    </div>
+                </RadioGroup>
+            </AnalysisFeature>
            </PremiumFeatureWithTrial>
         </div>
       </div>

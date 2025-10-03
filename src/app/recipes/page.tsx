@@ -3,6 +3,7 @@ import * as React from 'react';
 import { RecipeCalculator } from '@/components/recipes/recipe-calculator';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { UtensilsCrossed, Soup } from 'lucide-react';
+import { PotentialCard } from '@/components/profile/potential-card';
 
 
 const mealPlanRecommendations = {
@@ -71,7 +72,7 @@ export default function RecipesPage() {
       
       <RecipeCalculator />
       <HealthyMealPlan />
+      <PotentialCard />
     </div>
   );
 }
-
