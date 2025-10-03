@@ -20,8 +20,8 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
 
   return (
     <Card className="flex flex-col w-full p-4">
-      <CardContent className="flex flex-1 flex-col items-center justify-between gap-4">
-        <div className="relative h-40 w-40">
+      <CardContent className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+        <div className="relative h-48 w-48">
           <ChartContainer config={{}} className="absolute inset-0">
             <RadialBarChart
               innerRadius="75%"
@@ -29,14 +29,14 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               data={chartData}
               startAngle={90}
               endAngle={450}
-              barSize={12}
-              maxBarSize={12}
+              barSize={16}
+              maxBarSize={16}
               domain={[0, goal]}
             >
               <RadialBar
                 dataKey="value"
                 background={{ fill: 'hsl(var(--muted))' }}
-                cornerRadius={6}
+                cornerRadius={8}
               />
               <Tooltip
                 cursor={{ fill: 'transparent' }}
@@ -56,13 +56,17 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               />
             </RadialBarChart>
           </ChartContainer>
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-             <span className="text-3xl font-bold font-headline text-primary">{Math.round(consumed)}</span>
-             <span className="text-xs text-muted-foreground">kkal</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <Flame className="h-10 w-10 text-primary" />
           </div>
         </div>
+
+        <div className="mt-6">
+             <span className="text-4xl font-bold font-headline text-primary">{Math.round(consumed)}</span>
+             <p className="text-sm text-muted-foreground">kkal</p>
+        </div>
         
-        <div className="w-full space-y-2 text-sm">
+        <div className="w-full space-y-2 text-sm text-left mt-4">
             <div className="flex items-center justify-between gap-2">
                 <div className='flex items-center gap-2 text-muted-foreground'>
                     <Target className="h-4 w-4" />
