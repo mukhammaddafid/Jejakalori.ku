@@ -22,12 +22,11 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
     <SidebarProvider defaultOpen={defaultOpen}>
       <Sidebar className="sticky top-0 h-svh">
         <SidebarHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center group-data-[state=collapsed]:justify-center">
             <div className="flex items-center gap-2 overflow-hidden">
               <Flame className="h-6 w-6 shrink-0 text-primary" />
               <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">Jejakalori.ku</span>
             </div>
-            <SidebarTrigger className="hidden md:flex" />
           </div>
         </SidebarHeader>
         <SidebarContent>
@@ -35,7 +34,9 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
         </SidebarContent>
         <SidebarFooter>
           <Separator className="my-2" />
-          <p className="p-2 text-xs text-muted-foreground group-data-[state=collapsed]:hidden">© 2024 Jejakalori.ku</p>
+          <div className="p-3 flex items-center justify-center">
+            <SidebarTrigger />
+          </div>
         </SidebarFooter>
       </Sidebar>
       <div className="flex flex-col flex-1">

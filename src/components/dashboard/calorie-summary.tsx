@@ -1,10 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import { Target, MinusCircle } from 'lucide-react';
+import { Target, MinusCircle, Flame } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
-import { RadialBar, RadialBarChart } from 'recharts';
+import { RadialBar, RadialBarChart, Tooltip } from 'recharts';
 
 interface CalorieSummaryProps {
   consumed: number;
@@ -16,32 +16,47 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
   const remaining = goal - consumed;
 
   const chartData = [
-    { name: 'Calories', value: percentage, fill: 'hsl(var(--primary))' },
+    { name: 'Terkonsumsi', value: consumed, fill: 'hsl(var(--primary))' },
   ];
 
   return (
     <Card className="flex flex-col w-full p-4">
       <CardContent className="flex flex-1 flex-col items-center justify-between gap-4">
-        <div className="relative h-28 w-28">
+        <div className="relative h-40 w-40">
           <ChartContainer config={{}} className="absolute inset-0">
             <RadialBarChart
-              innerRadius="80%"
+              innerRadius="75%"
               outerRadius="100%"
               data={chartData}
               startAngle={90}
               endAngle={450}
-              barSize={8}
+              barSize={12}
             >
               <RadialBar
                 dataKey="value"
                 background={{ fill: 'hsl(var(--muted))' }}
                 cornerRadius={5}
               />
+              <Tooltip
+                cursor={{ fill: 'transparent' }}
+                content={({ payload }) => {
+                  if (payload && payload.length > 0) {
+                    return (
+                      <div className="rounded-lg border bg-background p-2 shadow-sm">
+                        <div className="flex flex-col">
+                          <span className="text-[0.70rem] uppercase text-muted-foreground">Terkonsumsi</span>
+                          <span className="font-bold text-foreground">{`${Math.round(consumed)} kkal`}</span>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
             </RadialBarChart>
           </ChartContainer>
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center -mt-2">
-            <p className="text-3xl font-bold font-headline"></p>
-            <p className="text-xs text-muted-foreground"></p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+            <Flame className="h-10 w-10 text-primary" />
           </div>
         </div>
         
