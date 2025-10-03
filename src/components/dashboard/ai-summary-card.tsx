@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Bot, Sparkles } from 'lucide-react';
+import { BookOpen, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { UserData } from '@/lib/types';
@@ -42,7 +42,7 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Bot className="h-5 w-5" />
+          <BookOpen className="h-5 w-5" />
           <span>{t('dailySummary')}</span>
         </CardTitle>
         <CardDescription>
