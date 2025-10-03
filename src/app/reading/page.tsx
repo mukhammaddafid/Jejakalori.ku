@@ -232,11 +232,8 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                         </div>
                     </TabsContent>
                     <TabsContent value="deviceUsageBreak" className="space-y-4 pt-4">
+                         <p className="text-sm text-muted-foreground px-1">{t('deviceUsageBreakDescription')}</p>
                          <Tabs defaultValue="weekly">
-                            <TabsList className="grid w-full grid-cols-2">
-                                <TabsTrigger value="weekly">{t('weekly')}</TabsTrigger>
-                                <TabsTrigger value="monthly">{t('monthly')}</TabsTrigger>
-                            </TabsList>
                             <TabsContent value="weekly">
                                  <ChartContainer config={chartConfig} className="h-[200px] w-full">
                                     <RechartsBarChart data={screenTimeDataWeekly} accessibilityLayer>
@@ -259,8 +256,11 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                                     </RechartsBarChart>
                                 </ChartContainer>
                             </TabsContent>
+                            <TabsList className="grid w-full grid-cols-2 mt-4">
+                                <TabsTrigger value="weekly">{t('weekly')}</TabsTrigger>
+                                <TabsTrigger value="monthly">{t('monthly')}</TabsTrigger>
+                            </TabsList>
                         </Tabs>
-                        <Button className="w-full">{t('setBreakReminder')}</Button>
                     </TabsContent>
                 </Tabs>
             </CardContent>
