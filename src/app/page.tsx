@@ -69,14 +69,23 @@ function ChartCollage() {
     );
 }
 
-export default function WelcomePage() {
-  const { t, language, setLanguage } = useLanguage();
-  const [isClient, setIsClient] = React.useState(false);
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [hasMounted, setHasMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setIsClient(true);
+    setHasMounted(true);
   }, []);
 
+  if (!hasMounted) {
+    return null;
+  }
+
+  return <>{children}</>;
+}
+
+
+export default function WelcomePage() {
+  const { t, language, setLanguage } = useLanguage();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -86,8 +95,7 @@ export default function WelcomePage() {
           <span className="sr-only">{t('appName')}</span>
         </Link>
         <nav className="ml-auto flex items-center gap-2 sm:gap-4">
-          {isClient && (
-            <>
+          <ClientOnly>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon">
@@ -100,8 +108,7 @@ export default function WelcomePage() {
                 </DropdownMenuContent>
               </DropdownMenu>
               <ThemeToggle />
-            </>
-          )}
+          </ClientOnly>
           <Link href="/login" passHref>
             <Button>{t('signUp')}</Button>
           </Link>
