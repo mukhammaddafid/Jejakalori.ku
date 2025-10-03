@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { RecipeCalculator } from '@/components/recipes/recipe-calculator';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
