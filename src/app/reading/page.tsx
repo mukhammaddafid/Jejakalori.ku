@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Smartphone, BookOpen, Clock, Calendar, BarChart as BarChartIcon, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart, Activity } from 'lucide-react';
+import { Smartphone, BookOpen, Clock, Calendar, BarChart as BarChartIcon, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart as PieChartIcon, Activity, Dumbbell, Music, Code, Brush, CookingPot, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,106 +21,108 @@ const readingData = Array.from({ length: 12 }, (_, i) => ({
 }));
 
 const quotes = [
-    { quote: "Menulis adalah bekerja untuk keabadian.", author: "Pramoedya Ananta Toer" },
+    // 20 Indonesian Quotes
     { quote: "Orang boleh pandai setinggi langit, tapi selama ia tidak menulis, ia akan hilang di dalam masyarakat dan dari sejarah.", author: "Pramoedya Ananta Toer" },
     { quote: "Bermimpilah, karena Tuhan akan memeluk mimpi-mimpimu.", author: "Andrea Hirata" },
-    { quote: "Hidup ini singkat, jangan sia-siakan waktumu untuk hal yang tidak kamu sukai.", author: "Andrea Hirata" },
-    { quote: "Cinta mungkin buta, tapi kadang, untuk bisa melihatnya dengan jelas, kita hanya butuh kacamata yang pas.", author: "Dewi Lestari" },
-    { quote: "Setiap kisah cinta adalah sebuah semesta kecil.", author: "Dewi Lestari" },
     { quote: "Seperti dendam, rindu harus dibayar tuntas.", author: "Eka Kurniawan" },
-    { quote: "Kecantikan hanyalah kulit luar. Yang penting adalah apa yang ada di dalam.", author: "Eka Kurniawan" },
-    { quote: "Jangan pernah meremehkan kekuatan doa. Bahkan di saat kita merasa tidak pantas.", author: "Tere Liye" },
     { quote: "Hidup harus terus berlanjut, tidak peduli seberapa menyakitkan atau membahagiakan, biar waktu yang menjadi obat.", author: "Tere Liye" },
     { quote: "Aku ingin mencintaimu dengan sederhana.", author: "Sapardi Djoko Damono" },
-    { quote: "Yang fana adalah waktu. Kita abadi.", author: "Sapardi Djoko Damono" },
-    { quote: "Alangkah mengerikannya menjadi tua dengan kenangan masa muda yang hanya berisi kemacetan lalu lintas.", author: "Seno Gumira Ajidarma" },
     { quote: "Man jadda wajada. Siapa yang bersungguh-sungguh, akan berhasil.", author: "Ahmad Fuadi" },
-    { quote: "Banyak hal yang bisa menjatuhkanmu. Tapi satu-satunya hal yang benar-benar dapat menjatuhkanmu adalah sikapmu sendiri.", author: "R.A. Kartini" },
     { quote: "Habis gelap terbitlah terang.", author: "R.A. Kartini" },
     { quote: "Aku ini binatang jalang dari kumpulannya terbuang.", author: "Chairil Anwar" },
-    { quote: "Sekali berarti, sudah itu mati.", author: "Chairil Anwar" },
     { quote: "Kebenaran akan terus hidup, sekalipun kau lenyapkan. Jangan berharap kebenaran akan mati.", author: "Wiji Thukul" },
-    { quote: "Pendidikan adalah senjata paling ampuh untuk mengubah dunia.", author: "Nelson Mandela (diadaptasi)" },
-    { quote: "Hidup adalah serangkaian pilihan. Pilihlah dengan bijak.", author: "Anonim" },
-    { quote: "Kegagalan adalah guru terbaik. Belajarlah darinya.", author: "Anonim" },
-    { quote: "Jangan menunggu kesempatan, ciptakanlah.", author: "Anonim" },
-    { quote: "Satu-satunya batasan adalah pikiranmu sendiri.", author: "Anonim" },
-    { quote: "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka.", author: "Eleanor Roosevelt (diadaptasi)" },
-    { quote: "Jadilah perubahan yang ingin kamu lihat di dunia.", author: "Mahatma Gandhi (diadaptasi)" },
-    { quote: "Membaca adalah jendela dunia.", author: "Anonim" },
-    { quote: "Buku adalah sahabat paling setia.", author: "Anonim" },
-    { quote: "Setiap lembar buku membawa petualangan baru.", author: "Anonim" },
-    { quote: "Dengan membaca, kau tak akan pernah merasa sendirian.", author: "Anonim" },
-    { quote: "Ilmu adalah cahaya yang menerangi kegelapan.", author: "Anonim" },
-    { quote: "Berani melangkah adalah awal dari sebuah perjalanan besar.", author: "Anonim" },
-    { quote: "Jangan takut salah, karena dari kesalahan kita belajar.", author: "Anonim" },
-    { quote: "Konsistensi adalah kunci kesuksesan.", author: "Anonim" },
-    { quote: "Kesabaran adalah seni dalam berharap.", author: "Anonim" },
-    { quote: "Cinta kepada sesama adalah wujud cinta kepada Tuhan.", author: "Gus Dur" },
-    { quote: "Tuhan tidak akan mengubah nasib suatu bangsa sebelum bangsa itu mengubah nasibnya sendiri.", author: "Soekarno" },
     { quote: "Beri aku 1.000 orang tua, niscaya akan kucabut semeru dari akarnya. Beri aku 10 pemuda niscaya akan kuguncangkan dunia.", author: "Soekarno" },
-    { quote: "Lebih baik kita hancur lebur daripada tidak merdeka.", author: "Bung Tomo" },
-    { quote: "Kemerdekaan hanyalah didapat dan dimiliki oleh bangsa yang jiwanya berkobar-kobar dengan tekad 'Merdeka, merdeka atau mati'!", author: "Jenderal Soedirman" },
-    { quote: "Terkadang, kesulitan harus kamu rasakan terlebih dahulu sebelum kebahagiaan yang sempurna datang kepadamu.", author: "R.A. Kartini" },
-    { quote: "Cita-cita persatuan Indonesia itu bukan omong kosong, tetapi benar-benar didukung oleh kekuatan-kekuatan yang timbul pada akar sejarah bangsa kita sendiri.", author: "Mohammad Yamin" },
     { quote: "Kurang cerdas dapat diperbaiki dengan belajar, kurang cakap dapat dihilangkan dengan pengalaman. Namun tidak jujur itu sulit diperbaiki.", author: "Mohammad Hatta" },
-    { quote: "Jatuh bangunnya negara ini, sangat tergantung dari bangsa ini sendiri.", author: "Mohammad Hatta" },
     { quote: "Pahlawan yang setia itu berkorban, bukan buat dikenal namanya, tetapi semata-mata untuk membela cita-cita.", author: "Mohammad Hatta" },
-    { quote: "Keberanian bukanlah ketidakhadiran rasa takut, melainkan kemenangan atasnya.", author: "Nelson Mandela (diadaptasi)" },
-    { quote: "Masa lalu adalah pelajaran, masa kini adalah kenyataan, dan masa depan adalah harapan.", author: "Anonim" },
-    { quote: "Hargai waktu, karena waktu tidak akan pernah kembali.", author: "Anonim" },
-    { quote: "Kejujuran adalah mata uang yang berlaku di mana saja.", author: "Anonim" },
-    { quote: "Senyum adalah ibadah termudah.", author: "Anonim" },
-    { quote: "Berpikir positif akan membawamu pada hasil yang positif.", author: "Anonim" },
-    { quote: "Jangan biarkan hari kemarin menyita terlalu banyak hari ini.", author: "Will Rogers (diadaptasi)" },
-    { quote: "Hidup itu seperti bersepeda. Untuk menjaga keseimbangan, kamu harus terus bergerak.", author: "Albert Einstein (diadaptasi)" },
-    { quote: "Dalam setiap kesulitan, selalu ada kesempatan.", author: "Anonim" },
-    { quote: "Jadilah dirimu sendiri, orang lain sudah ada.", author: "Oscar Wilde (diadaptasi)" },
-    { quote: "Keindahan sejati terpancar dari hati yang baik.", author: "Anonim" },
-    { quote: "Doa adalah senjata orang beriman.", author: "Anonim" },
-    { quote: "Kebersihan adalah sebagian dari iman.", author: "Hadis" },
-    { quote: "Setiap langkah adalah sebuah awal yang baru.", author: "Anonim" },
-    { quote: "Belajar sepanjang hayat.", author: "Anonim" },
-    { quote: "Kata-kata memiliki kekuatan untuk membangun dan meruntuhkan.", author: "Anonim" },
+    { quote: "Cinta kepada sesama adalah wujud cinta kepada Tuhan.", author: "Gus Dur" },
     { quote: "Sastra adalah cara kita memahami dunia dengan lebih dalam.", author: "Goenawan Mohamad" },
-    { quote: "Puisi adalah napas kata-kata.", author: "Joko Pinurbo" },
     { quote: "Di dalam sajak, aku menemukan diriku yang lain.", author: "Joko Pinurbo" },
-    { quote: "Sejarah adalah cermin bagi generasi masa kini dan masa depan.", author: "Sartono Kartodirdjo" },
     { quote: "Memahami sejarah adalah memahami jati diri bangsa.", author: "Sartono Kartodirdjo" },
     { quote: "Kopi pertama pagi ini: pahit, seperti rindu yang tak sampai.", author: "Fiersa Besari" },
-    { quote: "Beberapa orang tinggal dalam hidupmu agar kau belajar, beberapa pergi agar kau lebih bijaksana.", author: "Fiersa Besari" },
     { quote: "Humor adalah cara Tuhan menghibur kita di tengah keseriusan dunia.", author: "Abdurrahman Wahid (Gus Dur)" },
     { quote: "Perbedaan adalah rahmat.", author: "Abdurrahman Wahid (Gus Dur)" },
-    { quote: "Seni adalah kebohongan yang membuat kita menyadari kebenaran.", author: "Pablo Picasso (diadaptasi)" },
-    { quote: "Musik adalah bahasa universal umat manusia.", author: "Henry Wadsworth Longfellow (diadaptasi)" },
-    { quote: "Tawa adalah musik terindah dari jiwa.", author: "Anonim" },
-    { quote: "Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan.", author: "Anonim" },
-    { quote: "Kebaikan adalah investasi yang tak pernah merugi.", author: "Anonim" },
-    { quote: "Berbagi tidak akan membuatmu miskin.", author: "Anonim" },
-    { quote: "Syukur adalah kunci pintu kebahagiaan.", author: "Anonim" },
-    { quote: "Setiap hari adalah kesempatan kedua.", author: "Anonim" },
-    { quote: "Fokus pada tujuan, abaikan gangguan.", author: "Anonim" },
-    { quote: "Kerja keras mengalahkan bakat ketika bakat tidak bekerja keras.", author: "Tim Notke (diadaptasi)" },
-    { quote: "Keberanian adalah awal dari kemenangan.", author: "Anonim" },
-    { quote: "Waktu adalah aset paling berharga. Gunakan dengan bijak.", author: "Anonim" },
-    { quote: "Impian tidak akan terwujud dengan sendirinya, butuh aksi nyata.", author: "Anonim" },
-    { quote: "Jadilah versi terbaik dari dirimu sendiri.", author: "Anonim" },
-    { quote: "Kesalahan adalah bukti bahwa kamu sedang mencoba.", author: "Anonim" },
-    { quote: "Jangan bandingkan dirimu dengan orang lain. Bandingkan dengan dirimu yang kemarin.", author: "Anonim" },
-    { quote: "Rintangan adalah ujian untuk melihat seberapa besar keinginanmu.", author: "Anonim" },
-    { quote: "Berpikir besar, mulai dari yang kecil.", author: "Anonim" },
-    { quote: "Lingkungan yang baik akan membentuk karakter yang baik.", author: "Anonim" },
-    { quote: "Kesehatan adalah kekayaan yang sesungguhnya.", author: "Anonim" },
-    { quote: "Cinta sejati adalah ketika dua jiwa saling menyempurnakan.", author: "Anonim" },
-    { quote: "Keluarga adalah tempat di mana hidup dimulai dan cinta tak pernah berakhir.", author: "Anonim" },
-    { quote: "Sahabat adalah saudara yang kita pilih sendiri.", author: "Anonim" },
-    { quote: "Maafkanlah, agar hatimu damai.", author: "Anonim" },
-    { quote: "Ikhlas adalah puncak tertinggi dari ilmu.", author: "Anonim" },
-    { quote: "Percaya pada proses, nikmati perjalanannya.", author: "Anonim" },
-    { quote: "Setiap awan gelap pasti memiliki sisi terang.", author: "Anonim" },
-    { quote: "Hidup ini indah jika kita tahu cara menikmatinya.", author: "Anonim" },
-    { quote: "Teruslah bergerak maju, jangan pernah menyerah.", author: "Anonim" },
-    { quote: "Jadilah cahaya, bahkan dalam kegelapan.", author: "Anonim" }
+    { quote: "Setiap kisah cinta adalah sebuah semesta kecil.", author: "Dewi Lestari" },
+
+    // 80 International Quotes
+    { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+    { quote: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
+    { quote: "That which does not kill us makes us stronger.", author: "Friedrich Nietzsche" },
+    { quote: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+    { quote: "When the going gets tough, the tough get going.", author: "Joe Kennedy" },
+    { quote: "You must be the change you wish to see in the world.", author: "Mahatma Gandhi" },
+    { quote: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+    { quote: "Get busy living or get busy dying.", author: "Stephen King" },
+    { quote: "The purpose of our lives is to be happy.", author: "Dalai Lama" },
+    { quote: "In three words I can sum up everything I've learned about life: it goes on.", author: "Robert Frost" },
+    { quote: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
+    { quote: "It is not the length of life, but depth of life.", author: "Ralph Waldo Emerson" },
+    { quote: "The unexamined life is not worth living.", author: "Socrates" },
+    { quote: "Turn your wounds into wisdom.", author: "Oprah Winfrey" },
+    { quote: "I think, therefore I am.", author: "René Descartes" },
+    { quote: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+    { quote: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln" },
+    { quote: "Life is a succession of lessons which must be lived to be understood.", author: "Ralph Waldo Emerson" },
+    { quote: "The best way to predict your future is to create it.", author: "Abraham Lincoln" },
+    { quote: "Life is either a daring adventure or nothing at all.", author: "Helen Keller" },
+    { quote: "Many of life's failures are people who did not realize how close they were to success when they gave up.", author: "Thomas A. Edison" },
+    { quote: "If you want to live a happy life, tie it to a goal, not to people or things.", author: "Albert Einstein" },
+    { quote: "Never let the fear of striking out keep you from playing the game.", author: "Babe Ruth" },
+    { quote: "Money and success don’t change people; they merely amplify what is already there.", author: "Will Smith" },
+    { quote: "Your time is limited, so don’t waste it living someone else’s life.", author: "Steve Jobs" },
+    { quote: "Not how long, but how well you have lived is the main thing.", author: "Seneca" },
+    { quote: "The whole secret of a successful life is to find out what is one’s destiny to do, and then do it.", author: "Henry Ford" },
+    { quote: "The big lesson in life, baby, is never be scared of anyone or anything.", author: "Frank Sinatra" },
+    { quote: "Life is not a problem to be solved, but a reality to be experienced.", author: "Soren Kierkegaard" },
+    { quote: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+    { quote: "It is our choices, Harry, that show what we truly are, far more than our abilities.", author: "J.K. Rowling" },
+    { quote: "If you're going through hell, keep going.", author: "Winston Churchill" },
+    { quote: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+    { quote: "Do not go where the path may lead, go instead where there is no path and leave a trail.", author: "Ralph Waldo Emerson" },
+    { quote: "It is never too late to be what you might have been.", author: "George Eliot" },
+    { quote: "For every minute you are angry you lose sixty seconds of happiness.", author: "Ralph Waldo Emerson" },
+    { quote: "If you can dream it, you can achieve it.", author: "Zig Ziglar" },
+    { quote: "The mind is everything. What you think you become.", author: "Buddha" },
+    { quote: "Everything has beauty, but not everyone can see.", author: "Confucius" },
+    { quote: "What we think, we become.", author: "Buddha" },
+    { quote: "An unexamined life is not worth living.", author: "Socrates" },
+    { quote: "Eighty percent of success is showing up.", author: "Woody Allen" },
+    { quote: "Your time is limited, so don’t waste it living someone else’s life.", author: "Steve Jobs" },
+    { quote: "Winning isn’t everything, but wanting to win is.", author: "Vince Lombardi" },
+    { quote: "I am not a product of my circumstances. I am a product of my decisions.", author: "Stephen Covey" },
+    { quote: "Every child is an artist. The problem is how to remain an artist once he grows up.", author: "Pablo Picasso" },
+    { quote: "You can never cross the ocean until you have the courage to lose sight of the shore.", author: "Christopher Columbus" },
+    { quote: "Whether you think you can or you think you can’t, you’re right.", author: "Henry Ford" },
+    { quote: "The two most important days in your life are the day you are born and the day you find out why.", author: "Mark Twain" },
+    { quote: "The best revenge is massive success.", author: "Frank Sinatra" },
+    { quote: "People who are crazy enough to think they can change the world, are the ones who do.", author: "Rob Siltanen" },
+    { quote: "There is only one way to avoid criticism: do nothing, say nothing, and be nothing.", author: "Aristotle" },
+    { quote: "The only thing we have to fear is fear itself.", author: "Franklin D. Roosevelt" },
+    { quote: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
+    { quote: "I attribute my success to this: I never gave or took any excuse.", author: "Florence Nightingale" },
+    { quote: "The most difficult thing is the decision to act, the rest is merely tenacity.", author: "Amelia Earhart" },
+    { quote: "It is better to fail in originality than to succeed in imitation.", author: "Herman Melville" },
+    { quote: "The successful warrior is the average man, with laser-like focus.", author: "Bruce Lee" },
+    { quote: "A person who never made a mistake never tried anything new.", author: "Albert Einstein" },
+    { quote: "The person who says it cannot be done should not interrupt the person who is doing it.", author: "Chinese Proverb" },
+    { quote: "There are no traffic jams along the extra mile.", author: "Roger Staubach" },
+    { quote: "It is not what you do for your children, but what you have taught them to do for themselves, that will make them successful human beings.", author: "Ann Landers" },
+    { quote: "If you want to make your dreams come true, the first thing you have to do is wake up.", author: "J.M. Power" },
+    { quote: "The secret of success is to do the common thing uncommonly well.", author: "John D. Rockefeller Jr." },
+    { quote: "I find that the harder I work, the more luck I seem to have.", author: "Thomas Jefferson" },
+    { quote: "Don’t be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+    { quote: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
+    { quote: "If you are not willing to risk the usual, you will have to settle for the ordinary.", author: "Jim Rohn" },
+    { quote: "All our dreams can come true if we have the courage to pursue them.", author: "Walt Disney" },
+    { quote: "Things work out best for those who make the best of how things work out.", author: "John Wooden" },
+    { quote: "Try not to become a man of success. Rather become a man of value.", author: "Albert Einstein" },
+    { quote: "Don't be distracted by criticism. Remember -- the only taste of success some people get is to take a bite out of you.", author: "Zig Ziglar" },
+    { quote: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas A. Edison" },
+    { quote: "What's the point of being alive if you don't at least try to do something remarkable?", author: "John Green" },
+    { quote: "I can't change the direction of the wind, but I can adjust my sails to always reach my destination.", author: "Jimmy Dean" },
+    { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+    { quote: "To handle yourself, use your head; to handle others, use your heart.", author: "Eleanor Roosevelt" },
+    { quote: "Too many of us are not living our dreams because we are living our fears.", author: "Les Brown" },
+    { quote: "Do or do not. There is no try.", author: "Yoda" },
 ];
 
 const scientificSources = [
@@ -162,6 +164,16 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
     const [selectedHobby, setSelectedHobby] = React.useState(HOBBY_LIST[0]);
     const [hobbyDuration, setHobbyDuration] = React.useState('');
 
+    const hobbyIcons: { [key: string]: React.ReactNode } = {
+        'Brain Time': <Brain className="h-10 w-10 text-muted-foreground" />,
+        'Sports': <Dumbbell className="h-10 w-10 text-muted-foreground" />,
+        'Music': <Music className="h-10 w-10 text-muted-foreground" />,
+        'Coding': <Code className="h-10 w-10 text-muted-foreground" />,
+        'Art': <Brush className="h-10 w-10 text-muted-foreground" />,
+        'Cooking': <CookingPot className="h-10 w-10 text-muted-foreground" />,
+        'Photography': <Camera className="h-10 w-10 text-muted-foreground" />,
+    };
+
     React.useEffect(() => {
         setHobbies(prev => ({ ...prev, 'Brain Time': brainTime }));
     }, [brainTime]);
@@ -185,6 +197,8 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
             color: "hsl(var(--chart-1))",
         },
     };
+    
+    const ActiveHobbyIcon = hobbyIcons[selectedHobby] || <Activity className="h-10 w-10 text-muted-foreground" />;
 
     return (
         <Card>
@@ -199,6 +213,10 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                         <TabsTrigger value="deviceUsageBreak">{t('deviceUsageBreak')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="hobbies" className="space-y-4 pt-4">
+                        <div className="flex flex-col items-center justify-center p-4">
+                            {ActiveHobbyIcon}
+                            <p className="mt-2 text-sm font-medium text-muted-foreground">{selectedHobby}</p>
+                        </div>
                         <ResponsiveContainer width="100%" height={200}>
                             <PieChart>
                                 <Pie data={hobbyChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
@@ -397,3 +415,4 @@ export default function ReadingPage() {
     
 
     
+
