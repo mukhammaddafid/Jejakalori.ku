@@ -40,7 +40,7 @@ export const translations = {
     foodAddedDescription: '{{servings}} x {{name}} added to {{meal}}.',
     searchFoodPlaceholder: 'Search for a food...',
     macronutrients: 'Macronutrients',
-    macronutrientsDescription: 'Your daily macro intake.',
+    macronutrientsDescription: 'Your daily macro intake, with detailed sources.',
     protein: 'Protein',
     carbohydrates: 'Carbohydrates',
     fat: 'Fat',
@@ -199,6 +199,10 @@ export const translations = {
     art: 'Art',
     cooking: 'Cooking',
     photography: 'Photography',
+    animalProtein: 'Animal Protein',
+    plantProtein: 'Plant Protein',
+    starch: 'Starch',
+    sugar: 'Sugar',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -241,7 +245,7 @@ export const translations = {
     foodAddedDescription: '{{servings}} x {{name}} ditambahkan ke {{meal}}.',
     searchFoodPlaceholder: 'Cari makanan...',
     macronutrients: 'Makronutrien',
-    macronutrientsDescription: 'Asupan makro harian Anda.',
+    macronutrientsDescription: 'Asupan makro harian Anda, dengan sumber terperinci.',
     protein: 'Protein',
     carbohydrates: 'Karbohidrat',
     fat: 'Lemak',
@@ -404,6 +408,10 @@ export const translations = {
     art: 'Seni',
     cooking: 'Memasak',
     photography: 'Fotografi',
+    animalProtein: 'Protein Hewani',
+    plantProtein: 'Protein Nabati',
+    starch: 'Pati',
+    sugar: 'Gula',
   }
 };
 

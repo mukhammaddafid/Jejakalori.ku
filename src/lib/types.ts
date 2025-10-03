@@ -8,6 +8,10 @@ export interface Food {
   servingSize: string;
   nutrients: {
     [key: string]: number;
+    animalProtein: number;
+    plantProtein: number;
+    starch: number;
+    sugar: number;
   };
 }
 
@@ -66,4 +70,9 @@ export interface NutrientTotals {
     fat: number;
     saturatedFat: number;
     unsaturatedFat: number;
+    animalProtein: number;
+    plantProtein: number;
+    starch: number;
+    sugar: number;
+    fiber: number;
 }

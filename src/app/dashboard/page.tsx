@@ -28,6 +28,11 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     fat: 0,
     saturatedFat: 0,
     unsaturatedFat: 0,
+    animalProtein: 0,
+    plantProtein: 0,
+    starch: 0,
+    sugar: 0,
+    fiber: 0,
   };
 
   const allMeals = [
@@ -44,6 +49,11 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     totals.fat += (item.food.fat || 0) * item.servings;
     totals.saturatedFat += (item.food.nutrients.saturatedFat || 0) * item.servings;
     totals.unsaturatedFat += (item.food.nutrients.unsaturatedFat || 0) * item.servings;
+    totals.animalProtein += (item.food.nutrients.animalProtein || 0) * item.servings;
+    totals.plantProtein += (item.food.nutrients.plantProtein || 0) * item.servings;
+    totals.starch += (item.food.nutrients.starch || 0) * item.servings;
+    totals.sugar += (item.food.nutrients.sugar || 0) * item.servings;
+    totals.fiber += (item.food.nutrients.fiber || 0) * item.servings;
   });
 
   return totals;
