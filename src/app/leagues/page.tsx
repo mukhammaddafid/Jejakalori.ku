@@ -60,18 +60,14 @@ const CountdownTimer = () => {
     }, []);
 
     return (
-        <Card className="text-center bg-primary text-primary-foreground">
-            <CardHeader>
-                <CardTitle>{t('seasonEndsIn')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="text-4xl font-bold font-mono">
-                    {String(timeLeft.hours).padStart(2, '0')}:
-                    {String(timeLeft.minutes).padStart(2, '0')}:
-                    {String(timeLeft.seconds).padStart(2, '0')}
-                </div>
-            </CardContent>
-        </Card>
+        <div className="text-center">
+            <p className="text-sm text-muted-foreground">{t('seasonEndsIn')}</p>
+            <div className="text-2xl font-bold font-mono text-primary">
+                {String(timeLeft.hours).padStart(2, '0')}:
+                {String(timeLeft.minutes).padStart(2, '0')}:
+                {String(timeLeft.seconds).padStart(2, '0')}
+            </div>
+        </div>
     );
 };
 
@@ -108,15 +104,35 @@ export default function LeaguesPage() {
                             </div>
                         </CardContent>
                     </Card>
-                    
-                    <PotentialCard />
-                </div>
-                <div className="space-y-6">
-                    <CountdownTimer />
+
                     <Card>
                         <CardHeader>
+                            <CardTitle>{t('consistencyTiers')}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {tiers.map((tier) => (
+                                <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                            {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
+                                            <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
+                                        </div>
+                                        <span className="text-sm font-mono">{tier.points} {t('points')}</span>
+                                    </div>
+                                    <Progress value={tier.points / 3000 * 100} className="h-2 mt-2" />
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+
+                    <PotentialCard />
+                </div>
+
+                <div className="lg:col-span-1 space-y-6">
+                    <Card>
+                        <CardHeader className="text-center">
                             <CardTitle>{t('leaderboard')}</CardTitle>
-                            <CardDescription>{t('leaderboardDescription')}</CardDescription>
+                            <CountdownTimer />
                         </CardHeader>
                         <CardContent>
                             <Table>
@@ -143,25 +159,6 @@ export default function LeaguesPage() {
                                     ))}
                                 </TableBody>
                             </Table>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{t('consistencyTiers')}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            {tiers.map((tier) => (
-                                <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
-                                            <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
-                                        </div>
-                                        <span className="text-sm font-mono">{tier.points} {t('points')}</span>
-                                    </div>
-                                    <Progress value={tier.points / 3000 * 100} className="h-2 mt-2" />
-                                </div>
-                            ))}
                         </CardContent>
                     </Card>
                 </div>
