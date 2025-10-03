@@ -114,13 +114,7 @@ const PremiumFeatureWithTrial: React.FC<{
             <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-            {isTrialActive && !isTrialEnded && (
-                <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
-                    <p className="font-semibold text-primary">{t('premiumTrialActive')}</p>
-                    <p className="text-primary/80">{getTimeRemaining()}</p>
-                </div>
-            )}
-            {children}
+            {React.cloneElement(children as React.ReactElement, { trialTimeRemaining: getTimeRemaining(), isTrialActive: isTrialActive && !isTrialEnded })}
         </CardContent>
         {isFeatureLocked && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
@@ -157,7 +151,7 @@ const AnalysisCalendar: React.FC<{ days: number }> = ({ days }) => {
     );
 };
   
-const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: React.ReactNode, calendarDays: number }> = ({ title, buttonText, children, calendarDays }) => {
+const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: React.ReactNode, calendarDays: number, trialTimeRemaining?: string, isTrialActive?: boolean }> = ({ title, buttonText, children, calendarDays, trialTimeRemaining, isTrialActive }) => {
     const [showCalendar, setShowCalendar] = React.useState(false);
     const { t } = useLanguage();
   
@@ -168,6 +162,12 @@ const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: R
             <span className="font-semibold">{title}</span>
           </AccordionTrigger>
           <AccordionContent className="space-y-4 pt-4">
+            {isTrialActive && (
+                <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
+                    <p className="font-semibold text-primary">{t('premiumTrialActive')}</p>
+                    <p className="text-primary/80">{trialTimeRemaining}</p>
+                </div>
+            )}
             {children}
             <Button className="w-full" onClick={() => setShowCalendar(!showCalendar)}>
               {showCalendar ? t('hideCalendar') : buttonText}
