@@ -21,6 +21,10 @@ function MacroBar({ label, consumed, goal, colorClass, unit = 'g' }: { label: st
 }
 
 export function MacroSummary({ totals, goals }: MacroSummaryProps) {
+  const totalFat = totals.fat;
+  const totalSaturatedFat = totals.saturatedFat;
+  const totalUnsaturatedFat = totals.unsaturatedFat;
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -28,10 +32,16 @@ export function MacroSummary({ totals, goals }: MacroSummaryProps) {
         <CardDescription>Asupan makro harian Anda.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <MacroBar label="Protein" consumed={totals.protein} goal={goals.protein} colorClass='hsl(var(--chart-1))' />
           <MacroBar label="Karbohidrat" consumed={totals.carbs} goal={goals.carbs} colorClass='hsl(var(--chart-2))' />
-          <MacroBar label="Lemak" consumed={totals.fat} goal={goals.fat} colorClass='hsl(var(--chart-3))' />
+          <div className='space-y-2'>
+            <MacroBar label="Lemak" consumed={totalFat} goal={goals.fat} colorClass='hsl(var(--chart-3))' />
+            <div className='pl-4 space-y-2'>
+              <MacroBar label="Lemak Jenuh" consumed={totalSaturatedFat} goal={goals.saturatedFat} colorClass='hsl(var(--chart-4))' unit="g"/>
+              <MacroBar label="Lemak Tak Jenuh" consumed={totalUnsaturatedFat} goal={goals.fat - goals.saturatedFat} colorClass='hsl(var(--chart-5))' unit="g"/>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>

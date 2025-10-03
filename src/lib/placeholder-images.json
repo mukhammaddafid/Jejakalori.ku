@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "user-avatar",
-      "description": "A simple character illustration for a user avatar.",
-      "imageUrl": "https://images.unsplash.com/photo-1733765601550-0d79dc6566e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGFyYWN0ZXIlMjBpbGx1c3RyYXRpb258ZW58MHx8fHwxNzU5NDA0NzMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "character illustration"
+      "description": "A simple 2D character illustration for a user avatar.",
+      "imageUrl": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHwyZCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NTk0OTEyODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "2d character"
     },
     {
       "id": "food-f1",

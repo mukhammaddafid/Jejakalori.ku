@@ -40,8 +40,8 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
             </RadialBarChart>
           </ChartContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center -mt-2">
-            <p className="text-3xl font-bold font-headline">{Math.round(consumed)}</p>
-            <p className="text-xs text-muted-foreground">Terkonsumsi</p>
+            <p className="text-3xl font-bold font-headline"></p>
+            <p className="text-xs text-muted-foreground"></p>
           </div>
         </div>
         
