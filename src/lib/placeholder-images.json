@@ -2,31 +2,31 @@
   "placeholderImages": [
     {
       "id": "user-avatar-1",
-      "description": "2D character with star",
+      "description": "2D character badge",
       "imageUrl": "https://images.unsplash.com/photo-1639747280804-dd2d6b3d88ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHwyZCUyMGNoYXJhY3RlciUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MTE0NDQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "2d character"
     },
     {
       "id": "user-avatar-2",
-      "description": "Pixel art character",
+      "description": "Pixel art badge",
       "imageUrl": "https://images.unsplash.com/photo-1655720233483-a9295c55d674?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXhlbCUyMGFydCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjM4NTEzMDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pixel art"
     },
     {
       "id": "user-avatar-3",
-      "description": "Watercolor illustration",
-      "imageUrl": "https://images.unsplash.com/photo-1678813337929-c813d115456f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3YXRlcmNvbG9yJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2Mzg1MTM1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "watercolor character"
-    },
-    {
-      "id": "user-avatar-4",
-      "description": "Minimalist line art",
+      "description": "Minimalist line art badge",
       "imageUrl": "https://images.unsplash.com/photo-1645830181931-518384f5f082?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2Mzg1MTM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist character"
     },
     {
+      "id": "user-avatar-4",
+      "description": "Watercolor badge",
+      "imageUrl": "https://images.unsplash.com/photo-1678813337929-c813d115456f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3YXRlcmNvbG9yJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2Mzg1MTM1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "watercolor character"
+    },
+    {
       "id": "user-avatar-5",
-      "description": "3D clay character",
+      "description": "3D clay badge",
       "imageUrl": "https://images.unsplash.com/photo-1667420138676-35d28b8b3f2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHwzZCUyMGNsYXklMjBjaGFyYWN0ZXJ8ZW58MHx8fHwxNzYzODUxNDM0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "3d clay"
     },
