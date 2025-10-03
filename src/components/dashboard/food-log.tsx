@@ -18,10 +18,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { FoodSearch } from './food-search';
-import { Plus, Salad, Sandwich, Utensils, Apple } from 'lucide-react';
+import { Plus, Salad, Sandwich, Utensils, Apple, Drumstick, Wheat, Carrot, Fish, Egg, Milk, Nut } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 interface FoodLogProps {
   initialLog: DailyLog;
@@ -43,24 +41,22 @@ const mealIcons = {
 
 type MealName = keyof DailyLog;
 
-function FoodItemImage({ foodId }: { foodId: string }) {
-    const placeholder = PlaceHolderImages.find(p => p.id === `food-${foodId}`);
-    const defaultPlaceholder = PlaceHolderImages.find(p => p.id === 'food-generic');
+const foodIcons: { [key: string]: React.ReactNode } = {
+    'f1': <Drumstick className="h-6 w-6 text-orange-600" />,
+    'f2': <Wheat className="h-6 w-6 text-amber-700" />,
+    'f3': <Carrot className="h-6 w-6 text-green-600" />,
+    'f4': <Fish className="h-6 w-6 text-sky-500" />,
+    'f5': <Apple className="h-6 w-6 text-red-500" />,
+    'f6': <Nut className="h-6 w-6 text-yellow-800" />,
+    'f7': <Wheat className="h-6 w-6 text-amber-500" />,
+    'f8': <Egg className="h-6 w-6 text-yellow-400" />,
+    'f9': <Milk className="h-6 w-6 text-blue-300" />,
+    'f10': <Salad className="h-6 w-6 text-lime-600" />,
+};
 
-    const imageToShow = placeholder || defaultPlaceholder;
-
-    if (!imageToShow) return null;
-
-    return (
-        <Image 
-            src={imageToShow.imageUrl}
-            alt={imageToShow.description}
-            width={40}
-            height={40}
-            className="rounded-md object-cover"
-            data-ai-hint={imageToShow.imageHint}
-        />
-    )
+function FoodItemIcon({ foodId }: { foodId: string }) {
+    const icon = foodIcons[foodId] || <Apple className="h-6 w-6" />;
+    return <div className="w-10 h-10 flex items-center justify-center bg-secondary rounded-md">{icon}</div>;
 }
 
 export function FoodLog({ initialLog }: FoodLogProps) {
@@ -108,7 +104,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                       log[mealName].map((item, index) => (
                         <div key={index} className="flex justify-between items-center p-2 rounded-md bg-secondary">
                           <div className="flex items-center gap-3">
-                            <FoodItemImage foodId={item.food.id} />
+                            <FoodItemIcon foodId={item.food.id} />
                             <div>
                               <p className="font-medium">{item.food.name}</p>
                               <p className="text-sm text-muted-foreground">{item.servings} porsi</p>

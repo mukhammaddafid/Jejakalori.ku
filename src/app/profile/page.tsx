@@ -8,11 +8,6 @@ export default function ProfilePage() {
 
   return (
     <div className="p-4 sm:p-6 space-y-6">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-bold font-headline">Profil & Target</h1>
-        <p className="text-muted-foreground">Kelola informasi pribadi dan target nutrisi Anda.</p>
-      </div>
-      
       <div className="space-y-6">
         <TdeeCalculator initialProfile={userData.profile} />
         <GoalSetter initialGoals={userData.goals} />

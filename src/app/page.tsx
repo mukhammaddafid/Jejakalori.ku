@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mockUserData } from '@/lib/data';
-import type { DailyLog, MealLog, NutrientTotals } from '@/lib/types';
+import type { DailyLog, NutrientTotals } from '@/lib/types';
 import { CalorieSummary } from '@/components/dashboard/calorie-summary';
 import { MacroSummary } from '@/components/dashboard/macro-summary';
 import { FoodLog } from '@/components/dashboard/food-log';
@@ -39,8 +39,6 @@ export default function DashboardPage() {
   
   return (
     <div className="p-4 sm:p-6 space-y-6">
-      <h1 className="text-2xl font-bold font-headline">Selamat datang kembali, {userData.profile.name}!</h1>
-
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Left Column */}
         <div className="lg:col-span-2 space-y-6">

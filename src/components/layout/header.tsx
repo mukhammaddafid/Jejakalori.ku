@@ -1,5 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 import {
@@ -9,22 +12,30 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Flame } from 'lucide-react';
+import { LayoutDashboard, ChefHat, User, Globe } from 'lucide-react';
+import { menuItems } from './main-nav';
+
+function getPageTitle(pathname: string) {
+  const item = menuItems.find(item => item.href === pathname);
+  return item ? item.label : 'Dasbor';
+}
 
 export function Header() {
+  const pathname = usePathname();
+  const pageTitle = getPageTitle(pathname);
   const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
+  const [language, setLanguage] = React.useState('id');
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:h-16 sm:px-6">
+    <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-card px-4 sm:h-16 sm:px-6">
       <SidebarTrigger className="md:hidden" />
-      <div className="hidden items-center gap-2 md:flex">
-        <Flame className="h-6 w-6 text-primary" />
-        <span className="font-headline text-lg font-bold">Jejakalori.ku</span>
-      </div>
+      <h1 className="text-xl font-semibold md:text-2xl">{pageTitle}</h1>
       <div className="flex-1" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -45,6 +56,15 @@ export function Header() {
           <DropdownMenuSeparator />
           <DropdownMenuItem>Pengaturan</DropdownMenuItem>
           <DropdownMenuItem>Dukungan</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel className="flex items-center gap-2">
+            <Globe className="h-4 w-4" />
+            Bahasa
+          </DropdownMenuLabel>
+          <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
+            <DropdownMenuRadioItem value="id">Bahasa Indonesia</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Keluar</DropdownMenuItem>
         </DropdownMenuContent>

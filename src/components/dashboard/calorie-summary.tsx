@@ -1,9 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import { Flame, Target, MinusCircle } from 'lucide-react';
+import { Target, MinusCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer } from '@/components/ui/chart';
 import { RadialBar, RadialBarChart } from 'recharts';
 
 interface CalorieSummaryProps {
@@ -39,7 +39,7 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               />
             </RadialBarChart>
           </ChartContainer>
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center -mt-2">
             <p className="text-3xl font-bold font-headline">{Math.round(consumed)}</p>
             <p className="text-xs text-muted-foreground">Terkonsumsi</p>
           </div>

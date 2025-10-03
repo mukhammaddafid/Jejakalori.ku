@@ -15,7 +15,7 @@ import {
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
 
-const menuItems = [
+export const menuItems = [
   {
     href: '/',
     label: 'Dasbor',
