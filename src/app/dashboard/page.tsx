@@ -9,16 +9,15 @@ import { FoodLog } from '@/components/dashboard/food-log';
 import { WeeklyTrends } from '@/components/dashboard/weekly-trends';
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { Dumbbell, BrainCircuit, Zap, Flame, BarChart, Activity, Heart, Scale, Clock } from 'lucide-react';
+import { Dumbbell, BrainCircuit, Zap, Flame, BarChart, Activity, Heart, Scale, Clock, AreaChart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Calendar } from '@/components/ui/calendar';
-import { addDays } from 'date-fns';
 import { useLanguage } from '@/lib/language-provider';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { BarChart as RechartsBarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar, ResponsiveContainer, Legend } from 'recharts';
 
 // Helper function to calculate totals
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -67,7 +66,7 @@ const workoutOptions = {
 };
 
 const habitAnalysisOptions = {
-    "Meal Composition": Array.from({ length: 25 }, (_, i) => `Composition analysis #${i + 1}`),
+    "Meal Composition": Array-from({ length: 25 }, (_, i) => `Composition analysis #${i + 1}`),
     "Timing & Frequency": Array.from({ length: 25 }, (_, i) => `Timing analysis #${i + 1}`),
     "Nutrient Quality": Array.from({ length: 20 }, (_, i) => `Nutrient analysis #${i + 1}`),
 };
@@ -145,28 +144,107 @@ const PremiumFeatureWithTrial: React.FC<{
   );
 };
 
-const AnalysisCalendar: React.FC<{ days: number }> = ({ days }) => {
-    const today = new Date();
-    const futureDate = addDays(today, days);
-    const { t } = useLanguage();
-  
+const AnalysisPlanVisualizer = () => {
+    const analysisData = [
+        { name: 'Composition', duration: 7, start: 0, fill: 'hsl(var(--chart-1))' },
+        { name: 'Timing', duration: 10, start: 7, fill: 'hsl(var(--chart-2))' },
+        { name: 'Nutrient', duration: 4, start: 17, fill: 'hsl(var(--chart-3))' },
+    ];
+
     return (
-      <div className="p-4 border-t">
-        <h4 className="text-center font-semibold mb-2">{t('yourScheduleForNext', { days })}</h4>
-        <Calendar
-          mode="range"
-          selected={{ from: today, to: futureDate }}
-          numberOfMonths={1}
-          disabled
-          className="flex justify-center"
-        />
-      </div>
+        <div className="p-4 border-t h-48">
+            <h4 className="text-center font-semibold mb-2">21-Day Analysis Schedule</h4>
+             <ResponsiveContainer width="100%" height="100%">
+                <RechartsBarChart layout="vertical" data={analysisData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis type="number" domain={[0, 21]} label={{ value: 'Days', position: 'insideBottom', offset: -5 }} />
+                    <YAxis type="category" dataKey="name" width={80} />
+                    <Tooltip content={CustomTooltip} />
+                    <Bar dataKey="duration" stackId="a" background={{ fill: '#eee' }}>
+                         {analysisData.map((entry, index) => (
+                            <div key={`cell-${index}`} fill={entry.fill} />
+                        ))}
+                    </Bar>
+                </RechartsBarChart>
+            </ResponsiveContainer>
+        </div>
     );
 };
-  
-const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: React.ReactNode, calendarDays: number, trialTimeRemaining?: string, isTrialActive?: boolean }> = ({ title, buttonText, children, calendarDays, trialTimeRemaining, isTrialActive }) => {
-    const [showCalendar, setShowCalendar] = React.useState(false);
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="p-2 bg-background border rounded-md shadow-lg">
+        <p className="font-bold">{`${label} Analysis`}</p>
+        <p className="text-sm">{`Duration: ${data.duration} days`}</p>
+        <p className="text-sm">{`Scheduled: Day ${data.start + 1} to Day ${data.start + data.duration}`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+
+const WorkoutPlanVisualizer = () => {
+    const workoutData = [
+        { name: 'Strength', energy: 350, fill: 'hsl(var(--chart-1))' },
+        { name: 'Cardio', energy: 500, fill: 'hsl(var(--chart-2))' },
+        { name: 'Flexibility', energy: 150, fill: 'hsl(var(--chart-3))' },
+    ];
+    return (
+        <div className="p-4 border-t space-y-4">
+            <h4 className="text-center font-semibold">Workout Plan & Energy Analysis</h4>
+            <div>
+                <h5 className="font-semibold mb-2">Selected Activities:</h5>
+                <ul className="list-disc list-inside text-muted-foreground text-sm space-y-1">
+                    <li>Strength workout #1, #5, #12</li>
+                    <li>Cardio workout #2, #8</li>
+                    <li>Flexibility workout #3</li>
+                </ul>
+            </div>
+             <div className="h-48">
+                 <ResponsiveContainer width="100%" height="100%">
+                    <RechartsBarChart data={workoutData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false}/>
+                        <XAxis dataKey="name" />
+                        <YAxis label={{ value: 'Energy (kcal)', angle: -90, position: 'insideLeft' }}/>
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="energy" name="Energy Release" >
+                            {workoutData.map((entry, index) => (
+                                <div key={`cell-${index}`} fill={entry.fill} />
+                            ))}
+                        </Bar>
+                    </RechartsBarChart>
+                </ResponsiveContainer>
+            </div>
+        </div>
+    );
+};
+
+const AnalysisFeature: React.FC<{ 
+    title: string; 
+    buttonText: string;
+    visualization: 'calendar' | 'analysis' | 'workout';
+    calendarDays?: number; 
+    children: React.ReactNode, 
+    trialTimeRemaining?: string, 
+    isTrialActive?: boolean 
+}> = ({ title, buttonText, visualization, calendarDays, children, trialTimeRemaining, isTrialActive }) => {
+    const [showVisualization, setShowVisualization] = React.useState(false);
     const { t } = useLanguage();
+
+    const renderVisualization = () => {
+        switch (visualization) {
+            case 'analysis':
+                return <AnalysisPlanVisualizer />;
+            case 'workout':
+                return <WorkoutPlanVisualizer />;
+            default:
+                return null;
+        }
+    }
   
     return (
       <Accordion type="single" collapsible className="w-full">
@@ -182,10 +260,10 @@ const AnalysisFeature: React.FC<{ title: string; buttonText: string; children: R
                 </div>
             )}
             {children}
-            <Button className="w-full" onClick={() => setShowCalendar(!showCalendar)}>
-              {showCalendar ? t('hideCalendar') : buttonText}
+            <Button className="w-full" onClick={() => setShowVisualization(!showVisualization)}>
+              {showVisualization ? t('hideCalendar') : buttonText}
             </Button>
-            {showCalendar && <AnalysisCalendar days={calendarDays} />}
+            {showVisualization && renderVisualization()}
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -233,14 +311,22 @@ const HabitAnalysisSelector = () => {
         "Timing & Frequency": <Clock className="h-5 w-5" />,
         "Nutrient Quality": <BarChart className="h-5 w-5" />,
     };
+    const categorySubtitles: { [key: string]: string } = {
+        "Meal Composition": "Analyze the balance of macros and food groups in your meals.",
+        "Timing & Frequency": "Discover patterns in when and how often you eat.",
+        "Nutrient Quality": "Assess the density of vitamins and minerals in your diet.",
+    };
     return (
         <Accordion type="multiple" className="w-full">
             {Object.entries(habitAnalysisOptions).map(([category, options]) => (
                 <AccordionItem value={category} key={category}>
                     <AccordionTrigger>
-                        <div className="flex items-center gap-2 font-semibold">
-                            {categoryIcons[category]}
-                            {category}
+                        <div className="flex flex-col items-start text-left">
+                            <div className="flex items-center gap-2 font-semibold">
+                                {categoryIcons[category]}
+                                {category}
+                            </div>
+                            <p className="text-sm font-normal text-muted-foreground ml-7">{categorySubtitles[category]}</p>
                         </div>
                     </AccordionTrigger>
                     <AccordionContent>
@@ -304,7 +390,7 @@ export default function DashboardPage() {
             trialDays={3}
             storageKey="habitAnalysisTrialEnd"
            >
-            <AnalysisFeature title={t('selectAnalysisType')} buttonText={t('startAnalysis')} calendarDays={21}>
+            <AnalysisFeature title={t('selectAnalysisType')} buttonText="Visualize Plan" visualization="analysis">
                 <HabitAnalysisSelector />
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
@@ -315,7 +401,7 @@ export default function DashboardPage() {
             trialDays={5}
             storageKey="workoutPlanTrialEnd"
            >
-            <AnalysisFeature title={t('selectWorkoutGoal')} buttonText={t('createWorkoutPlan')} calendarDays={30}>
+            <AnalysisFeature title={t('selectWorkoutGoal')} buttonText="Generate Plan & Analysis" visualization="workout">
                 <WorkoutSelector />
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
@@ -324,3 +410,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
