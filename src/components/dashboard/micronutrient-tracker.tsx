@@ -45,9 +45,11 @@ export function MicronutrientTracker({ log }: MicronutrientTrackerProps) {
   const totals = calculateTotalMicros(log);
   const [trialEndDate, setTrialEndDate] = React.useState<Date | null>(null);
   const [isTrialActive, setIsTrialActive] = React.useState(false);
+  const [isClient, setIsClient] = React.useState(false);
   const { t } = useLanguage();
 
   React.useEffect(() => {
+    setIsClient(true);
     const storedEndDate = localStorage.getItem('micronutrientTrialEnd');
     if (storedEndDate) {
       setTrialEndDate(new Date(storedEndDate));
@@ -65,6 +67,10 @@ export function MicronutrientTracker({ log }: MicronutrientTrackerProps) {
       }
     }
   }, [trialEndDate]);
+
+  if (!isClient) {
+    return null;
+  }
   
   const startTrial = () => {
     const endDate = new Date();

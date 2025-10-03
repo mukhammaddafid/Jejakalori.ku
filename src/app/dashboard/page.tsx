@@ -60,9 +60,11 @@ const PremiumFeatureWithTrial: React.FC<{
 }> = ({ icon, title, description, trialDays, storageKey, children }) => {
   const [trialEndDate, setTrialEndDate] = React.useState<Date | null>(null);
   const [isTrialActive, setIsTrialActive] = React.useState(false);
+  const [isClient, setIsClient] = React.useState(false);
   const { t } = useLanguage();
 
   React.useEffect(() => {
+    setIsClient(true);
     const storedEndDate = localStorage.getItem(storageKey);
     if (storedEndDate) {
       const endDate = new Date(storedEndDate);
@@ -88,6 +90,10 @@ const PremiumFeatureWithTrial: React.FC<{
     const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     return `${days} ${t('days')} ${hours} ${t('hours')} ${t('remaining')}`;
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   const isTrialEnded = trialEndDate && new Date() > trialEndDate;
   const isFeatureLocked = !isTrialActive && isTrialEnded;
