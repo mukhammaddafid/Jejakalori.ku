@@ -110,7 +110,9 @@ export default function LeaguesPage() {
                     </Card>
                     
                     <PotentialCard />
-
+                </div>
+                <div className="space-y-6">
+                    <CountdownTimer />
                     <Card>
                         <CardHeader>
                             <CardTitle>{t('leaderboard')}</CardTitle>
@@ -143,9 +145,6 @@ export default function LeaguesPage() {
                             </Table>
                         </CardContent>
                     </Card>
-                </div>
-                <div className="space-y-6">
-                    <CountdownTimer />
                     <Card>
                         <CardHeader>
                             <CardTitle>{t('consistencyTiers')}</CardTitle>
