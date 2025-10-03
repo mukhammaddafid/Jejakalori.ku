@@ -1,11 +1,11 @@
 'use client';
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Smartphone, BookOpen, Clock, Calendar, BarChart, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart, Activity } from 'lucide-react';
+import { Smartphone, BookOpen, Clock, Calendar, BarChart as BarChartIcon, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell, Bar as RechartsBar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell, Bar as RechartsBar, BarChart as RechartsBarChart } from 'recharts';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
