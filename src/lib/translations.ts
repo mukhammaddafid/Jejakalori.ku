@@ -189,6 +189,7 @@ export const translations = {
     diamond: 'Diamond',
     master: 'Master',
     grandmaster: 'Grandmaster',
+    theme: 'Theme',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -384,6 +385,7 @@ export const translations = {
     diamond: 'Berlian',
     master: 'Master',
     grandmaster: 'Grandmaster',
+    theme: 'Tema',
   }
 };
 

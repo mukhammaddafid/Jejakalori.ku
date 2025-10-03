@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { FoodSearch } from './food-search';
-import { Plus, Salad, Sandwich, Utensils, Apple, Drumstick, Wheat, Carrot, Fish, Egg, Milk, Nut } from 'lucide-react';
+import { Plus, Salad, Sandwich, Utensils, Apple, Drumstick, Wheat, Carrot, Fish, Egg, Milk, Nut, BookOpen } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language-provider';
 

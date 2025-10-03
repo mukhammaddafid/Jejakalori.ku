@@ -38,7 +38,7 @@ function getPageTitle(pathname: string, t: (key: string) => string) {
 
 export function Header() {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const pageTitle = getPageTitle(pathname, t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
   const { setTheme } = useTheme();
@@ -93,7 +93,7 @@ export function Header() {
             <DropdownMenuSubTrigger>
                 <Sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute mr-2 h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span>Theme</span>
+                <span>{t('theme')}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
                 <DropdownMenuSubContent>
@@ -110,6 +110,20 @@ export function Header() {
                         <span>System</span>
                     </DropdownMenuItem>
                 </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Globe className="mr-2 h-4 w-4" />
+              <span>{t('language')}</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuRadioGroup value={language} onValueChange={(value) => setLanguage(value as 'en' | 'id')}>
+                  <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="id">Bahasa Indonesia</DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSub>

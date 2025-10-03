@@ -15,6 +15,7 @@ import { useLanguage } from '@/lib/language-provider';
 
 function ThemeToggle() {
   const { setTheme } = useTheme()
+  const { t } = useLanguage();
 
   return (
     <DropdownMenu>
@@ -69,7 +70,7 @@ function ChartCollage() {
 }
 
 export default function WelcomePage() {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
@@ -85,7 +86,22 @@ export default function WelcomePage() {
           <span className="sr-only">{t('appName')}</span>
         </Link>
         <nav className="ml-auto flex items-center gap-2 sm:gap-4">
-          {isClient && <ThemeToggle />}
+          {isClient && (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Globe className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => setLanguage('en')}>English</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setLanguage('id')}>Bahasa Indonesia</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <ThemeToggle />
+            </>
+          )}
           <Link href="/login" passHref>
             <Button>{t('signUp')}</Button>
           </Link>
