@@ -70,6 +70,12 @@ function ChartCollage() {
 }
 
 export default function WelcomePage() {
+  const [isClient, setIsClient] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -78,7 +84,7 @@ export default function WelcomePage() {
           <span className="sr-only">Jejakalori.ku</span>
         </Link>
         <nav className="ml-auto flex items-center gap-2 sm:gap-4">
-          <ThemeToggle />
+          {isClient && <ThemeToggle />}
           <Link href="/login" passHref>
             <Button>Daftar</Button>
           </Link>
