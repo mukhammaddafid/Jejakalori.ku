@@ -4,7 +4,7 @@ import { TdeeCalculator } from '@/components/profile/tdee-calculator';
 import { GoalSetter } from '@/components/profile/goal-setter';
 import { mockUserData } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bed, Smartphone, ShieldCheck, Dumbbell, BookOpen, Music, Code, Brush, Cooking, Camera } from 'lucide-react';
+import { Bed, Smartphone, ShieldCheck, Dumbbell, BookOpen, Music, Code, Brush, CookingPot, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
@@ -74,7 +74,7 @@ function HobbiesSection() {
         { id: 'music', label: t('music'), icon: <Music className="h-5 w-5" /> },
         { id: 'coding', label: t('coding'), icon: <Code className="h-5 w-5" /> },
         { id: 'art', label: t('art'), icon: <Brush className="h-5 w-5" /> },
-        { id: 'cooking', label: t('cooking'), icon: <Cooking className="h-5 w-5" /> },
+        { id: 'cooking', label: t('cooking'), icon: <CookingPot className="h-5 w-5" /> },
         { id: 'photography', label: t('photography'), icon: <Camera className="h-5 w-5" /> },
     ];
     return (
