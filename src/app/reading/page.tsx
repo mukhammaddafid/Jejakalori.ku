@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
   month: new Date(0, i).toLocaleString('default', { month: 'short' }),
@@ -80,15 +81,29 @@ export default function ReadingPage() {
                     <CardDescription>{t('quoteCollageDescription')}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                        {quotes.map((q, i) => (
-                            <Card key={i} className="flex flex-col justify-center p-4 bg-muted/50">
-                                <FileText className="h-6 w-6 mb-2 text-muted-foreground" />
-                                <blockquote className="text-sm italic">"{q.quote}"</blockquote>
-                                <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
-                            </Card>
-                        ))}
-                    </div>
+                    <Carousel
+                        opts={{
+                            align: "start",
+                            loop: true,
+                        }}
+                        className="w-full"
+                    >
+                        <CarouselContent>
+                            {quotes.map((q, i) => (
+                                <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+                                    <div className="p-1 h-full">
+                                        <Card className="flex flex-col justify-center p-4 bg-muted/50 h-full">
+                                            <FileText className="h-6 w-6 mb-2 text-muted-foreground" />
+                                            <blockquote className="text-sm italic flex-grow">"{q.quote}"</blockquote>
+                                            <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
+                                        </Card>
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="ml-10" />
+                        <CarouselNext className="mr-10" />
+                    </Carousel>
                      <Accordion type="single" collapsible className="w-full mt-6">
                         <AccordionItem value="sources">
                             <AccordionTrigger>
