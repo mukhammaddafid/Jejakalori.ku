@@ -167,104 +167,109 @@ export default function ReadingPage() {
     const { t } = useLanguage();
     return (
         <div className="p-4 sm:p-6 space-y-6">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><BookOpen /> {t('reading')}</CardTitle>
-                    <CardDescription>{t('quoteCollageDescription')}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Carousel
-                        opts={{
-                            align: "start",
-                        }}
-                        className="w-full"
-                    >
-                        <CarouselContent>
-                            {quotes.map((q, i) => (
-                                <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
-                                    <div className="p-1 h-full">
-                                        <Card className="flex flex-col justify-center p-4 bg-muted/50 h-full">
-                                            <FileText className="h-6 w-6 mb-2 text-muted-foreground" />
-                                            <blockquote className="text-sm italic flex-grow">"{q.quote}"</blockquote>
-                                            <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
-                                        </Card>
-                                    </div>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="-left-4" />
-                        <CarouselNext className="absolute -right-4 top-[-1.5rem]"/>
-                    </Carousel>
-                     <Accordion type="single" collapsible className="w-full mt-6">
-                        <AccordionItem value="sources">
-                            <AccordionTrigger>
-                                <div className="flex items-center gap-2 font-semibold">
-                                    <FlaskConical className="h-5 w-5" />
-                                    {t('scientificSources')}
-                                </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="pt-4 space-y-3">
-                                {scientificSources.map((source, index) => (
-                                    <div key={index}>
-                                        <p className="font-semibold text-sm">{source.title}</p>
-                                        <p className="text-xs text-muted-foreground italic">{source.source}</p>
-                                    </div>
-                                ))}
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </CardContent>
-            </Card>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><BookOpen /> {t('reading')}</CardTitle>
+                            <CardDescription>{t('quoteCollageDescription')}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Carousel
+                                opts={{
+                                    align: "start",
+                                }}
+                                className="w-full"
+                            >
+                                <CarouselContent>
+                                    {quotes.map((q, i) => (
+                                        <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+                                            <div className="p-1 h-full">
+                                                <Card className="flex flex-col justify-center p-4 bg-muted/50 h-full">
+                                                    <FileText className="h-6 w-6 mb-2 text-muted-foreground" />
+                                                    <blockquote className="text-sm italic flex-grow">"{q.quote}"</blockquote>
+                                                    <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
+                                                </Card>
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                                <CarouselPrevious className="-left-4" />
+                                <CarouselNext className="absolute -right-4 top-[-1.5rem]"/>
+                            </Carousel>
+                             <Accordion type="single" collapsible className="w-full mt-6">
+                                <AccordionItem value="sources">
+                                    <AccordionTrigger>
+                                        <div className="flex items-center gap-2 font-semibold">
+                                            <FlaskConical className="h-5 w-5" />
+                                            {t('scientificSources')}
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pt-4 space-y-3">
+                                        {scientificSources.map((source, index) => (
+                                            <div key={index}>
+                                                <p className="font-semibold text-sm">{source.title}</p>
+                                                <p className="text-xs text-muted-foreground italic">{source.source}</p>
+                                            </div>
+                                        ))}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        </CardContent>
+                    </Card>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Brain /> {t('brainTime')}</CardTitle>
-                    <CardDescription>{t('brainTimeDescription')}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="book-title">{t('bookTitle')}</Label>
-                            <Input id="book-title" placeholder="e.g., Sapiens" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="start-date">{t('startDate')}</Label>
-                            <Input id="start-date" type="date" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="start-time">{t('startTime')}</Label>
-                            <Input id="start-time" type="time" />
-                        </div>
-                    </div>
-                    <Button className="w-full">{t('trackReading')}</Button>
-                    <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="history">
-                            <AccordionTrigger>
-                                <div className="flex items-center gap-2 font-semibold">
-                                    <LineChartIcon className="h-5 w-5" />
-                                    {t('readingHistory')}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><Brain /> {t('brainTime')}</CardTitle>
+                            <CardDescription>{t('brainTimeDescription')}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="book-title">{t('bookTitle')}</Label>
+                                    <Input id="book-title" placeholder="e.g., Sapiens" />
                                 </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="pt-4">
-                                <ResponsiveContainer width="100%" height={250}>
-                                    <LineChart data={readingData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="month" />
-                                        <YAxis yAxisId="left" label={{ value: 'Books', angle: -90, position: 'insideLeft' }}/>
-                                        <YAxis yAxisId="right" orientation="right" label={{ value: 'Hours', angle: -90, position: 'insideRight' }}/>
-                                        <Tooltip />
-                                        <Legend />
-                                        <Line yAxisId="left" type="monotone" dataKey="books" name={t('booksRead')} stroke="hsl(var(--primary))" strokeWidth={2} />
-                                        <Line yAxisId="right" type="monotone" dataKey="duration" name={t('readingDuration')} stroke="hsl(var(--chart-2))" strokeWidth={2} />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </CardContent>
-            </Card>
-
-            <DeviceUsageBreak />
+                                <div className="space-y-2">
+                                    <Label htmlFor="start-date">{t('startDate')}</Label>
+                                    <Input id="start-date" type="date" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="start-time">{t('startTime')}</Label>
+                                    <Input id="start-time" type="time" />
+                                </div>
+                            </div>
+                            <Button className="w-full">{t('trackReading')}</Button>
+                            <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="history">
+                                    <AccordionTrigger>
+                                        <div className="flex items-center gap-2 font-semibold">
+                                            <LineChartIcon className="h-5 w-5" />
+                                            {t('readingHistory')}
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pt-4">
+                                        <ResponsiveContainer width="100%" height={250}>
+                                            <LineChart data={readingData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                                <CartesianGrid strokeDasharray="3 3" />
+                                                <XAxis dataKey="month" />
+                                                <YAxis yAxisId="left" label={{ value: 'Books', angle: -90, position: 'insideLeft' }}/>
+                                                <YAxis yAxisId="right" orientation="right" label={{ value: 'Hours', angle: -90, position: 'insideRight' }}/>
+                                                <Tooltip />
+                                                <Legend />
+                                                <Line yAxisId="left" type="monotone" dataKey="books" name={t('booksRead')} stroke="hsl(var(--primary))" strokeWidth={2} />
+                                                <Line yAxisId="right" type="monotone" dataKey="duration" name={t('readingDuration')} stroke="hsl(var(--chart-2))" strokeWidth={2} />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="lg:col-span-1 space-y-6">
+                    <DeviceUsageBreak />
+                </div>
+            </div>
         </div>
     );
 }
