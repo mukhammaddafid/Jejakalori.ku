@@ -14,6 +14,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from 'recharts';
 import { ChartContainer } from '@/components/ui/chart';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/lib/language-provider';
+import { mealPlan30Days } from '@/lib/data';
 
 interface Totals {
   calories: number;
@@ -24,26 +25,20 @@ interface Totals {
   unsaturatedFat: number;
 }
 
-const recipeNameOptions = [
-    "Morning Protein Smoothie",
-    "Grilled Chicken Salad",
-    "Garlic Shrimp Stir-fry",
-    "Vegetable Lentil Soup",
-    "Black Bean Burgers",
-    "Creamy Pesto Pasta",
-    "Fish Tacos with Slaw",
-    "Chicken Coconut Curry",
-    "Mediterranean Quinoa Bowl",
-    "Chocolate Overnight Oats",
-];
-
 export function RecipeCalculator() {
   const [recipeName, setRecipeName] = React.useState('');
   const [servings, setServings] = React.useState(1);
   const [ingredients, setIngredients] = React.useState<MealLog[]>([]);
   const [totals, setTotals] = React.useState<Totals>({ calories: 0, protein: 0, carbs: 0, fat: 0, saturatedFat: 0, unsaturatedFat: 0 });
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const recipeNameOptions = React.useMemo(() => {
+    const internationalRecipes = mealPlan30Days[language].international.flatMap(day => [day.breakfast, day.lunch, day.dinner]);
+    const nusantaraRecipes = mealPlan30Days[language].nusantara.flatMap(day => [day.breakfast, day.lunch, day.dinner]);
+    return [...new Set([...internationalRecipes, ...nusantaraRecipes])];
+  }, [language]);
+
 
   React.useEffect(() => {
     let newTotals: Totals = { calories: 0, protein: 0, carbs: 0, fat: 0, saturatedFat: 0, unsaturatedFat: 0 };
