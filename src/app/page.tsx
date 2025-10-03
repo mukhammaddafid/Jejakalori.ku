@@ -1,3 +1,6 @@
+
+'use client';
+
 import * as React from 'react';
 import { mockUserData } from '@/lib/data';
 import type { DailyLog, NutrientTotals } from '@/lib/types';
@@ -5,11 +8,11 @@ import { CalorieSummary } from '@/components/dashboard/calorie-summary';
 import { MacroSummary } from '@/components/dashboard/macro-summary';
 import { FoodLog } from '@/components/dashboard/food-log';
 import { WeeklyTrends } from '@/components/dashboard/weekly-trends';
-import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { ShieldCheck, Dumbbell, BrainCircuit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
 
 // Helper function to calculate totals on the server
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -72,6 +75,11 @@ function PremiumFeatureCard({ icon, title, description, buttonText }: { icon: Re
 export default function DashboardPage() {
   const userData = mockUserData;
   const totals = calculateTotals(userData.log);
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   return (
     <div className="p-4 sm:p-6 space-y-6">
@@ -93,7 +101,7 @@ export default function DashboardPage() {
         <div className="lg:col-span-1 space-y-6">
           <AiSummaryCard userData={userData} />
           <WeeklyTrends />
-          <MicronutrientTracker log={userData.log} />
+          {isClient && <MicronutrientTracker log={userData.log} />}
           <PremiumFeatureCard 
             icon={<Dumbbell/>}
             title="Rencana Latihan AI"
