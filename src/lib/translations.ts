@@ -283,6 +283,9 @@ export const translations = {
     apiKeyActivatedDescription: 'API Key for {{provider}} has been activated.',
     apiKeyRequired: 'API Key is required.',
     apiKeyNotActivated: 'Please activate your API key first.',
+    other: 'Other',
+    customProvider: 'Custom Provider Name',
+    customProviderPlaceholder: 'Enter provider name...',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -572,6 +575,9 @@ export const translations = {
     apiKeyActivatedDescription: 'Kunci API untuk {{provider}} telah diaktifkan.',
     apiKeyRequired: 'Kunci API diperlukan.',
     apiKeyNotActivated: 'Silakan aktifkan kunci API Anda terlebih dahulu.',
+    other: 'Lainnya',
+    customProvider: 'Nama Penyedia Kustom',
+    customProviderPlaceholder: 'Masukkan nama penyedia...',
   }
 };
 

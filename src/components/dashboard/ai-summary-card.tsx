@@ -23,6 +23,7 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [apiKey, setApiKey] = React.useState('');
   const [apiProvider, setApiProvider] = React.useState('gemini');
+  const [customProviderName, setCustomProviderName] = React.useState('');
   const [isActivated, setIsActivated] = React.useState(false);
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -53,12 +54,13 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
   };
 
   const handleActivate = () => {
+    const providerToActivate = apiProvider === 'other' ? customProviderName : apiProvider;
     if (apiKey.trim() !== '') {
       // In a real app, you'd validate and save this key securely.
       setIsActivated(true);
       toast({
         title: t('apiKeyActivated'),
-        description: t('apiKeyActivatedDescription', { provider: apiProvider }),
+        description: t('apiKeyActivatedDescription', { provider: providerToActivate }),
       });
     } else {
       toast({
@@ -67,6 +69,13 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
         description: t('apiKeyRequired'),
       });
     }
+  };
+
+  const getProviderDisplayName = () => {
+    if (apiProvider === 'other') {
+      return customProviderName || t('other');
+    }
+    return apiProvider.charAt(0).toUpperCase() + apiProvider.slice(1);
   };
 
   return (
@@ -86,7 +95,7 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="w-full justify-between">
-                        <span>{apiProvider.charAt(0).toUpperCase() + apiProvider.slice(1)}</span>
+                        <span>{getProviderDisplayName()}</span>
                         <Sparkles className="ml-2 h-4 w-4" />
                     </Button>
                 </DropdownMenuTrigger>
@@ -96,11 +105,25 @@ export function AiSummaryCard({ userData }: AiSummaryCardProps) {
                         <DropdownMenuRadioItem value="replicate">Replicate</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="deepseek">DeepSeek</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="chatgpt">ChatGPT</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="other">Other</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="other">{t('other')}</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
+
+        {apiProvider === 'other' && (
+          <div className="space-y-2">
+            <Label htmlFor="custom-provider">{t('customProvider')}</Label>
+            <Input
+              id="custom-provider"
+              type="text"
+              placeholder={t('customProviderPlaceholder')}
+              value={customProviderName}
+              onChange={(e) => setCustomProviderName(e.target.value)}
+            />
+          </div>
+        )}
+
         <div className="space-y-2">
             <Label htmlFor="api-key">{t('apiKey')}</Label>
             <div className="flex gap-2">
