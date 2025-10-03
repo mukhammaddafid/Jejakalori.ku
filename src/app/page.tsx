@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Flame, Moon, Sun } from 'lucide-react';
+import { Flame, Moon, Sun, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import {
