@@ -4,6 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { mockUserData } from '@/lib/data';
 
 import {
   DropdownMenu,
@@ -70,7 +71,17 @@ export function Header() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
+          <DropdownMenuLabel>
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">{t('myAccount')}</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {mockUserData.profile.name}
+              </p>
+              <p className="text-xs leading-none text-muted-foreground">
+                jane.doe@example.com
+              </p>
+            </div>
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href="/profile">
