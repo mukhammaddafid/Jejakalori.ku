@@ -147,7 +147,17 @@ const screenTimeDataMonthly = Array.from({ length: 30 }, (_, i) => ({
     hours: Math.floor(Math.random() * 8) + 2,
 }));
 
-const HOBBY_LIST = ['Sports', 'Music', 'Coding', 'Art', 'Cooking', 'Photography'];
+const hobbyIcons: { [key: string]: React.ReactNode } = {
+    'Reading': <BookOpen className="h-5 w-5" />,
+    'Sports': <Dumbbell className="h-5 w-5" />,
+    'Music': <Music className="h-5 w-5" />,
+    'Coding': <Code className="h-5 w-5" />,
+    'Art': <Brush className="h-5 w-5" />,
+    'Cooking': <CookingPot className="h-5 w-5" />,
+    'Photography': <Camera className="h-5 w-5" />,
+};
+
+const HOBBY_LIST = Object.keys(hobbyIcons);
 
 const PIE_CHART_COLORS = [
     'hsl(var(--chart-1))',
@@ -166,16 +176,6 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
     const [selectedHobby, setSelectedHobby] = React.useState(HOBBY_LIST[0]);
     const [hobbyDuration, setHobbyDuration] = React.useState('');
     const [hobbyLog, setHobbyLog] = React.useState<{ name: string, duration: number, time: Date }[]>([]);
-
-    const hobbyIcons: { [key: string]: React.ReactNode } = {
-        'Reading': <BookOpen className="h-10 w-10 text-muted-foreground" />,
-        'Sports': <Dumbbell className="h-10 w-10 text-muted-foreground" />,
-        'Music': <Music className="h-10 w-10 text-muted-foreground" />,
-        'Coding': <Code className="h-10 w-10 text-muted-foreground" />,
-        'Art': <Brush className="h-10 w-10 text-muted-foreground" />,
-        'Cooking': <CookingPot className="h-10 w-10 text-muted-foreground" />,
-        'Photography': <Camera className="h-10 w-10 text-muted-foreground" />,
-    };
 
     React.useEffect(() => {
         setHobbies(prev => ({ ...prev, 'Reading': brainTime }));
@@ -202,8 +202,6 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
         },
     };
     
-    const ActiveHobbyIcon = hobbyIcons[selectedHobby] || <Activity className="h-10 w-10 text-muted-foreground" />;
-
     return (
         <Card>
             <CardHeader>
@@ -217,10 +215,6 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                         <TabsTrigger value="deviceUsageBreak">{t('deviceUsageBreak')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="hobbies" className="space-y-4 pt-4">
-                        <div className="flex flex-col items-center justify-center p-4">
-                            {ActiveHobbyIcon}
-                            <p className="mt-2 text-sm font-medium text-muted-foreground">{selectedHobby}</p>
-                        </div>
                         <ResponsiveContainer width="100%" height={150}>
                             <PieChart>
                                 <Pie data={hobbyChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60}>
@@ -240,7 +234,14 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                                         <SelectValue placeholder={t('selectHobby')} />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {HOBBY_LIST.map(hobby => <SelectItem key={hobby} value={hobby}>{t(hobby.toLowerCase() as any) || hobby}</SelectItem>)}
+                                        {HOBBY_LIST.map(hobby => (
+                                        <SelectItem key={hobby} value={hobby}>
+                                            <div className="flex items-center gap-2">
+                                                {hobbyIcons[hobby]}
+                                                <span>{t(hobby.toLowerCase() as any) || hobby}</span>
+                                            </div>
+                                        </SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                                 <Input 
@@ -265,7 +266,10 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
                                 <TableBody>
                                     {hobbyLog.map((log, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{log.name}</TableCell>
+                                            <TableCell className="flex items-center gap-2">
+                                                {hobbyIcons[log.name]}
+                                                {log.name}
+                                            </TableCell>
                                             <TableCell className="text-right">{log.duration} min</TableCell>
                                             <TableCell className="text-right text-xs">{log.time.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(',', '')}</TableCell>
                                         </TableRow>
@@ -441,6 +445,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
