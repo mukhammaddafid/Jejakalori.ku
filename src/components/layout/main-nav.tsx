@@ -18,6 +18,7 @@ import {
 import { useLanguage } from '@/lib/language-provider';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { mockUserData } from '@/lib/data';
 
 export const getMenuItems = (t: (key: string) => string) => [
   {
@@ -48,6 +49,7 @@ export function MainNav() {
   const menuItems = getMenuItems(t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
   const userAvatar = PlaceHolderImages.find(img => img.id === selectedAvatarId);
+  const user = mockUserData.profile;
 
   return (
     <SidebarMenu>
@@ -74,7 +76,7 @@ export function MainNav() {
           <Link href="/profile">
             <Avatar className="h-6 w-6">
               {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
             </Avatar>
             <span>{t('profile')}</span>
           </Link>

@@ -43,11 +43,8 @@ export function Header() {
   const pageTitle = getPageTitle(pathname, t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
   
-  const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
-  const userAvatar = avatarPlaceholders.find(img => img.id === selectedAvatarId) || avatarPlaceholders[0];
-
-  const badgeAvatars = avatarPlaceholders.filter(a => a.id.includes('user-avatar-2'));
-  const simpleAvatars = avatarPlaceholders.filter(a => a.id.includes('user-avatar-1') || a.id.includes('user-avatar-3') || a.id.includes('user-avatar-4') || a.id.includes('user-avatar-5'));
+  const userAvatar = PlaceHolderImages.find(img => img.id === selectedAvatarId) || PlaceHolderImages[0];
+  const user = mockUserData.profile;
 
 
   return (
@@ -66,7 +63,7 @@ export function Header() {
                   alt="User avatar" 
                   data-ai-hint={userAvatar.imageHint} 
                 />}
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -86,25 +83,14 @@ export function Header() {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ImageIcon className="mr-2 h-4 w-4" />
-              <span>{t('avatar' as any)}</span>
+              <span>{t('background' as any)}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
-                  <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Initial</DropdownMenuLabel>
-                  <DropdownMenuRadioItem value="initials">Initials</DropdownMenuRadioItem>
-                  <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Badge Style</DropdownMenuLabel>
-                  {badgeAvatars.map((avatar) => (
-                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
-                      {avatar.description}
-                    </DropdownMenuRadioItem>
-                  ))}
-                   <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2">Simple Style</DropdownMenuLabel>
-                  {simpleAvatars.map((avatar) => (
-                    <DropdownMenuRadioItem key={avatar.id} value={avatar.id}>
-                      {avatar.description}
-                    </DropdownMenuRadioItem>
-                  ))}
+                  <DropdownMenuRadioItem value="user-avatar-1">Color 1</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-2">Color 2</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-3">Color 3</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
@@ -159,9 +145,11 @@ export function Header() {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>{t('logout')}</span>
+          <DropdownMenuItem asChild>
+            <Link href="/login">
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>{t('logout')}</span>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
