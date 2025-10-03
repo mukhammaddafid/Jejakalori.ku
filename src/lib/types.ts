@@ -35,6 +35,7 @@ export interface UserGoals {
   protein: number;
   carbs: number;
   fat: number;
+  saturatedFat: number;
 }
 
 export interface UserProfile {
@@ -51,4 +52,13 @@ export interface UserData {
   goals: UserGoals;
   log: DailyLog;
   recipes: Recipe[];
+}
+
+export interface NutrientTotals {
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+    saturatedFat: number;
+    unsaturatedFat: number;
 }

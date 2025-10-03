@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mockUserData } from '@/lib/data';
-import type { DailyLog, MealLog } from '@/lib/types';
+import type { DailyLog, MealLog, NutrientTotals } from '@/lib/types';
 import { CalorieSummary } from '@/components/dashboard/calorie-summary';
 import { MacroSummary } from '@/components/dashboard/macro-summary';
 import { FoodLog } from '@/components/dashboard/food-log';
@@ -9,18 +9,28 @@ import { MicronutrientTracker } from '@/components/dashboard/micronutrient-track
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
 
 // Helper function to calculate totals on the server
-function calculateTotals(log: DailyLog) {
-  let calories = 0, protein = 0, carbs = 0, fat = 0;
+function calculateTotals(log: DailyLog): NutrientTotals {
+  const totals: NutrientTotals = {
+    calories: 0,
+    protein: 0,
+    carbs: 0,
+    fat: 0,
+    saturatedFat: 0,
+    unsaturatedFat: 0,
+  };
+
   const allMeals: MealLog[] = Object.values(log).flat();
 
   allMeals.forEach(item => {
-    calories += item.food.calories * item.servings;
-    protein += item.food.protein * item.servings;
-    carbs += item.food.carbs * item.servings;
-    fat += item.food.fat * item.servings;
+    totals.calories += (item.food.calories || 0) * item.servings;
+    totals.protein += (item.food.protein || 0) * item.servings;
+    totals.carbs += (item.food.carbs || 0) * item.servings;
+    totals.fat += (item.food.fat || 0) * item.servings;
+    totals.saturatedFat += (item.food.nutrients.saturatedFat || 0) * item.servings;
+    totals.unsaturatedFat += (item.food.nutrients.unsaturatedFat || 0) * item.servings;
   });
 
-  return { calories, protein, carbs, fat };
+  return totals;
 }
 
 export default function DashboardPage() {
@@ -39,11 +49,7 @@ export default function DashboardPage() {
               <CalorieSummary consumed={totals.calories} goal={userData.goals.calories} />
             </div>
             <div className="sm:col-span-2 flex">
-              <MacroSummary 
-                protein={{ consumed: totals.protein, goal: userData.goals.protein }}
-                carbs={{ consumed: totals.carbs, goal: userData.goals.carbs }}
-                fat={{ consumed: totals.fat, goal: userData.goals.fat }}
-              />
+              <MacroSummary totals={totals} goals={userData.goals} />
             </div>
           </div>
           <FoodLog initialLog={userData.log} />

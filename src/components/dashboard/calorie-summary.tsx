@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { Flame } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Flame, Target, MinusCircle } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { RadialBar, RadialBarChart } from 'recharts';
 
@@ -20,13 +20,9 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
   ];
 
   return (
-    <Card className="flex flex-col w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Kalori</CardTitle>
-        <Flame className="h-4 w-4 text-primary" />
-      </CardHeader>
-      <CardContent className="flex flex-1 flex-col items-center justify-center gap-4">
-        <div className="relative h-32 w-32">
+    <Card className="flex flex-col w-full p-4">
+      <CardContent className="flex flex-1 flex-col items-center justify-between gap-4">
+        <div className="relative h-28 w-28">
           <ChartContainer config={{}} className="absolute inset-0">
             <RadialBarChart
               innerRadius="80%"
@@ -34,7 +30,7 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               data={chartData}
               startAngle={90}
               endAngle={450}
-              barSize={10}
+              barSize={8}
             >
               <RadialBar
                 dataKey="value"
@@ -43,16 +39,29 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               />
             </RadialBarChart>
           </ChartContainer>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <p className="text-2xl font-bold font-headline">{consumed}</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+            <p className="text-3xl font-bold font-headline">{Math.round(consumed)}</p>
             <p className="text-xs text-muted-foreground">Terkonsumsi</p>
           </div>
         </div>
-        <div className="text-center">
-          <p className="text-lg font-semibold">{goal}</p>
-          <p className="text-sm text-muted-foreground">Target Harian</p>
+        
+        <div className="w-full space-y-2 text-sm">
+            <div className="flex items-center justify-between gap-2">
+                <div className='flex items-center gap-2 text-muted-foreground'>
+                    <Target className="h-4 w-4" />
+                    <span>Target Harian</span>
+                </div>
+                <span className="font-semibold">{goal}</span>
+            </div>
+            <div className="flex items-center justify-between gap-2">
+                <div className='flex items-center gap-2 text-muted-foreground'>
+                    <MinusCircle className="h-4 w-4" />
+                    <span>Tersisa</span>
+                </div>
+                <span className="font-semibold">{Math.round(remaining)}</span>
+            </div>
         </div>
-        <p className="text-xs text-muted-foreground">{remaining >= 0 ? `${remaining} kkal tersisa` : `${Math.abs(remaining)} kkal berlebih`}</p>
+
       </CardContent>
     </Card>
   );

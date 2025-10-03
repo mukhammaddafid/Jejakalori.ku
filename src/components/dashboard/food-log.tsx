@@ -20,6 +20,8 @@ import {
 import { FoodSearch } from './food-search';
 import { Plus, Salad, Sandwich, Utensils, Apple } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 interface FoodLogProps {
   initialLog: DailyLog;
@@ -40,6 +42,26 @@ const mealIcons = {
 };
 
 type MealName = keyof DailyLog;
+
+function FoodItemImage({ foodId }: { foodId: string }) {
+    const placeholder = PlaceHolderImages.find(p => p.id === `food-${foodId}`);
+    const defaultPlaceholder = PlaceHolderImages.find(p => p.id === 'food-generic');
+
+    const imageToShow = placeholder || defaultPlaceholder;
+
+    if (!imageToShow) return null;
+
+    return (
+        <Image 
+            src={imageToShow.imageUrl}
+            alt={imageToShow.description}
+            width={40}
+            height={40}
+            className="rounded-md object-cover"
+            data-ai-hint={imageToShow.imageHint}
+        />
+    )
+}
 
 export function FoodLog({ initialLog }: FoodLogProps) {
   const [log, setLog] = React.useState<DailyLog>(initialLog);
@@ -85,9 +107,12 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                     {log[mealName].length > 0 ? (
                       log[mealName].map((item, index) => (
                         <div key={index} className="flex justify-between items-center p-2 rounded-md bg-secondary">
-                          <div>
-                            <p className="font-medium">{item.food.name}</p>
-                            <p className="text-sm text-muted-foreground">{item.servings} porsi</p>
+                          <div className="flex items-center gap-3">
+                            <FoodItemImage foodId={item.food.id} />
+                            <div>
+                              <p className="font-medium">{item.food.name}</p>
+                              <p className="text-sm text-muted-foreground">{item.servings} porsi</p>
+                            </div>
                           </div>
                           <p className="font-mono text-sm">{Math.round(item.food.calories * item.servings)} kkal</p>
                         </div>

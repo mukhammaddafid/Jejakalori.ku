@@ -8,30 +8,36 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { FoodSearch } from '@/components/dashboard/food-search';
 import { Separator } from '@/components/ui/separator';
-import { PlusCircle, Trash2 } from 'lucide-react';
+import { PlusCircle, Trash2, Soup, BookCopy, PieChart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Bar, BarChart, CartesianGrid, XAxis, Tooltip, Legend } from 'recharts';
+import { ChartContainer } from '@/components/ui/chart';
 
 interface Totals {
   calories: number;
   protein: number;
   carbs: number;
   fat: number;
+  saturatedFat: number;
+  unsaturatedFat: number;
 }
 
 export function RecipeCalculator() {
   const [recipeName, setRecipeName] = React.useState('');
   const [servings, setServings] = React.useState(1);
   const [ingredients, setIngredients] = React.useState<MealLog[]>([]);
-  const [totals, setTotals] = React.useState<Totals>({ calories: 0, protein: 0, carbs: 0, fat: 0 });
+  const [totals, setTotals] = React.useState<Totals>({ calories: 0, protein: 0, carbs: 0, fat: 0, saturatedFat: 0, unsaturatedFat: 0 });
   const { toast } = useToast();
 
   React.useEffect(() => {
-    let newTotals: Totals = { calories: 0, protein: 0, carbs: 0, fat: 0 };
+    let newTotals: Totals = { calories: 0, protein: 0, carbs: 0, fat: 0, saturatedFat: 0, unsaturatedFat: 0 };
     ingredients.forEach(item => {
       newTotals.calories += item.food.calories * item.servings;
       newTotals.protein += item.food.protein * item.servings;
       newTotals.carbs += item.food.carbs * item.servings;
       newTotals.fat += item.food.fat * item.servings;
+      newTotals.saturatedFat += (item.food.nutrients.saturatedFat || 0) * item.servings;
+      newTotals.unsaturatedFat += (item.food.nutrients.unsaturatedFat || 0) * item.servings;
     });
     setTotals(newTotals);
   }, [ingredients]);
@@ -53,7 +59,23 @@ export function RecipeCalculator() {
     protein: servings > 0 ? totals.protein / servings : 0,
     carbs: servings > 0 ? totals.carbs / servings : 0,
     fat: servings > 0 ? totals.fat / servings : 0,
+    saturatedFat: servings > 0 ? totals.saturatedFat / servings : 0,
+    unsaturatedFat: servings > 0 ? totals.unsaturatedFat / servings : 0,
   };
+
+  const chartData = [
+    { name: 'Protein', value: Math.round(perServing.protein), fill: 'hsl(var(--chart-1))' },
+    { name: 'Karbo', value: Math.round(perServing.carbs), fill: 'hsl(var(--chart-2))' },
+    { name: 'Lemak', value: Math.round(perServing.fat), fill: 'hsl(var(--chart-3))' },
+  ];
+
+  const chartDataTotal = [
+    { name: 'Protein', value: Math.round(totals.protein), fill: 'hsl(var(--chart-1))' },
+    { name: 'Karbo', value: Math.round(totals.carbs), fill: 'hsl(var(--chart-2))' },
+    { name: 'Lemak', value: Math.round(totals.fat), fill: 'hsl(var(--chart-3))' },
+    { name: 'L. Jenuh', value: Math.round(totals.saturatedFat), fill: 'hsl(var(--chart-4))' },
+    { name: 'L. Tak Jenuh', value: Math.round(totals.unsaturatedFat), fill: 'hsl(var(--chart-5))' },
+  ];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -61,7 +83,7 @@ export function RecipeCalculator() {
       <div className="lg:col-span-2 space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Buat Resep</CardTitle>
+            <CardTitle className="flex items-center gap-2"><Soup /> Buat Resep</CardTitle>
             <CardDescription>Tambahkan bahan untuk menghitung total nutrisi.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -80,7 +102,7 @@ export function RecipeCalculator() {
         
         <Card>
             <CardHeader>
-                <CardTitle>Bahan-bahan</CardTitle>
+                <CardTitle className="flex items-center gap-2"><BookCopy /> Komposisi</CardTitle>
             </CardHeader>
             <CardContent>
                 <FoodSearch onAddFood={addIngredient} />
@@ -109,7 +131,7 @@ export function RecipeCalculator() {
       <div className="lg:col-span-1">
         <Card className="sticky top-20">
           <CardHeader>
-            <CardTitle>{recipeName || "Nutrisi Resep"}</CardTitle>
+            <CardTitle className="flex items-center gap-2"><PieChart />{recipeName || "Nutrisi Resep"}</CardTitle>
             <CardDescription>Fakta nutrisi total untuk resep Anda.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -119,22 +141,34 @@ export function RecipeCalculator() {
                 <p className="text-3xl font-bold font-headline text-primary">{Math.round(perServing.calories)}</p>
                 <p className="text-sm text-muted-foreground">Kalori</p>
               </div>
-              <div className="mt-4 grid grid-cols-3 gap-4 text-center">
-                  <div><p className="font-bold">{Math.round(perServing.protein)}g</p><p className="text-xs text-muted-foreground">Protein</p></div>
-                  <div><p className="font-bold">{Math.round(perServing.carbs)}g</p><p className="text-xs text-muted-foreground">Karbo</p></div>
-                  <div><p className="font-bold">{Math.round(perServing.fat)}g</p><p className="text-xs text-muted-foreground">Lemak</p></div>
-              </div>
+              <ChartContainer config={{}} className="h-[120px] w-full">
+                <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 10 }}>
+                    <XAxis type="number" hide />
+                    <Tooltip cursor={{fill: 'hsl(var(--muted))'}} contentStyle={{backgroundColor: 'hsl(var(--background))'}}/>
+                    <Bar dataKey="value" radius={4} />
+                </BarChart>
+              </ChartContainer>
             </div>
 
             <Separator />
             
             <div>
               <h4 className="font-semibold mb-2">Total untuk Resep ({servings} porsi)</h4>
-              <div className="space-y-1 text-sm">
-                <div className="flex justify-between"><span>Kalori:</span> <span className="font-medium">{Math.round(totals.calories)} kkal</span></div>
-                <div className="flex justify-between"><span>Protein:</span> <span className="font-medium">{Math.round(totals.protein)} g</span></div>
-                <div className="flex justify-between"><span>Karbohidrat:</span> <span className="font-medium">{Math.round(totals.carbs)} g</span></div>
-                <div className="flex justify-between"><span>Lemak:</span> <span className="font-medium">{Math.round(totals.fat)} g</span></div>
+              <ChartContainer config={{}} className="h-[150px] w-full">
+                <BarChart data={chartDataTotal} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
+                    <Tooltip cursor={{fill: 'hsl(var(--muted))'}} contentStyle={{backgroundColor: 'hsl(var(--background))'}}/>
+                    <Bar dataKey="value" radius={4}>
+                        {chartDataTotal.map((entry, index) => (
+                            <div key={`cell-${index}`} style={{ backgroundColor: entry.fill }} />
+                        ))}
+                    </Bar>
+                </BarChart>
+              </ChartContainer>
+               <div className="space-y-1 text-sm mt-2">
+                <div className="flex justify-between"><span>Lemak Jenuh:</span> <span className="font-medium">{Math.round(totals.saturatedFat)} g</span></div>
+                <div className="flex justify-between"><span>Lemak Tak Jenuh:</span> <span className="font-medium">{Math.round(totals.unsaturatedFat)} g</span></div>
               </div>
             </div>
 

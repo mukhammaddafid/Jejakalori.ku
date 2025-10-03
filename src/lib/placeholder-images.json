@@ -5,6 +5,78 @@
       "description": "A placeholder for the user's avatar.",
       "imageUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTkzOTU3Nzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "person portrait"
+    },
+    {
+      "id": "food-f1",
+      "description": "Cooked chicken breast.",
+      "imageUrl": "https://images.unsplash.com/photo-1641898378548-ac93da99786a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaGlja2VuJTIwYnJlYXN0fGVufDB8fHx8MTc1OTQxNTEyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "chicken breast"
+    },
+    {
+      "id": "food-f2",
+      "description": "Cooked brown rice.",
+      "imageUrl": "https://images.unsplash.com/photo-1669563794789-2412eeb7e62d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxicm93biUyMHJpY2V8ZW58MHx8fHwxNzU5NDQ0MTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brown rice"
+    },
+    {
+      "id": "food-f3",
+      "description": "Steamed broccoli.",
+      "imageUrl": "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxicm9jY29saXxlbnwwfHx8fDE3NTk0ODYyODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "broccoli"
+    },
+    {
+      "id": "food-f4",
+      "description": "Grilled salmon.",
+      "imageUrl": "https://images.unsplash.com/photo-1676300185165-3f543c1fcb72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxncmlsbGVkJTIwc2FsbW9ufGVufDB8fHx8MTc1OTQ3NjI0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "grilled salmon"
+    },
+    {
+      "id": "food-f5",
+      "description": "A red apple.",
+      "imageUrl": "https://images.unsplash.com/photo-1621800544619-0beb8cc67ae1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxyZWQlMjBhcHBsZXxlbnwwfHx8fDE3NTk0MzczNjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "red apple"
+    },
+    {
+      "id": "food-f6",
+      "description": "A handful of almonds.",
+      "imageUrl": "https://images.unsplash.com/photo-1602948750761-97ea79ee42ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhbG1vbmRzfGVufDB8fHx8MTc1OTQ4NjI4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "almonds"
+    },
+    {
+      "id": "food-f7",
+      "description": "A bowl of oats.",
+      "imageUrl": "https://images.unsplash.com/photo-1586810504230-09dab6b8e01b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvYXRtZWFsfGVufDB8fHx8MTc1OTQ4NjI4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "oatmeal"
+    },
+    {
+      "id": "food-f8",
+      "description": "A fried egg.",
+      "imageUrl": "https://images.unsplash.com/photo-1562918005-50afb98e5d32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmcmllZCUyMGVnZ3xlbnwwfHx8fDE3NTk0ODYyODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fried egg"
+    },
+    {
+      "id": "food-f9",
+      "description": "A bowl of greek yogurt.",
+      "imageUrl": "https://images.unsplash.com/photo-1571230389215-b34a89739ef1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxncmVlayUyMHlvZ3VydHxlbnwwfHx8fDE3NTk0MjIxMDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "greek yogurt"
+    },
+    {
+      "id": "food-f10",
+      "description": "Fresh spinach leaves.",
+      "imageUrl": "https://images.unsplash.com/photo-1580910365203-91ea9115a319?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzcGluYWNofGVufDB8fHx8MTc1OTQ4NjI4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spinach"
+    },
+    {
+      "id": "food-generic",
+      "description": "A generic food placeholder.",
+      "imageUrl": "https://images.unsplash.com/photo-1669472546359-418a98630699?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmb29kJTIwcGxhdGV8ZW58MHx8fHwxNzU5Mzg3MDYwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "food plate"
+    },
+    {
+      "id": "recipe-page-hero",
+      "description": "A vibrant image of fresh ingredients for a recipe.",
+      "imageUrl": "https://images.unsplash.com/photo-1704079747765-995331d2573f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmcmVzaCUyMGluZ3JlZGllbnRzfGVufDB8fHx8MTc1OTQ3MjEyMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fresh ingredients"
     }
   ]
 }
