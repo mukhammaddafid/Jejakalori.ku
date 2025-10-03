@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen, ChevronDown } from 'lucide-react';
+import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen, ChevronDown, MoreHorizontal } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import {
@@ -17,6 +17,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { motivationalQuotes } from '@/lib/data';
+import Image from 'next/image';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 const tiers = [
@@ -117,9 +124,30 @@ export default function LeaguesPage() {
                                     <CarouselItem key={index}>
                                         <div className="p-1">
                                         <Card>
-                                            <CardContent className="flex flex-col items-center justify-center p-6 aspect-square">
+                                            <CardContent className="flex flex-col items-center justify-center p-6 aspect-square relative">
+                                                <div className="absolute top-2 right-2">
+                                                    <DropdownMenu>
+                                                        <DropdownMenuTrigger asChild>
+                                                            <Button variant="ghost" size="icon" className="h-6 w-6">
+                                                                <MoreHorizontal className="h-4 w-4" />
+                                                            </Button>
+                                                        </DropdownMenuTrigger>
+                                                        <DropdownMenuContent>
+                                                            <DropdownMenuItem>Share</DropdownMenuItem>
+                                                            <DropdownMenuItem>Set as Reminder</DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </DropdownMenu>
+                                                </div>
                                                 <p className="text-sm font-semibold text-primary">{t('day')} {index + 1}</p>
-                                                <p className="text-lg md:text-xl font-medium text-center mt-2">{quote}</p>
+                                                <Image 
+                                                    src={`https://picsum.photos/seed/${100 + index}/100/100`}
+                                                    width={100}
+                                                    height={100}
+                                                    alt={`Motivation illustration ${index + 1}`}
+                                                    className="my-4 rounded-lg"
+                                                    data-ai-hint="motivation illustration"
+                                                />
+                                                <p className="text-base md:text-lg font-medium text-center">{quote}</p>
                                             </CardContent>
                                         </Card>
                                         </div>
