@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Flame, Monitor, Tablet, Smartphone, Globe, BookOpen } from 'lucide-react';
+import { Flame, Monitor, Tablet, Smartphone, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -14,44 +14,31 @@ import { useLanguage } from '@/lib/language-provider';
 
 function ChartCollage() {
     return (
-        <div className="mx-auto grid max-w-4xl grid-cols-2 grid-rows-2 gap-4">
-          <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            {/* Bar Chart placeholder */}
-            <div className="w-full h-full flex flex-col justify-end gap-1 p-2">
-                <div className="h-1/2 bg-primary/30 rounded-t-sm"></div>
-                <div className="h-1/4 bg-primary/60 rounded-t-sm"></div>
-                <div className="h-3/4 bg-primary rounded-t-sm"></div>
-            </div>
-          </div>
+        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-4">
           <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
             {/* Open book icon */}
             <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-inner">
                 <BookOpen className="w-16 h-16 text-red-600" />
             </div>
           </div>
+          <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
+            {/* Green gradient circle */}
+            <div className="relative w-24 h-24">
+                <div className="w-full h-full rounded-full bg-gradient-to-tr from-green-300 via-green-500 to-green-700"></div>
+            </div>
+          </div>
           <div className="col-span-2 p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            {/* Radial chart placeholder */}
-            <div className="relative w-32 h-32">
-                <div className="w-full h-full rounded-full border-8 border-muted"></div>
-                <div className="absolute top-0 left-0 w-full h-full rounded-full border-8 border-transparent border-t-accent border-l-accent -rotate-45"></div>
+            {/* Bar Chart placeholder */}
+            <div className="w-full h-32 flex items-end justify-around gap-2 p-2">
+                <div className="h-1/2 w-8 bg-primary/30 rounded-t-lg"></div>
+                <div className="h-3/4 w-8 bg-primary/60 rounded-t-lg"></div>
+                <div className="h-full w-8 bg-primary rounded-t-lg"></div>
+                <div className="h-1/4 w-8 bg-primary/40 rounded-t-lg"></div>
+                <div className="h-2/3 w-8 bg-primary/80 rounded-t-lg"></div>
             </div>
           </div>
         </div>
     );
-}
-
-function ClientOnly({ children }: { children: React.ReactNode }) {
-  const [hasMounted, setHasMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  if (!hasMounted) {
-    return null;
-  }
-
-  return <>{children}</>;
 }
 
 
@@ -66,41 +53,28 @@ export default function WelcomePage() {
           <span className="sr-only">{t('appName')}</span>
         </Link>
         <nav className="ml-auto flex items-center gap-2 sm:gap-4">
-          <ClientOnly>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Globe className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => setLanguage('en')}>English</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setLanguage('id')}>Bahasa Indonesia</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-          </ClientOnly>
-           <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9">
-                  <Smartphone className="h-5 w-5" />
-                  <span className="sr-only">View Modes</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Monitor className="mr-2 h-4 w-4" />
-                  <span>Desktop</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Tablet className="mr-2 h-4 w-4" />
-                  <span>Tablet</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Smartphone className="mr-2 h-4 w-4" />
-                  <span>Mobile</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Smartphone className="h-5 w-5" />
+                <span className="sr-only">View Modes</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Monitor className="mr-2 h-4 w-4" />
+                <span>Desktop</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Tablet className="mr-2 h-4 w-4" />
+                <span>Tablet</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Smartphone className="mr-2 h-4 w-4" />
+                <span>Mobile</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Link href="/login" passHref>
             <Button>{t('signUp')}</Button>
           </Link>
