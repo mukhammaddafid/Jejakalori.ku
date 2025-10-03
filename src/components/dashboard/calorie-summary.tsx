@@ -63,12 +63,12 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
           </div>
         </div>
 
-        <div className="mt-2">
+        <div className="mt-0">
              <span className="text-4xl font-bold font-headline text-primary">{Math.round(consumed)}</span>
              <p className="text-sm text-muted-foreground">kcal</p>
         </div>
         
-        <div className="w-full space-y-2 text-sm text-left mt-4">
+        <div className="w-full space-y-2 text-sm text-left mt-2">
             <div className="flex items-center justify-between gap-2">
                 <div className='flex items-center gap-2 text-muted-foreground'>
                     <Target className="h-4 w-4" />
