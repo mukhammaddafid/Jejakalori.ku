@@ -67,9 +67,24 @@ const workoutOptions = {
 };
 
 const habitAnalysisOptions = {
-    "Meal Composition": Array.from({ length: 25 }, (_, i) => `Composition analysis #${i + 1}`),
-    "Timing & Frequency": Array.from({ length: 25 }, (_, i) => `Timing analysis #${i + 1}`),
-    "Nutrient Quality": Array.from({ length: 20 }, (_, i) => `Nutrient analysis #${i + 1}`),
+    "Meal Composition": [
+      "Macro-nutrient Balance (Protein, Carbs, Fat)",
+      "Food Group Diversity (Fruits, Vegetables, Grains)",
+      "Meal-to-Meal Consistency",
+      "Calorie Distribution per Meal",
+    ],
+    "Timing & Frequency": [
+      "Meal Time Regularity",
+      "Frequency of Snacking",
+      "Time Gap Between Meals",
+      "Late-night Eating Habits",
+    ],
+    "Nutrient Quality": [
+      "Sugar Intake Analysis",
+      "Saturated vs. Unsaturated Fat Ratio",
+      "Fiber Adequacy",
+      "Sodium Intake Levels",
+    ],
 };
 
 const PremiumFeatureWithTrial: React.FC<{
@@ -372,16 +387,14 @@ const HabitAnalysisSelector = () => {
                         </div>
                     </AccordionTrigger>
                     <AccordionContent>
-                        <ScrollArea className="h-40">
-                            <div className="space-y-2 pr-4">
-                                {options.map((option, index) => (
-                                    <div key={index} className="flex items-center space-x-2">
-                                        <Checkbox id={`habit-${category}-${index}`} />
-                                        <Label htmlFor={`habit-${category}-${index}`} className="font-normal">{option}</Label>
-                                    </div>
-                                ))}
-                            </div>
-                        </ScrollArea>
+                        <div className="space-y-2 pr-4 pt-2">
+                            {options.map((option, index) => (
+                                <div key={index} className="flex items-center space-x-2">
+                                    <Checkbox id={`habit-${category}-${index}`} />
+                                    <Label htmlFor={`habit-${category}-${index}`} className="font-normal">{option}</Label>
+                                </div>
+                            ))}
+                        </div>
                     </AccordionContent>
                 </AccordionItem>
             ))}
@@ -452,5 +465,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    
