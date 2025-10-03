@@ -7,6 +7,9 @@ import { FoodLog } from '@/components/dashboard/food-log';
 import { WeeklyTrends } from '@/components/dashboard/weekly-trends';
 import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { ShieldCheck, Dumbbell, BrainCircuit } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 // Helper function to calculate totals on the server
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -38,6 +41,34 @@ function calculateTotals(log: DailyLog): NutrientTotals {
   return totals;
 }
 
+function PremiumFeatureCard({ icon, title, description, buttonText }: { icon: React.ReactNode, title: string, description: string, buttonText: string }) {
+  return (
+    <Card className="relative overflow-hidden">
+       <CardHeader>
+        <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                <ShieldCheck className="h-4 w-4" />
+                <span>Premium</span>
+            </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+            <div className="text-center p-4">
+                <h3 className="mt-2 text-lg font-semibold">Buka Fitur Ini</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                    {description}
+                </p>
+                <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">{buttonText}</Button>
+            </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+
 export default function DashboardPage() {
   const userData = mockUserData;
   const totals = calculateTotals(userData.log);
@@ -63,6 +94,18 @@ export default function DashboardPage() {
           <AiSummaryCard userData={userData} />
           <WeeklyTrends />
           <MicronutrientTracker log={userData.log} />
+          <PremiumFeatureCard 
+            icon={<Dumbbell/>}
+            title="Rencana Latihan AI"
+            description="Dapatkan rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda."
+            buttonText="Tingkatkan ke Premium"
+          />
+          <PremiumFeatureCard 
+            icon={<BrainCircuit />}
+            title="Analisis Kebiasaan"
+            description="AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam tentang kebiasaan Anda."
+            buttonText="Tingkatkan ke Premium"
+          />
         </div>
       </div>
     </div>

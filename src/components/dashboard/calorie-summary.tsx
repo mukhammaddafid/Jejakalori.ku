@@ -27,8 +27,8 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               innerRadius="75%"
               outerRadius="100%"
               data={chartData}
-              startAngle={90}
-              endAngle={450}
+              startAngle={225}
+              endAngle={-45}
               barSize={16}
               maxBarSize={16}
               domain={[0, goal]}
@@ -56,12 +56,12 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               />
             </RadialBarChart>
           </ChartContainer>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
             <Flame className="h-10 w-10 text-primary" />
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-2">
              <span className="text-4xl font-bold font-headline text-primary">{Math.round(consumed)}</span>
              <p className="text-sm text-muted-foreground">kkal</p>
         </div>

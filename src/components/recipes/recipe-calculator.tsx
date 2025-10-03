@@ -81,7 +81,7 @@ export function RecipeCalculator() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Left Column: Inputs */}
       <div className="lg:col-span-2 space-y-6">
-        <Card>
+        <Card className="bg-muted/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><Soup /> Buat Resep</CardTitle>
             <CardDescription>Tambahkan bahan untuk menghitung total nutrisi.</CardDescription>
@@ -100,9 +100,10 @@ export function RecipeCalculator() {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="bg-muted/20">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><BookCopy /> Komposisi</CardTitle>
+                <CardDescription>Cari dan tambahkan bahan-bahan ke dalam resep Anda.</CardDescription>
             </CardHeader>
             <CardContent>
                 <FoodSearch onAddFood={addIngredient} />
