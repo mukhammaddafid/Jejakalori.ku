@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { PotentialCard } from '@/components/profile/potential-card';
 import { useLanguage } from '@/lib/language-provider';
 
 
@@ -86,8 +85,6 @@ export default function ProfilePage() {
         <TdeeCalculator initialProfile={userData.profile} />
         <GoalSetter initialGoals={userData.goals} />
         
-        <PotentialCard />
-
         <PremiumFeatureCard
             icon={<Bed />}
             title={t('sleepDurationTracker')}

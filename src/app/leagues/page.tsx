@@ -6,17 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, Shield, Info, Goal, GraduationCap } from 'lucide-react';
+import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
+import { PotentialCard } from '@/components/profile/potential-card';
 
 const tiers = [
-  { name: 'Bronze', color: 'text-yellow-600', bgColor: 'bg-yellow-600/10', points: 0 },
-  { name: 'Silver', color: 'text-slate-500', bgColor: 'bg-slate-500/10', points: 500 },
-  { name: 'Gold', color: 'text-amber-500', bgColor: 'bg-amber-500/10', points: 1000 },
-  { name: 'Platinum', color: 'text-cyan-500', bgColor: 'bg-cyan-500/10', points: 1500 },
-  { name: 'Diamond', color: 'text-blue-500', bgColor: 'bg-blue-500/10', points: 2000 },
-  { name: 'Master', color: 'text-purple-500', bgColor: 'bg-purple-500/10', points: 2500 },
-  { name: 'Grandmaster', color: 'text-red-600', bgColor: 'bg-red-600/10', points: 3000 },
+  { name: 'Bronze', color: 'text-yellow-600', bgColor: 'bg-yellow-600/10', points: 0, icon: <Trophy className="h-5 w-5" /> },
+  { name: 'Silver', color: 'text-slate-500', bgColor: 'bg-slate-500/10', points: 500, icon: <Shield className="h-5 w-5" /> },
+  { name: 'Gold', color: 'text-amber-500', bgColor: 'bg-amber-500/10', points: 1000, icon: <Award className="h-5 w-5" /> },
+  { name: 'Platinum', color: 'text-cyan-500', bgColor: 'bg-cyan-500/10', points: 1500, icon: <Star className="h-5 w-5" /> },
+  { name: 'Diamond', color: 'text-blue-500', bgColor: 'bg-blue-500/10', points: 2000, icon: <Diamond className="h-5 w-5" /> },
+  { name: 'Master', color: 'text-purple-500', bgColor: 'bg-purple-500/10', points: 2500, icon: <Zap className="h-5 w-5" /> },
+  { name: 'Grandmaster', color: 'text-red-600', bgColor: 'bg-red-600/10', points: 3000, icon: <BookOpen className="h-5 w-5" /> },
 ];
 
 const leaderboardData = [
@@ -107,6 +108,8 @@ export default function LeaguesPage() {
                             </div>
                         </CardContent>
                     </Card>
+                    
+                    <PotentialCard />
 
                     <Card>
                         <CardHeader>
@@ -148,16 +151,16 @@ export default function LeaguesPage() {
                             <CardTitle>{t('consistencyTiers')}</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            {tiers.map((tier, index) => (
+                            {tiers.map((tier) => (
                                 <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2">
-                                            <Shield className={`h-6 w-6 ${tier.color}`} />
+                                            {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
                                             <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
                                         </div>
                                         <span className="text-sm font-mono">{tier.points} {t('points')}</span>
                                     </div>
-                                    <Progress value={(index + 1) / tiers.length * 100} className="h-2 mt-2" />
+                                    <Progress value={tier.points / 3000 * 100} className="h-2 mt-2" />
                                 </div>
                             ))}
                         </CardContent>

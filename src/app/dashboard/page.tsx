@@ -17,7 +17,6 @@ import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Calendar } from '@/components/ui/calendar';
 import { addDays } from 'date-fns';
-import { PotentialCard } from '@/components/profile/potential-card';
 import { useLanguage } from '@/lib/language-provider';
 
 // Helper function to calculate totals
@@ -198,7 +197,6 @@ export default function DashboardPage() {
             </div>
           </div>
           <FoodLog initialLog={userData.log} />
-          <PotentialCard />
         </div>
 
         {/* Right Column */}
