@@ -1,9 +1,12 @@
+
+'use client';
 import * as React from 'react';
 import { TdeeCalculator } from '@/components/profile/tdee-calculator';
 import { GoalSetter } from '@/components/profile/goal-setter';
 import { mockUserData } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { UtensilsCrossed } from 'lucide-react';
+import { UtensilsCrossed, Bed, Smartphone, ShieldCheck } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const mealPlanRecommendations = [
     { meal: 'Sarapan', suggestion: 'Oatmeal dengan buah beri dan segenggam kacang almond.' },
@@ -35,6 +38,26 @@ function HealthyMealPlan() {
     );
 }
 
+function PremiumFeatureCard({ icon, title, description, children }: { icon: React.ReactNode, title: string, description: string, children: React.ReactNode }) {
+  return (
+    <Card className="relative overflow-hidden">
+       <CardHeader>
+        <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                <ShieldCheck className="h-4 w-4" />
+                <span>Premium</span>
+            </div>
+        </div>
+         <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {children}
+      </CardContent>
+    </Card>
+  );
+}
+
 
 export default function ProfilePage() {
   const userData = mockUserData;
@@ -45,6 +68,26 @@ export default function ProfilePage() {
         <TdeeCalculator initialProfile={userData.profile} />
         <GoalSetter initialGoals={userData.goals} />
         <HealthyMealPlan />
+        <PremiumFeatureCard
+            icon={<Bed />}
+            title="Pelacak Durasi Tidur"
+            description="Pantau kualitas dan durasi tidur Anda untuk pemulihan optimal."
+        >
+            <div className="text-center p-4 text-muted-foreground">
+                <p>Fitur ini tersedia untuk anggota Premium.</p>
+                <Button variant="link" className="text-primary">Tingkatkan Sekarang</Button>
+            </div>
+        </PremiumFeatureCard>
+        <PremiumFeatureCard
+            icon={<Smartphone />}
+            title="Jeda Menggunakan Gawai"
+            description="Atur pengingat untuk beristirahat dari layar dan menjaga kesehatan mata."
+        >
+            <div className="text-center p-4 text-muted-foreground">
+                <p>Fitur ini tersedia untuk anggota Premium.</p>
+                <Button variant="link" className="text-primary">Tingkatkan Sekarang</Button>
+            </div>
+        </PremiumFeatureCard>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -62,7 +63,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
     const calculatedTdee = calculateTDEE(data);
     setTdee(calculatedTdee);
     toast({
-      title: 'TDEE Dihitung',
+      title: 'Energi Harian Dihitung',
       description: `Perkiraan kebutuhan kalori harian Anda adalah ${calculatedTdee} kkal.`,
     });
   }
@@ -70,7 +71,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Kalkulator TDEE</CardTitle>
+        <CardTitle>Hitung Energi Harian</CardTitle>
         <CardDescription>
           Hitung Total Pengeluaran Energi Harian (TDEE) Anda untuk memperkirakan kebutuhan kalori harian Anda.
         </CardDescription>
@@ -168,7 +169,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
             </div>
             <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
               <Calculator className="mr-2 h-4 w-4" />
-              Hitung TDEE
+              Hitung Energi Harian
             </Button>
           </form>
         </Form>

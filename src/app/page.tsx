@@ -13,6 +13,9 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { ShieldCheck, Dumbbell, BrainCircuit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+
 
 // Helper function to calculate totals on the server
 function calculateTotals(log: DailyLog): NutrientTotals {
@@ -96,21 +99,36 @@ export default function DashboardPage() {
           <WeeklyTrends />
           {isClient && <MicronutrientTracker log={userData.log} />}
           <PremiumFeatureCard 
-            icon={<Dumbbell/>}
-            title="Rencana Latihan AI"
-            description="Rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda."
-          >
-            <div className="text-center p-4 text-muted-foreground">
-                <p>Fitur ini sedang dalam pengembangan.</p>
-            </div>
-          </PremiumFeatureCard>
-          <PremiumFeatureCard 
             icon={<BrainCircuit />}
             title="Analisis Kebiasaan"
             description="AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam."
           >
              <div className="text-center p-4 text-muted-foreground">
                 <p>Fitur ini sedang dalam pengembangan.</p>
+            </div>
+          </PremiumFeatureCard>
+          <PremiumFeatureCard 
+            icon={<Dumbbell/>}
+            title="Rancang Latihan Aktif"
+            description="Rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda."
+          >
+            <div className="space-y-4">
+              <p className="text-sm font-medium">Pilih tujuan utama Anda:</p>
+              <RadioGroup defaultValue="weight-loss">
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="weight-loss" id="weight-loss" />
+                  <Label htmlFor="weight-loss">Penurunan Berat Badan</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="muscle-gain" id="muscle-gain" />
+                  <Label htmlFor="muscle-gain">Peningkatan Massa Otot</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="stamina" id="stamina" />
+                  <Label htmlFor="stamina">Peningkatan Stamina</Label>
+                </div>
+              </RadioGroup>
+              <Button className="w-full">Buat Rencana Latihan</Button>
             </div>
           </PremiumFeatureCard>
         </div>
