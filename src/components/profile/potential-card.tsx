@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -11,9 +10,11 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Star, Mail, Bell } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/lib/language-provider';
 
 export function PotentialCard() {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [hobbies, setHobbies] = React.useState(['Reading', 'Sports']);
   const [newHobby, setNewHobby] = React.useState('');
   const [email, setEmail] = React.useState('jane.doe@example.com');
@@ -36,23 +37,23 @@ export function PotentialCard() {
       setHobbies([...hobbies, newHobby]);
       setNewHobby('');
       toast({
-        title: 'Hobby Added',
-        description: `${newHobby} has been added to your hobby list.`,
+        title: t('hobbyAdded'),
+        description: t('hobbyAddedDescription', { hobby: newHobby }),
       });
     }
   };
 
   const handleSaveChanges = () => {
     toast({
-      title: 'Changes Saved',
-      description: 'Your potential and notification settings have been updated.',
+      title: t('changesSaved'),
+      description: t('changesSavedDescription'),
     });
   };
 
   const handleUpgrade = () => {
     toast({
-      title: 'Coming Soon!',
-      description: 'The premium upgrade functionality will be available soon.',
+      title: t('comingSoon'),
+      description: t('comingSoonDescription'),
     });
   };
 
@@ -61,29 +62,29 @@ export function PotentialCard() {
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="potential">
           <AccordionTrigger className="px-6 py-4">
-            <CardTitle className="flex items-center gap-2 text-xl"><Star /> Potential</CardTitle>
+            <CardTitle className="flex items-center gap-2 text-xl"><Star /> {t('potential')}</CardTitle>
           </AccordionTrigger>
           <AccordionContent className="px-6 pb-4 space-y-6">
             <div>
-              <Label htmlFor="hobbies" className="font-semibold">Hobbies</Label>
-              <p className="text-sm text-muted-foreground mb-2">Add hobbies to get personalized activity recommendations.</p>
+              <Label htmlFor="hobbies" className="font-semibold">{t('hobbies')}</Label>
+              <p className="text-sm text-muted-foreground mb-2">{t('hobbiesDescription')}</p>
               <div className="flex gap-2 mb-2 flex-wrap">
                 {hobbies.map(hobby => <Badge key={hobby} variant="secondary">{hobby}</Badge>)}
               </div>
               <div className="flex gap-2">
                 <Input
                   id="hobbies"
-                  placeholder="e.g. Cycling"
+                  placeholder={t('hobbiesPlaceholder')}
                   value={newHobby}
                   onChange={(e) => setNewHobby(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && addHobby()}
                 />
-                <Button onClick={addHobby}>Add</Button>
+                <Button onClick={addHobby}>{t('add')}</Button>
               </div>
             </div>
 
             <div className='space-y-2'>
-              <Label htmlFor="email" className="font-semibold">Email</Label>
+              <Label htmlFor="email" className="font-semibold">{t('email')}</Label>
               <div className="flex gap-2">
                 <Mail className="h-5 w-5 text-muted-foreground mt-2" />
                 <Input
@@ -98,7 +99,7 @@ export function PotentialCard() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bell className="h-5 w-5 text-muted-foreground" />
-                <Label htmlFor="notifications" className="font-semibold cursor-pointer">Email Schedule Notifications</Label>
+                <Label htmlFor="notifications" className="font-semibold cursor-pointer">{t('emailScheduleNotifications')}</Label>
               </div>
               <Switch
                 id="notifications"
@@ -109,12 +110,12 @@ export function PotentialCard() {
 
             {premiumCheckDone && !isPremium && (
               <div className="p-4 bg-secondary rounded-lg text-center">
-                <h4 className="font-semibold">Enhance Your Experience</h4>
-                <p className="text-sm text-muted-foreground mt-1 mb-3">Your 7-day trial has ended. Upgrade to premium to unlock all features.</p>
-                <Button onClick={handleUpgrade}>Upgrade to Premium</Button>
+                <h4 className="font-semibold">{t('enhanceExperience')}</h4>
+                <p className="text-sm text-muted-foreground mt-1 mb-3">{t('trialEndedUpgrade')}</p>
+                <Button onClick={handleUpgrade}>{t('upgradeToPremium')}</Button>
               </div>
             )}
-            <Button onClick={handleSaveChanges} className='w-full sm:w-auto'>Save Changes</Button>
+            <Button onClick={handleSaveChanges} className='w-full sm:w-auto'>{t('saveChanges')}</Button>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

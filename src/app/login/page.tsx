@@ -12,8 +12,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { Flame } from "lucide-react";
+import { useLanguage } from "@/lib/language-provider";
 
 export default function LoginPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-secondary/20">
       <Card className="w-full max-w-sm">
@@ -21,32 +24,32 @@ export default function LoginPage() {
             <div className="flex justify-center mb-4">
                 <Link href="/" className="flex items-center gap-2">
                     <Flame className="h-8 w-8 text-primary" />
-                    <span className="text-2xl font-headline font-bold">CalorieTracker.me</span>
+                    <span className="text-2xl font-headline font-bold">{t('appName')}</span>
                 </Link>
             </div>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">{t('login')}</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account.
+            {t('loginDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('email')}</Label>
             <Input id="email" type="email" placeholder="m@example.com" required />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('password')}</Label>
             <Input id="password" type="password" required />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
             <Link href="/dashboard" className="w-full">
-                <Button className="w-full">Login</Button>
+                <Button className="w-full">{t('login')}</Button>
             </Link>
           <p className="text-xs text-center text-muted-foreground">
-            Don't have an account?{" "}
+            {t('dontHaveAccount')}{" "}
             <Link href="#" className="underline">
-              Sign up
+              {t('signUp')}
             </Link>
           </p>
         </CardFooter>

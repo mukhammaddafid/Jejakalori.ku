@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Zap, ShieldCheck } from 'lucide-react';
 import type { DailyLog } from '@/lib/types';
 import { micronutrientGoals } from '@/lib/data';
+import { useLanguage } from '@/lib/language-provider';
 
 interface MicronutrientTrackerProps {
   log: DailyLog;
@@ -44,6 +45,7 @@ export function MicronutrientTracker({ log }: MicronutrientTrackerProps) {
   const totals = calculateTotalMicros(log);
   const [trialEndDate, setTrialEndDate] = React.useState<Date | null>(null);
   const [isTrialActive, setIsTrialActive] = React.useState(false);
+  const { t } = useLanguage();
 
   React.useEffect(() => {
     const storedEndDate = localStorage.getItem('micronutrientTrialEnd');
@@ -77,50 +79,50 @@ export function MicronutrientTracker({ log }: MicronutrientTrackerProps) {
     const now = new Date();
     const difference = trialEndDate.getTime() - now.getTime();
 
-    if (difference <= 0) return 'Trial ended.';
+    if (difference <= 0) return t('trialEnded');
 
     const days = Math.floor(difference / (1000 * 60 * 60 * 24));
     const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    return `${days} days ${hours} hours remaining`;
+    return `${days} ${t('days')} ${hours} ${t('hours')} ${t('remaining')}`;
   };
 
   return (
     <Card className="relative overflow-hidden">
       <CardHeader>
         <div className="flex items-center justify-between">
-            <CardTitle>Micronutrients</CardTitle>
+            <CardTitle>{t('micronutrients')}</CardTitle>
             <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 <ShieldCheck className="h-4 w-4" />
-                <span>Premium</span>
+                <span>{t('premium')}</span>
             </div>
         </div>
-        <CardDescription>Track key vitamins and minerals.</CardDescription>
+        <CardDescription>{t('micronutrientsDescription')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <MicroBar label="Fiber" unit="g" consumed={totals.fiber} goal={micronutrientGoals.fiber} />
-            <MicroBar label="Iron" unit="mg" consumed={totals.iron} goal={micronutrientGoals.iron} />
-            <MicroBar label="Calcium" unit="mg" consumed={totals.calcium} goal={micronutrientGoals.calcium} />
+            <MicroBar label={t('fiber')} unit="g" consumed={totals.fiber} goal={micronutrientGoals.fiber} />
+            <MicroBar label={t('iron')} unit="mg" consumed={totals.iron} goal={micronutrientGoals.iron} />
+            <MicroBar label={t('calcium')} unit="mg" consumed={totals.calcium} goal={micronutrientGoals.calcium} />
             <MicroBar label="Vitamin C" unit="mg" consumed={totals.vitaminC} goal={micronutrientGoals.vitaminC} />
         </div>
         {!isTrialActive && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="text-center p-4">
                 <Zap className="mx-auto h-12 w-12 text-primary" />
-                <h3 className="mt-2 text-lg font-semibold">Unlock Full Tracking</h3>
+                <h3 className="mt-2 text-lg font-semibold">{t('unlockFullTracking')}</h3>
                 {trialEndDate && new Date() > trialEndDate ? (
                     <>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Your trial has ended. Upgrade to continue using this feature. Only $5/month.
+                            {t('trialEndedDescription')}
                         </p>
-                        <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Upgrade to Premium</Button>
+                        <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">{t('upgradeToPremium')}</Button>
                     </>
                 ) : (
                     <>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Try full tracking FREE for 7 days. Track 12+ micronutrients and get detailed insights.
+                            {t('tryFreeTrial')}
                         </p>
-                        <Button onClick={startTrial} className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Start 7-Day Trial</Button>
+                        <Button onClick={startTrial} className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">{t('start7DayTrial')}</Button>
                     </>
                 )}
             </div>
@@ -128,7 +130,7 @@ export function MicronutrientTracker({ log }: MicronutrientTrackerProps) {
         )}
          {isTrialActive && (
           <div className="mt-4 rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
-            <p className="font-semibold text-primary">Premium Trial Active</p>
+            <p className="font-semibold text-primary">{t('premiumTrialActive')}</p>
             <p className="text-primary/80">{getTimeRemaining()}</p>
           </div>
         )}

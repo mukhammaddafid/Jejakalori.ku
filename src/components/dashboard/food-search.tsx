@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Plus } from 'lucide-react';
+import { useLanguage } from '@/lib/language-provider';
 
 interface FoodSearchProps {
   onAddFood: (mealLog: MealLog) => void;
@@ -16,6 +17,7 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
   const [query, setQuery] = React.useState('');
   const [results, setResults] = React.useState<Food[]>([]);
   const [servings, setServings] = React.useState<{ [key: string]: number }>({});
+  const { t } = useLanguage();
 
   React.useEffect(() => {
     if (query.length > 1) {
@@ -43,7 +45,7 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
     <div className="space-y-4">
       <Input
         type="text"
-        placeholder="Search for a food..."
+        placeholder={t('searchFoodPlaceholder')}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="w-full"

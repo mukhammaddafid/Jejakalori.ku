@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -23,22 +22,26 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { LayoutDashboard, ChefHat, User, Globe } from 'lucide-react';
-import { menuItems } from './main-nav';
+import { Globe } from 'lucide-react';
+import { getMenuItems } from './main-nav';
+import { useLanguage } from '@/lib/language-provider';
 
-function getPageTitle(pathname: string, lang: string) {
+function getPageTitle(pathname: string, t: (key: string) => string) {
+  const menuItems = getMenuItems(t);
   const item = menuItems.find(item => item.href === pathname);
-  if (!item) {
-    if (pathname.startsWith('/dashboard')) return lang === 'id' ? 'Utama' : 'Dashboard';
-    return lang === 'id' ? 'Utama' : 'Dashboard';
+  if (item) {
+    return item.label;
   }
-  return item.label;
+  if (pathname.startsWith('/dashboard')) return t('dashboard');
+  if (pathname.startsWith('/recipes')) return t('recipes');
+  if (pathname.startsWith('/profile')) return t('profile');
+  return t('dashboard');
 }
 
 export function Header() {
   const pathname = usePathname();
-  const [language, setLanguage] = React.useState('en');
-  const pageTitle = getPageTitle(pathname, language);
+  const { language, setLanguage, t } = useLanguage();
+  const pageTitle = getPageTitle(pathname, t);
   const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
   
 
@@ -62,32 +65,32 @@ export function Header() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <span>Support</span>
+              <span>{t('support')}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>Help Center</DropdownMenuItem>
-                <DropdownMenuItem>Report a Problem</DropdownMenuItem>
-                <DropdownMenuItem>Contact Us</DropdownMenuItem>
+                <DropdownMenuItem>{t('helpCenter')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('reportProblem')}</DropdownMenuItem>
+                <DropdownMenuItem>{t('contactUs')}</DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex items-center gap-2">
             <Globe className="h-4 w-4" />
-            Language
+            {t('language')}
           </DropdownMenuLabel>
-          <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
+          <DropdownMenuRadioGroup value={language} onValueChange={(value) => setLanguage(value as 'id' | 'en')}>
             <DropdownMenuRadioItem value="id">Bahasa Indonesia</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem>{t('logout')}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

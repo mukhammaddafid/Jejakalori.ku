@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -6,6 +5,7 @@ import { Target, MinusCircle, Flame } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
 import { RadialBar, RadialBarChart, Tooltip } from 'recharts';
+import { useLanguage } from '@/lib/language-provider';
 
 interface CalorieSummaryProps {
   consumed: number;
@@ -14,6 +14,7 @@ interface CalorieSummaryProps {
 
 export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
   const remaining = goal - consumed;
+  const { t } = useLanguage();
 
   const chartData = [
     { name: 'Consumed', value: consumed, fill: 'hsl(var(--primary))' },
@@ -46,7 +47,7 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
                     return (
                       <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="flex flex-col">
-                          <span className="text-[0.70rem] uppercase text-muted-foreground">Consumed</span>
+                          <span className="text-[0.70rem] uppercase text-muted-foreground">{t('consumed')}</span>
                           <span className="font-bold text-foreground">{`${Math.round(consumed)} / ${goal} kcal`}</span>
                         </div>
                       </div>
@@ -71,14 +72,14 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
             <div className="flex items-center justify-between gap-2">
                 <div className='flex items-center gap-2 text-muted-foreground'>
                     <Target className="h-4 w-4" />
-                    <span>Daily Goal</span>
+                    <span>{t('dailyGoal')}</span>
                 </div>
                 <span className="font-semibold">{goal}</span>
             </div>
             <div className="flex items-center justify-between gap-2">
                 <div className='flex items-center gap-2 text-muted-foreground'>
                     <MinusCircle className="h-4 w-4" />
-                    <span>Remaining</span>
+                    <span>{t('remaining')}</span>
                 </div>
                 <span className="font-semibold">{Math.round(remaining)}</span>
             </div>

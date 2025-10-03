@@ -1,4 +1,3 @@
-
 'use client';
 import * as React from 'react';
 import { TdeeCalculator } from '@/components/profile/tdee-calculator';
@@ -11,6 +10,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from 
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { PotentialCard } from '@/components/profile/potential-card';
+import { useLanguage } from '@/lib/language-provider';
 
 
 const sleepData = [
@@ -40,6 +40,7 @@ const dailyScreenTimeData = [
 ];
 
 function PremiumFeatureCard({ icon, title, description, children }: { icon: React.ReactNode, title: string, description: string, children: React.ReactNode }) {
+  const { t } = useLanguage();
   return (
     <Card className="relative overflow-hidden">
         <Accordion type="single" collapsible className="w-full">
@@ -50,7 +51,7 @@ function PremiumFeatureCard({ icon, title, description, children }: { icon: Reac
                             <CardTitle className="flex items-center gap-2 text-xl">{icon} {title}</CardTitle>
                             <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                                 <ShieldCheck className="h-4 w-4" />
-                                <span>Premium</span>
+                                <span>{t('premium')}</span>
                             </div>
                         </div>
                         <CardDescription className='text-left'>{description}</CardDescription>
@@ -69,6 +70,7 @@ function PremiumFeatureCard({ icon, title, description, children }: { icon: Reac
 export default function ProfilePage() {
   const userData = mockUserData;
   const [isClient, setIsClient] = React.useState(false);
+  const { t } = useLanguage();
   
   React.useEffect(() => {
     setIsClient(true);
@@ -88,12 +90,12 @@ export default function ProfilePage() {
 
         <PremiumFeatureCard
             icon={<Bed />}
-            title="Sleep Duration Tracker"
-            description="Monitor your sleep quality and duration for optimal recovery."
+            title={t('sleepDurationTracker')}
+            description={t('sleepDurationTrackerDescription')}
         >
             <div className="space-y-4">
-                 <h4 className="font-semibold">Weekly Sleep Trend</h4>
-                <ChartContainer config={{ hours: { label: 'Hours Slept', color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
+                 <h4 className="font-semibold">{t('weeklySleepTrend')}</h4>
+                <ChartContainer config={{ hours: { label: t('hoursSlept'), color: 'hsl(var(--chart-1))' } }} className="h-[200px] w-full">
                     <BarChart data={sleepData} accessibilityLayer>
                         <CartesianGrid vertical={false} />
                         <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
@@ -102,17 +104,17 @@ export default function ProfilePage() {
                         <Bar dataKey="hours" fill="var(--color-hours)" radius={4} />
                     </BarChart>
                 </ChartContainer>
-                <Button variant="link" className="text-primary p-0">View Full Sleep Report</Button>
+                <Button variant="link" className="text-primary p-0">{t('viewFullSleepReport')}</Button>
             </div>
         </PremiumFeatureCard>
         <PremiumFeatureCard
             icon={<Smartphone />}
-            title="Device Usage Break"
-            description="Set reminders to take a break from the screen and maintain eye health."
+            title={t('deviceUsageBreak')}
+            description={t('deviceUsageBreakDescription')}
         >
             <div className="grid md:grid-cols-2 gap-6 items-center">
                  <div>
-                    <h4 className="font-semibold mb-2">Daily Usage</h4>
+                    <h4 className="font-semibold mb-2">{t('dailyUsage')}</h4>
                      <ChartContainer config={{}} className="h-[150px] w-full">
                         <PieChart accessibilityLayer>
                            <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
@@ -125,8 +127,8 @@ export default function ProfilePage() {
                     </ChartContainer>
                  </div>
                  <div>
-                    <h4 className="font-semibold mb-2">Weekly Trend</h4>
-                    <ChartContainer config={{ hours: { label: 'Hours', color: 'hsl(var(--chart-2))' } }} className="h-[150px] w-full">
+                    <h4 className="font-semibold mb-2">{t('weeklyTrend')}</h4>
+                    <ChartContainer config={{ hours: { label: t('hours'), color: 'hsl(var(--chart-2))' } }} className="h-[150px] w-full">
                         <BarChart data={screenTimeData} accessibilityLayer margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                             <CartesianGrid vertical={false} />
                             <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} fontSize={12} />
@@ -137,7 +139,7 @@ export default function ProfilePage() {
                     </ChartContainer>
                  </div>
             </div>
-             <Button variant="link" className="text-primary p-0 mt-2">Set Break Reminder</Button>
+             <Button variant="link" className="text-primary p-0 mt-2">{t('setBreakReminder')}</Button>
         </PremiumFeatureCard>
       </div>
     </div>

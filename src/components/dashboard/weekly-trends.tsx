@@ -5,6 +5,7 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Line, LineChart } from 'rec
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useLanguage } from '@/lib/language-provider';
 
 const weeklyData = [
   { date: 'Mon', calories: 1800, protein: 120 },
@@ -24,29 +25,31 @@ const dailyData = [
     { time: '7pm', calories: 650 },
 ];
 
-const chartConfig = {
-  calories: {
-    label: 'Calories',
-    color: 'hsl(var(--chart-1))',
-  },
-  protein: {
-    label: 'Protein',
-    color: 'hsl(var(--chart-2))',
-  }
-};
-
 export function WeeklyTrends() {
+    const { t } = useLanguage();
+
+    const chartConfig = {
+      calories: {
+        label: t('calories'),
+        color: 'hsl(var(--chart-1))',
+      },
+      protein: {
+        label: t('protein'),
+        color: 'hsl(var(--chart-2))',
+      }
+    };
+
   return (
     <Card>
         <CardHeader>
-            <CardTitle>Trends</CardTitle>
-            <CardDescription>Analyze your intake over time.</CardDescription>
+            <CardTitle>{t('trends')}</CardTitle>
+            <CardDescription>{t('trendsDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
             <Tabs defaultValue="weekly">
                 <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="daily">Daily</TabsTrigger>
-                    <TabsTrigger value="weekly">Weekly</TabsTrigger>
+                    <TabsTrigger value="daily">{t('daily')}</TabsTrigger>
+                    <TabsTrigger value="weekly">{t('weekly')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="daily">
                     <ChartContainer config={chartConfig} className="h-[250px] w-full">

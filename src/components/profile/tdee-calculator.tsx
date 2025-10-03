@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -29,6 +28,7 @@ import { Calculator } from 'lucide-react';
 import { calculateTDEE } from '@/lib/formulas';
 import type { UserProfile } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/lib/language-provider';
 
 const profileFormSchema = z.object({
   age: z.coerce.number().min(1, { message: 'Age is required.' }),
@@ -47,6 +47,7 @@ interface TdeeCalculatorProps {
 export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
   const [tdee, setTdee] = React.useState<number | null>(null);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -63,17 +64,17 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
     const calculatedTdee = calculateTDEE(data);
     setTdee(calculatedTdee);
     toast({
-      title: 'Daily Energy Calculated',
-      description: `Your estimated daily calorie need is ${calculatedTdee} kcal.`,
+      title: t('tdeeCalculated'),
+      description: t('tdeeCalculatedDescription', { tdee: calculatedTdee }),
     });
   }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Calculate Daily Energy</CardTitle>
+        <CardTitle>{t('calculateTDEE')}</CardTitle>
         <CardDescription>
-          Estimate your Total Daily Energy Expenditure (TDEE) to determine your daily calorie needs.
+          {t('calculateTDEEDescription')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -85,7 +86,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="age"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Age</FormLabel>
+                    <FormLabel>{t('age')}</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="30" {...field} />
                     </FormControl>
@@ -98,16 +99,16 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Gender</FormLabel>
+                    <FormLabel>{t('gender')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select gender" />
+                          <SelectValue placeholder={t('selectGender')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="male">{t('male')}</SelectItem>
+                        <SelectItem value="female">{t('female')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -119,7 +120,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="height"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Height (cm)</FormLabel>
+                    <FormLabel>{t('height')} (cm)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="165" {...field} />
                     </FormControl>
@@ -132,7 +133,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 name="weight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Weight (kg)</FormLabel>
+                    <FormLabel>{t('weight')} (kg)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="60" {...field} />
                     </FormControl>
@@ -146,19 +147,19 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                   name="activityLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Activity Level</FormLabel>
+                      <FormLabel>{t('activityLevel')}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select your activity level" />
+                            <SelectValue placeholder={t('selectActivityLevel')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="sedentary">Sedentary (little or no exercise)</SelectItem>
-                          <SelectItem value="light">Light activity (light exercise 1-3 days/week)</SelectItem>
-                          <SelectItem value="moderate">Moderate activity (moderate exercise 3-5 days/week)</SelectItem>
-                          <SelectItem value="active">Very active (hard exercise 6-7 days a week)</SelectItem>
-                          <SelectItem value="very">Extra active (very hard exercise & physical job)</SelectItem>
+                          <SelectItem value="sedentary">{t('sedentary')}</SelectItem>
+                          <SelectItem value="light">{t('lightActivity')}</SelectItem>
+                          <SelectItem value="moderate">{t('moderateActivity')}</SelectItem>
+                          <SelectItem value="active">{t('veryActive')}</SelectItem>
+                          <SelectItem value="very">{t('extraActive')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -169,7 +170,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
             </div>
             <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
               <Calculator className="mr-2 h-4 w-4" />
-              Calculate Daily Energy
+              {t('calculateDailyEnergy')}
             </Button>
           </form>
         </Form>
@@ -177,9 +178,9 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
           <>
             <Separator className="my-8" />
             <div className="text-center p-6 bg-secondary rounded-lg">
-              <p className="text-sm text-muted-foreground">Estimated Daily Calorie Needs</p>
+              <p className="text-sm text-muted-foreground">{t('estimatedDailyCalorieNeeds')}</p>
               <p className="text-4xl font-bold font-headline text-primary">{tdee}</p>
-              <p className="text-sm text-muted-foreground">kcal / day</p>
+              <p className="text-sm text-muted-foreground">kcal / {t('day')}</p>
             </div>
           </>
         )}

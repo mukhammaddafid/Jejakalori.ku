@@ -11,6 +11,7 @@ import {
 import { MainNav } from '@/components/layout/main-nav';
 import { Header } from '@/components/layout/header';
 import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/lib/language-provider';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ type AppLayoutProps = {
 };
 
 export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
+  const { t } = useLanguage();
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <Sidebar className="sticky top-0 h-svh">
@@ -25,7 +27,7 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-2 overflow-hidden">
               <Flame className="h-6 w-6 shrink-0 text-primary" />
-              <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">CalorieTracker.me</span>
+              <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">{t('appName')}</span>
             </div>
             <SidebarTrigger className="group-data-[state=collapsed]:hidden"/>
           </div>

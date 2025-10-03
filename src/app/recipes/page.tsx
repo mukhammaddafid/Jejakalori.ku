@@ -1,9 +1,9 @@
-
 import * as React from 'react';
 import { RecipeCalculator } from '@/components/recipes/recipe-calculator';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { UtensilsCrossed, Soup } from 'lucide-react';
 import { PotentialCard } from '@/components/profile/potential-card';
+import { useLanguage } from '@/lib/language-provider';
 
 
 const mealPlanRecommendations = {
@@ -29,20 +29,47 @@ const mealPlanRecommendations = {
     ],
 };
 
+const mealPlanRecommendationsId = {
+    'Sarapan': [
+        'Oatmeal dengan buah beri dan segenggam almond.',
+        'Smoothie bayam, pisang, dan bubuk protein.',
+        'Telur orak-arik dengan roti gandum.'
+    ],
+    'Makan Siang': [
+        'Dada ayam panggang dengan nasi merah dan brokoli kukus.',
+        'Salad quinoa dengan kacang hitam, paprika, dan saus lemon.',
+        'Wrap kalkun dengan selada, tomat, dan hummus.'
+    ],
+    'Makan Malam': [
+        'Salad salmon dengan sayuran campur, tomat ceri, dan saus lemon.',
+        'Sup lentil dengan sayuran akar.',
+        'Tumis tahu dengan paprika, bawang, dan kecap.'
+    ],
+    'Camilan': [
+        'Yogurt Yunani dengan irisan apel.',
+        'Wortel dan seledri dengan hummus.',
+        'Segenggam kecil kacang campur.'
+    ],
+};
+
 
 function HealthyMealPlan() {
+    const { t, language } = useLanguage();
+    const recommendations = language === 'id' ? mealPlanRecommendationsId : mealPlanRecommendations;
+    const mealTitles = language === 'id' ? Object.keys(mealPlanRecommendationsId) : Object.keys(mealPlanRecommendations);
+
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><UtensilsCrossed /> Healthy Meal Plan Recommendations</CardTitle>
+                <CardTitle className="flex items-center gap-2"><UtensilsCrossed /> {t('healthyMealPlan')}</CardTitle>
                 <CardDescription>
-                    Here are some healthy meal plan examples to help you reach your goals.
+                    {t('healthyMealPlanDescription')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                {Object.entries(mealPlanRecommendations).map(([meal, suggestions]) => (
-                     <div key={meal}>
-                        <h3 className="font-semibold text-lg mb-2">{meal}</h3>
+                {Object.values(recommendations).map((suggestions, i) => (
+                     <div key={mealTitles[i]}>
+                        <h3 className="font-semibold text-lg mb-2">{mealTitles[i]}</h3>
                         <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                             {suggestions.map((suggestion, index) => (
                                 <li key={index}>{suggestion}</li>
@@ -56,6 +83,7 @@ function HealthyMealPlan() {
 }
 
 export default function RecipesPage() {
+  const { t } = useLanguage();
   return (
     <div className="p-4 sm:p-6 space-y-6">
       <div className="flex items-center gap-4">
@@ -63,9 +91,9 @@ export default function RecipesPage() {
             <Soup size={32} />
         </div>
         <div>
-            <h1 className="text-2xl font-bold font-headline">Let's Count Your Calories!</h1>
+            <h1 className="text-2xl font-bold font-headline">{t('letsCountCalories')}</h1>
             <p className="text-muted-foreground">
-            Create your own recipes and see their nutritional breakdown instantly.
+            {t('letsCountCaloriesDescription')}
             </p>
         </div>
       </div>

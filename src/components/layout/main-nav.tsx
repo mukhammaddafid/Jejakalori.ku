@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -15,27 +14,30 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
+import { useLanguage } from '@/lib/language-provider';
 
-export const menuItems = [
+export const getMenuItems = (t: (key: string) => string) => [
   {
     href: '/dashboard',
-    label: 'Dashboard',
+    label: t('dashboard'),
     icon: LayoutDashboard,
   },
   {
     href: '/recipes',
-    label: 'Recipes',
+    label: t('recipes'),
     icon: ChefHat,
   },
   {
     href: '/profile',
-    label: 'Profile',
+    label: t('profile'),
     icon: User,
   },
 ];
 
 export function MainNav() {
   const pathname = usePathname();
+  const { t } = useLanguage();
+  const menuItems = getMenuItems(t);
 
   return (
     <SidebarMenu>
