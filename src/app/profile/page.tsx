@@ -4,13 +4,14 @@ import { TdeeCalculator } from '@/components/profile/tdee-calculator';
 import { GoalSetter } from '@/components/profile/goal-setter';
 import { mockUserData } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bed, Smartphone, ShieldCheck } from 'lucide-react';
+import { Bed, Smartphone, ShieldCheck, Dumbbell, BookOpen, Music, Code, Brush, Cooking, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLanguage } from '@/lib/language-provider';
-
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 const sleepData = [
     { day: 'Mon', hours: 6.5 },
@@ -65,6 +66,38 @@ function PremiumFeatureCard({ icon, title, description, children }: { icon: Reac
   );
 }
 
+function HobbiesSection() {
+    const { t } = useLanguage();
+    const hobbies = [
+        { id: 'sports', label: t('sports'), icon: <Dumbbell className="h-5 w-5" /> },
+        { id: 'reading', label: t('reading'), icon: <BookOpen className="h-5 w-5" /> },
+        { id: 'music', label: t('music'), icon: <Music className="h-5 w-5" /> },
+        { id: 'coding', label: t('coding'), icon: <Code className="h-5 w-5" /> },
+        { id: 'art', label: t('art'), icon: <Brush className="h-5 w-5" /> },
+        { id: 'cooking', label: t('cooking'), icon: <Cooking className="h-5 w-5" /> },
+        { id: 'photography', label: t('photography'), icon: <Camera className="h-5 w-5" /> },
+    ];
+    return (
+        <div className="space-y-4 pt-4">
+            <Accordion type="single" collapsible>
+                <AccordionItem value="hobbies">
+                    <AccordionTrigger>{t('hobbies')}</AccordionTrigger>
+                    <AccordionContent className="pt-4 grid grid-cols-2 gap-4">
+                        {hobbies.map((hobby) => (
+                            <div key={hobby.id} className="flex items-center space-x-2">
+                                <Checkbox id={hobby.id} />
+                                <Label htmlFor={hobby.id} className="flex items-center gap-2 font-normal">
+                                    {hobby.icon}
+                                    {hobby.label}
+                                </Label>
+                            </div>
+                        ))}
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+        </div>
+    );
+}
 
 export default function ProfilePage() {
   const userData = mockUserData;
@@ -109,7 +142,8 @@ export default function ProfilePage() {
             title={t('deviceUsageBreak')}
             description={t('deviceUsageBreakDescription')}
         >
-            <div className="grid md:grid-cols-2 gap-6 items-center">
+             <HobbiesSection />
+            <div className="grid md:grid-cols-2 gap-6 items-center pt-4">
                  <div>
                     <h4 className="font-semibold mb-2">{t('dailyUsage')}</h4>
                      <ChartContainer config={{}} className="h-[150px] w-full">

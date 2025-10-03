@@ -192,6 +192,13 @@ export const translations = {
     internationalMenu: 'International Menu',
     nusantaraMenu: 'Nusantara Menu',
     stepsAndTargets: 'Steps and Targets',
+    sports: 'Sports',
+    reading: 'Reading',
+    music: 'Music',
+    coding: 'Coding',
+    art: 'Art',
+    cooking: 'Cooking',
+    photography: 'Photography',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -390,6 +397,13 @@ export const translations = {
     internationalMenu: 'Menu Internasional',
     nusantaraMenu: 'Menu Nusantara',
     stepsAndTargets: 'Langkah dan Target',
+    sports: 'Olahraga',
+    reading: 'Membaca',
+    music: 'Musik',
+    coding: 'Koding',
+    art: 'Seni',
+    cooking: 'Memasak',
+    photography: 'Fotografi',
   }
 };
 
