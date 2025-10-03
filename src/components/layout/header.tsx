@@ -38,6 +38,7 @@ function getPageTitle(pathname: string, t: (key: string) => string) {
 export function Header() {
   const pathname = usePathname();
   const { language, setLanguage, t } = useLanguage();
+  const pageTitle = getPageTitle(pathname, t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
 
   const avatarPlaceholders = PlaceHolderImages.filter(img => img.id.startsWith('user-avatar-'));
