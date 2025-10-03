@@ -29,6 +29,8 @@ import { calculateTDEE } from '@/lib/formulas';
 import type { UserProfile } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language-provider';
+import { Badge } from '../ui/badge';
+import { Label } from '../ui/label';
 
 const profileFormSchema = z.object({
   age: z.coerce.number().min(1, { message: 'Age is required.' }),
@@ -48,6 +50,8 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
   const [tdee, setTdee] = React.useState<number | null>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
+  const [hobbies, setHobbies] = React.useState(['Reading', 'Sports']);
+  const [newHobby, setNewHobby] = React.useState('');
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -68,6 +72,17 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
       description: t('tdeeCalculatedDescription', { tdee: calculatedTdee }),
     });
   }
+
+    const addHobby = () => {
+    if (newHobby && !hobbies.includes(newHobby)) {
+      setHobbies([...hobbies, newHobby]);
+      setNewHobby('');
+      toast({
+        title: t('hobbyAdded'),
+        description: t('hobbyAddedDescription', { hobby: newHobby }),
+      });
+    }
+  };
 
   return (
     <Card>
@@ -168,6 +183,28 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
                 />
               </div>
             </div>
+
+            <Separator />
+
+             <div className="space-y-4">
+              <Label htmlFor="hobbies" className="font-semibold">{t('hobbies')}</Label>
+              <p className="text-sm text-muted-foreground mb-2">{t('hobbiesDescription')}</p>
+              <div className="flex gap-2 mb-2 flex-wrap">
+                {hobbies.map(hobby => <Badge key={hobby} variant="secondary">{hobby}</Badge>)}
+              </div>
+              <div className="flex gap-2">
+                <Input
+                  id="hobbies"
+                  placeholder={t('hobbiesPlaceholder')}
+                  value={newHobby}
+                  onChange={(e) => setNewHobby(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && addHobby()}
+                />
+                <Button onClick={addHobby} type="button">{t('add')}</Button>
+              </div>
+            </div>
+
+
             <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
               <Calculator className="mr-2 h-4 w-4" />
               {t('calculateDailyEnergy')}

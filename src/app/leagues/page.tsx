@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen } from 'lucide-react';
+import { Trophy, Shield, Info, Goal, GraduationCap, Award, Star, Diamond, Zap, BookOpen, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
-import { PotentialCard } from '@/components/profile/potential-card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const tiers = [
   { name: 'Bronze', color: 'text-yellow-600', bgColor: 'bg-yellow-600/10', points: 0, icon: <Trophy className="h-5 w-5" /> },
@@ -60,7 +60,7 @@ const CountdownTimer = () => {
     }, []);
 
     return (
-        <div className="text-center">
+        <div className="text-right">
             <p className="text-sm text-muted-foreground">{t('seasonEndsIn')}</p>
             <div className="text-2xl font-bold font-mono text-primary">
                 {String(timeLeft.hours).padStart(2, '0')}:
@@ -73,6 +73,9 @@ const CountdownTimer = () => {
 
 export default function LeaguesPage() {
     const { t } = useLanguage();
+    const topTiers = tiers.slice().reverse().slice(0, 3);
+    const otherTiers = tiers.slice().reverse().slice(3);
+
     return (
         <div className="p-4 sm:p-6 space-y-6">
             <div className="text-center">
@@ -83,86 +86,107 @@ export default function LeaguesPage() {
                 <p className="text-muted-foreground">{t('consistencyLeagueDescription')}</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2"><Goal /> {t('missionAndTutorial')}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div>
-                                <h3 className="font-semibold flex items-center gap-2"><Info /> {t('yourMission')}</h3>
-                                <p className="text-muted-foreground">{t('missionDescription')}</p>
-                            </div>
-                            <div>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Goal /> Langkah dan Target</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div>
+                        <h3 className="font-semibold flex items-center gap-2"><Info /> {t('yourMission')}</h3>
+                        <p className="text-muted-foreground">{t('missionDescription')}</p>
+                    </div>
+                    <Accordion type="single" collapsible>
+                        <AccordionItem value="how-to-succeed">
+                            <AccordionTrigger>
                                 <h3 className="font-semibold flex items-center gap-2"><GraduationCap /> {t('howToSucceed')}</h3>
+                            </AccordionTrigger>
+                            <AccordionContent>
                                 <ul className="list-disc list-inside text-muted-foreground space-y-1 mt-2">
                                     <li>{t('succeedTip1')}</li>
                                     <li>{t('succeedTip2')}</li>
                                     <li>{t('succeedTip3')}</li>
                                 </ul>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
+            </Card>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{t('consistencyTiers')}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            {tiers.map((tier) => (
-                                <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
-                                            <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
-                                        </div>
-                                        <span className="text-sm font-mono">{tier.points} {t('points')}</span>
-                                    </div>
-                                    <Progress value={tier.points / 3000 * 100} className="h-2 mt-2" />
+            <Card>
+                <CardHeader>
+                    <CardTitle>{t('consistencyTiers')}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    {topTiers.map((tier) => (
+                        <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                    {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
+                                    <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
                                 </div>
+                                <span className="text-sm font-mono">{tier.points} {t('points')}</span>
+                            </div>
+                        </div>
+                    ))}
+                     <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="more-tiers">
+                            <AccordionTrigger className="text-sm text-muted-foreground justify-center">
+                                Show More Tiers
+                            </AccordionTrigger>
+                            <AccordionContent className="space-y-4 pt-4">
+                                {otherTiers.map((tier) => (
+                                    <div key={tier.name} className={`p-3 rounded-lg ${tier.bgColor}`}>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                {React.cloneElement(tier.icon, { className: `h-6 w-6 ${tier.color}` })}
+                                                <span className={`font-semibold ${tier.color}`}>{t(tier.name.toLowerCase() as any)}</span>
+                                            </div>
+                                            <span className="text-sm font-mono">{tier.points} {t('points')}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader className="flex flex-row items-start justify-between">
+                    <div>
+                        <CardTitle>{t('leaderboard')}</CardTitle>
+                        <CardDescription>{t('leaderboardDescription')}</CardDescription>
+                    </div>
+                    <CountdownTimer />
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-[50px]">{t('rank')}</TableHead>
+                                <TableHead>{t('user')}</TableHead>
+                                <TableHead>{t('tier')}</TableHead>
+                                <TableHead className="text-right">{t('points')}</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {leaderboardData.map(user => (
+                                <TableRow key={user.rank} className={user.name === 'You' ? 'bg-primary/10' : ''}>
+                                    <TableCell className="font-bold">{user.rank}</TableCell>
+                                    <TableCell>{user.name}</TableCell>
+                                    <TableCell>
+                                        <Badge variant="outline" className={`border-0 ${tiers.find(t => t.name === user.tier)?.bgColor} ${tiers.find(t => t.name === user.tier)?.color}`}>
+                                            {t(user.tier.toLowerCase() as any)}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right font-mono">{user.points}</TableCell>
+                                </TableRow>
                             ))}
-                        </CardContent>
-                    </Card>
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
 
-                    <PotentialCard />
-                </div>
-
-                <div className="lg:col-span-1 space-y-6">
-                    <Card>
-                        <CardHeader className="text-center">
-                            <CardTitle>{t('leaderboard')}</CardTitle>
-                            <CountdownTimer />
-                        </CardHeader>
-                        <CardContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead className="w-[50px]">{t('rank')}</TableHead>
-                                        <TableHead>{t('user')}</TableHead>
-                                        <TableHead>{t('tier')}</TableHead>
-                                        <TableHead className="text-right">{t('points')}</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {leaderboardData.map(user => (
-                                        <TableRow key={user.rank} className={user.name === 'You' ? 'bg-primary/10' : ''}>
-                                            <TableCell className="font-bold">{user.rank}</TableCell>
-                                            <TableCell>{user.name}</TableCell>
-                                            <TableCell>
-                                                <Badge variant="outline" className={`border-0 ${tiers.find(t => t.name === user.tier)?.bgColor} ${tiers.find(t => t.name === user.tier)?.color}`}>
-                                                    {t(user.tier.toLowerCase() as any)}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell className="text-right font-mono">{user.points}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
         </div>
     );
 }

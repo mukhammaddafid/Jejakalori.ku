@@ -6,12 +6,23 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { UtensilsCrossed, Soup } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Calendar } from '@/components/ui/calendar';
 import { mealPlan30Days } from '@/lib/data';
+import { addDays, format } from 'date-fns';
 
 function HealthyMealPlan() {
     const { t, language } = useLanguage();
-    const plans = mealPlan30Days[language];
+    const [date, setDate] = React.useState<Date | undefined>(new Date());
+    const [activeTab, setActiveTab] = React.useState('international');
+    
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const dayOfMonth = date ? date.getDate() : 1;
+    const planIndex = (dayOfMonth - 1) % 30;
+    
+    const plans = mealPlan30Days[language][activeTab as keyof typeof mealPlan30Days['en']];
+    const selectedPlan = plans[planIndex];
 
     return (
         <Card>
@@ -22,62 +33,47 @@ function HealthyMealPlan() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <Tabs defaultValue="international">
+                <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="international">{t('internationalMenu')}</TabsTrigger>
                         <TabsTrigger value="nusantara">{t('nusantaraMenu')}</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="international">
-                        <Accordion type="single" collapsible className="w-full">
-                            {plans.international.map((day, index) => (
-                                <AccordionItem value={`day-${index + 1}`} key={index}>
-                                    <AccordionTrigger>{t('day')} {index + 1}</AccordionTrigger>
-                                    <AccordionContent>
-                                        <div className="space-y-4">
-                                            <div>
-                                                <h4 className="font-semibold">{t('breakfast')}</h4>
-                                                <p className="text-muted-foreground">{day.breakfast}</p>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-semibold">{t('lunch')}</h4>
-                                                <p className="text-muted-foreground">{day.lunch}</p>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-semibold">{t('dinner')}</h4>
-                                                <p className="text-muted-foreground">{day.dinner}</p>
-                                            </div>
-                                        </div>
-                                    </AccordionContent>
-                                </AccordionItem>
-                            ))}
-                        </Accordion>
-                    </TabsContent>
-                    <TabsContent value="nusantara">
-                         <Accordion type="single" collapsible className="w-full">
-                            {plans.nusantara.map((day, index) => (
-                                <AccordionItem value={`day-${index + 1}`} key={index}>
-                                    <AccordionTrigger>{t('day')} {index + 1}</AccordionTrigger>
-                                    <AccordionContent>
-                                        <div className="space-y-4">
-                                            <div>
-                                                <h4 className="font-semibold">{t('breakfast')}</h4>
-                                                <p className="text-muted-foreground">{day.breakfast}</p>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-semibold">{t('lunch')}</h4>
-                                                <p className="text-muted-foreground">{day.lunch}</p>
-                                            </div>
-                                            <div>
-                                                <h4 className="font-semibold">{t('dinner')}</h4>
-                                                <p className="text-muted-foreground">{day.dinner}</p>
-                                            </div>
-                                        </div>
-                                    </AccordionContent>
-                                </AccordionItem>
-                            ))}
-                        </Accordion>
-                    </TabsContent>
                 </Tabs>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className='flex justify-center'>
+                         <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={setDate}
+                            fromMonth={startDate}
+                            toMonth={addDays(startDate, 29)}
+                            className="rounded-md border"
+                        />
+                    </div>
+                    {selectedPlan && (
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>{t('day')} {dayOfMonth}</CardTitle>
+                                <CardDescription>{date ? format(date, 'PPP') : ''}</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div>
+                                    <h4 className="font-semibold">{t('breakfast')}</h4>
+                                    <p className="text-muted-foreground">{selectedPlan.breakfast}</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold">{t('lunch')}</h4>
+                                    <p className="text-muted-foreground">{selectedPlan.lunch}</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold">{t('dinner')}</h4>
+                                    <p className="text-muted-foreground">{selectedPlan.dinner}</p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
+                </div>
             </CardContent>
         </Card>
     );
