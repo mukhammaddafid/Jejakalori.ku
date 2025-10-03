@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -18,7 +19,7 @@ import {
 export const menuItems = [
   {
     href: '/',
-    label: 'Dasbor',
+    label: 'Utama',
     icon: LayoutDashboard,
   },
   {

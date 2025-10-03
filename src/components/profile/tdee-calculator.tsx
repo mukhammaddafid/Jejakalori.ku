@@ -73,7 +73,7 @@ export function TdeeCalculator({ initialProfile }: TdeeCalculatorProps) {
       <CardHeader>
         <CardTitle>Hitung Energi Harian</CardTitle>
         <CardDescription>
-          Hitung Total Pengeluaran Energi Harian (TDEE) Anda untuk memperkirakan kebutuhan kalori harian Anda.
+          Perkirakan Total Pengeluaran Energi Harian (TDEE) Anda untuk menentukan kebutuhan kalori harian.
         </CardDescription>
       </CardHeader>
       <CardContent>

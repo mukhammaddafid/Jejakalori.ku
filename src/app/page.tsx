@@ -10,16 +10,14 @@ import { FoodLog } from '@/components/dashboard/food-log';
 import { WeeklyTrends } from '@/components/dashboard/weekly-trends';
 import { AiSummaryCard } from '@/components/dashboard/ai-summary-card';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { ShieldCheck, Dumbbell, BrainCircuit } from 'lucide-react';
+import { ShieldCheck, Dumbbell, BrainCircuit, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MicronutrientTracker } from '@/components/dashboard/micronutrient-tracker';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Calendar } from '@/components/ui/calendar';
-import { addDays } from 'date-fns';
 
-// Helper function to calculate totals on the server
+// Helper function to calculate totals
 function calculateTotals(log: DailyLog): NutrientTotals {
   const totals: NutrientTotals = {
     calories: 0,
@@ -49,26 +47,109 @@ function calculateTotals(log: DailyLog): NutrientTotals {
   return totals;
 }
 
+const PremiumFeatureWithTrial: React.FC<{
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  trialDays: number;
+  storageKey: string;
+  children: React.ReactNode;
+}> = ({ icon, title, description, trialDays, storageKey, children }) => {
+  const [trialEndDate, setTrialEndDate] = React.useState<Date | null>(null);
+  const [isTrialActive, setIsTrialActive] = React.useState(false);
+
+  React.useEffect(() => {
+    const storedEndDate = localStorage.getItem(storageKey);
+    if (storedEndDate) {
+      const endDate = new Date(storedEndDate);
+      setTrialEndDate(endDate);
+      setIsTrialActive(new Date() < endDate);
+    }
+  }, [storageKey]);
+
+  const startTrial = () => {
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + trialDays);
+    localStorage.setItem(storageKey, endDate.toISOString());
+    setTrialEndDate(endDate);
+    setIsTrialActive(true);
+  };
+
+  const getTimeRemaining = () => {
+    if (!trialEndDate) return '';
+    const now = new Date();
+    const difference = trialEndDate.getTime() - now.getTime();
+
+    if (difference <= 0) return 'Uji coba berakhir.';
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    return `${days} hari ${hours} jam tersisa`;
+  };
+
+  const isTrialEnded = trialEndDate && new Date() > trialEndDate;
+
+  return (
+    <Card className="relative overflow-hidden">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary">
+                <ShieldCheck className="h-4 w-4" />
+                <span>Premium</span>
+            </div>
+        </div>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {isTrialActive && 
+          <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
+            <p className="font-semibold text-primary">Uji Coba Premium Aktif</p>
+            <p className="text-primary/80">{getTimeRemaining()}</p>
+          </div>
+        }
+        {children}
+      </CardContent>
+      {(!isTrialActive && !trialEndDate || isTrialEnded) && (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+            <div className="text-center p-4">
+                <Zap className="mx-auto h-12 w-12 text-primary" />
+                <h3 className="mt-2 text-lg font-semibold">Buka Fitur {title}</h3>
+                {isTrialEnded ? (
+                    <>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                            Masa uji coba Anda telah berakhir. Tingkatkan untuk terus menggunakan fitur ini.
+                        </p>
+                        <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Tingkatkan ke Premium</Button>
+                    </>
+                ) : (
+                    <>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                            Coba fitur ini GRATIS selama {trialDays} hari dan dapatkan wawasan penuh.
+                        </p>
+                        <Button onClick={startTrial} className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">Mulai Uji Coba {trialDays} Hari</Button>
+                    </>
+                )}
+            </div>
+        </div>
+        )}
+    </Card>
+  );
+};
+
 export default function DashboardPage() {
   const userData = mockUserData;
   const totals = calculateTotals(userData.log);
   const [isClient, setIsClient] = React.useState(false);
 
-  const [habitAnalysisRange, setHabitAnalysisRange] = React.useState<Date | undefined>(undefined);
-  const [workoutPlanRange, setWorkoutPlanRange] = React.useState<Date | undefined>(undefined);
-
-  const handleStartHabitAnalysis = () => {
-    setHabitAnalysisRange(new Date());
-  };
-
-  const handleCreateWorkoutPlan = () => {
-    setWorkoutPlanRange(new Date());
-  };
-
   React.useEffect(() => {
     setIsClient(true);
   }, []);
   
+  if (!isClient) {
+      return null;
+  }
+
   return (
     <div className="p-4 sm:p-6 space-y-6">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -89,19 +170,21 @@ export default function DashboardPage() {
         <div className="lg:col-span-1 space-y-6">
           <AiSummaryCard userData={userData} />
           <WeeklyTrends />
-          {isClient && <MicronutrientTracker log={userData.log} />}
-          <Card>
+          <MicronutrientTracker log={userData.log} />
+           <PremiumFeatureWithTrial
+            icon={<BrainCircuit />}
+            title="Analisis Kebiasaan"
+            description="AI akan menganalisis pola makan Anda dan memberikan wawasan."
+            trialDays={3}
+            storageKey="habitAnalysisTrialEnd"
+           >
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger className="px-6">
-                    <div className="flex items-center gap-2">
-                        <BrainCircuit />
-                        <span className="font-semibold">Analisis Kebiasaan</span>
-                    </div>
+                <AccordionTrigger>
+                  <span className="font-semibold">Pilih Jenis Analisis</span>
                 </AccordionTrigger>
-                <AccordionContent className="px-6 space-y-4">
-                    <p className="text-sm text-muted-foreground">AI akan menganalisis pola makan Anda dan memberikan wawasan mendalam.</p>
-                     <RadioGroup defaultValue="pola-makan">
+                <AccordionContent className="space-y-4 pt-4">
+                    <RadioGroup defaultValue="pola-makan">
                         <div className="flex items-center space-x-2">
                             <RadioGroupItem value="pola-makan" id="pola-makan" />
                             <Label htmlFor="pola-makan">Analisis Pola Makan</Label>
@@ -115,60 +198,45 @@ export default function DashboardPage() {
                             <Label htmlFor="asupan-nutrisi">Analisis Asupan Nutrisi</Label>
                         </div>
                     </RadioGroup>
-
-                    {habitAnalysisRange ? (
-                      <Calendar
-                        mode="range"
-                        selected={{ from: habitAnalysisRange, to: addDays(habitAnalysisRange, 20) }}
-                        numberOfMonths={1}
-                        className="rounded-md border justify-center flex"
-                      />
-                    ) : (
-                      <Button onClick={handleStartHabitAnalysis} className="w-full">Mulai Analisis</Button>
-                    )}
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="px-6">
-                    <div className="flex items-center gap-2">
-                        <Dumbbell />
-                        <span className="font-semibold">Rencana Latihan Massa</span>
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 space-y-4">
-                    <p className="text-sm text-muted-foreground mb-4">Rencana latihan yang dipersonalisasi oleh AI untuk melengkapi diet Anda.</p>
-                    <RadioGroup defaultValue="weight-loss">
-                        <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="weight-loss" id="weight-loss" />
-                        <Label htmlFor="weight-loss">Penurunan Berat Badan</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="muscle-gain" id="muscle-gain" />
-                        <Label htmlFor="muscle-gain">Peningkatan Massa Otot</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="stamina" id="stamina" />
-                        <Label htmlFor="stamina">Peningkatan Stamina</Label>
-                        </div>
-                    </RadioGroup>
-                    
-                    {workoutPlanRange ? (
-                      <Calendar
-                        mode="range"
-                        selected={{ from: workoutPlanRange, to: addDays(workoutPlanRange, 29) }}
-                        numberOfMonths={1}
-                        className="rounded-md border justify-center flex"
-                      />
-                    ) : (
-                      <Button onClick={handleCreateWorkoutPlan} className="w-full">Buat Rencana Latihan</Button>
-                    )}
+                    <Button className="w-full">Mulai Analisis</Button>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-          </Card>
+           </PremiumFeatureWithTrial>
+           <PremiumFeatureWithTrial
+            icon={<Dumbbell />}
+            title="Rencana Latihan Massa"
+            description="Rencana latihan yang dipersonalisasi oleh AI untuk diet Anda."
+            trialDays={5}
+            storageKey="workoutPlanTrialEnd"
+           >
+            <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                    <AccordionTrigger>
+                        <span className="font-semibold">Pilih Tujuan Latihan</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="space-y-4 pt-4">
+                        <RadioGroup defaultValue="weight-loss">
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="weight-loss" id="weight-loss" />
+                                <Label htmlFor="weight-loss">Penurunan Berat Badan</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="muscle-gain" id="muscle-gain" />
+                                <Label htmlFor="muscle-gain">Peningkatan Massa Otot</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="stamina" id="stamina" />
+                                <Label htmlFor="stamina">Peningkatan Stamina</Label>
+                            </div>
+                        </RadioGroup>
+                        <Button className="w-full">Buat Rencana Latihan</Button>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+           </PremiumFeatureWithTrial>
         </div>
       </div>
     </div>
   );
 }
-

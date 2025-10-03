@@ -26,16 +26,23 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { LayoutDashboard, ChefHat, User, Globe } from 'lucide-react';
 import { menuItems } from './main-nav';
 
-function getPageTitle(pathname: string) {
+function getPageTitle(pathname: string, lang: string) {
   const item = menuItems.find(item => item.href === pathname);
-  return item ? item.label : 'Dasbor';
+  if (!item) {
+    return lang === 'id' ? 'Utama' : 'Dashboard';
+  }
+  if (item.href === '/') {
+    return lang === 'id' ? 'Utama' : 'Dashboard';
+  }
+  return item.label;
 }
 
 export function Header() {
   const pathname = usePathname();
-  const pageTitle = getPageTitle(pathname);
-  const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
   const [language, setLanguage] = React.useState('id');
+  const pageTitle = getPageTitle(pathname, language);
+  const userAvatar = PlaceHolderImages.find(img => img.id === 'user-avatar');
+  
 
   return (
     <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-card px-4 sm:h-16 sm:px-6">
