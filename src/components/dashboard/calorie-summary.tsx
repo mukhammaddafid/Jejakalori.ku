@@ -56,7 +56,7 @@ export function CalorieSummary({ consumed, goal }: CalorieSummaryProps) {
               />
             </RadialBarChart>
           </ChartContainer>
-          <div className="absolute inset-0 flex flex-col items-center justify-end -bottom-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-end -bottom-2">
             <Flame className="h-10 w-10 text-primary" />
           </div>
         </div>
