@@ -1,16 +1,15 @@
 'use client';
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Smartphone, BookOpen, Clock, Calendar, BarChart, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical } from 'lucide-react';
+import { Smartphone, BookOpen, Clock, Calendar, BarChart, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Pie, Cell } from 'recharts';
 import { useLanguage } from '@/lib/language-provider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import Image from 'next/image';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
   month: new Date(0, i).toLocaleString('default', { month: 'short' }),
@@ -51,74 +50,74 @@ const quotes = [
     { quote: "Dengan membaca, kau tak akan pernah merasa sendirian.", author: "Anonim" },
     { quote: "Ilmu adalah cahaya yang menerangi kegelapan.", author: "Anonim" },
     { quote: "Berani melangkah adalah awal dari sebuah perjalanan besar.", author: "Anonim" },
-    { quote_id: 33, quote: "Jangan takut salah, karena dari kesalahan kita belajar.", author: "Anonim" },
-    { quote_id: 34, quote: "Konsistensi adalah kunci kesuksesan.", author: "Anonim" },
-    { quote_id: 35, quote: "Kesabaran adalah seni dalam berharap.", author: "Anonim" },
-    { quote_id: 36, quote: "Cinta kepada sesama adalah wujud cinta kepada Tuhan.", author: "Gus Dur" },
-    { quote_id: 37, quote: "Tuhan tidak akan mengubah nasib suatu bangsa sebelum bangsa itu mengubah nasibnya sendiri.", author: "Soekarno" },
-    { quote_id: 38, quote: "Beri aku 1.000 orang tua, niscaya akan kucabut semeru dari akarnya. Beri aku 10 pemuda niscaya akan kuguncangkan dunia.", author: "Soekarno" },
-    { quote_id: 39, quote: "Lebih baik kita hancur lebur daripada tidak merdeka.", author: "Bung Tomo" },
-    { quote_id: 40, quote: "Kemerdekaan hanyalah didapat dan dimiliki oleh bangsa yang jiwanya berkobar-kobar dengan tekad 'Merdeka, merdeka atau mati'!", author: "Jenderal Soedirman" },
-    { quote_id: 41, quote: "Terkadang, kesulitan harus kamu rasakan terlebih dahulu sebelum kebahagiaan yang sempurna datang kepadamu.", author: "R.A. Kartini" },
-    { quote_id: 42, quote: "Cita-cita persatuan Indonesia itu bukan omong kosong, tetapi benar-benar didukung oleh kekuatan-kekuatan yang timbul pada akar sejarah bangsa kita sendiri.", author: "Mohammad Yamin" },
-    { quote_id: 43, quote: "Kurang cerdas dapat diperbaiki dengan belajar, kurang cakap dapat dihilangkan dengan pengalaman. Namun tidak jujur itu sulit diperbaiki.", author: "Mohammad Hatta" },
-    { quote_id: 44, quote: "Jatuh bangunnya negara ini, sangat tergantung dari bangsa ini sendiri.", author: "Mohammad Hatta" },
-    { quote_id: 45, quote: "Pahlawan yang setia itu berkorban, bukan buat dikenal namanya, tetapi semata-mata untuk membela cita-cita.", author: "Mohammad Hatta" },
-    { quote_id: 46, quote: "Keberanian bukanlah ketidakhadiran rasa takut, melainkan kemenangan atasnya.", author: "Nelson Mandela (diadaptasi)" },
-    { quote_id: 47, quote: "Masa lalu adalah pelajaran, masa kini adalah kenyataan, dan masa depan adalah harapan.", author: "Anonim" },
-    { quote_id: 48, quote: "Hargai waktu, karena waktu tidak akan pernah kembali.", author: "Anonim" },
-    { quote_id: 49, quote: "Kejujuran adalah mata uang yang berlaku di mana saja.", author: "Anonim" },
-    { quote_id: 50, quote: "Senyum adalah ibadah termudah.", author: "Anonim" },
-    { quote_id: 51, quote: "Berpikir positif akan membawamu pada hasil yang positif.", author: "Anonim" },
-    { quote_id: 52, quote: "Jangan biarkan hari kemarin menyita terlalu banyak hari ini.", author: "Will Rogers (diadaptasi)" },
-    { quote_id: 53, quote: "Hidup itu seperti bersepeda. Untuk menjaga keseimbangan, kamu harus terus bergerak.", author: "Albert Einstein (diadaptasi)" },
-    { quote_id: 54, quote: "Dalam setiap kesulitan, selalu ada kesempatan.", author: "Anonim" },
-    { quote_id: 55, quote: "Jadilah dirimu sendiri, orang lain sudah ada.", author: "Oscar Wilde (diadaptasi)" },
-    { quote_id: 56, quote: "Keindahan sejati terpancar dari hati yang baik.", author: "Anonim" },
-    { quote_id: 57, quote: "Doa adalah senjata orang beriman.", author: "Anonim" },
-    { quote_id: 58, quote: "Kebersihan adalah sebagian dari iman.", author: "Hadis" },
-    { quote_id: 59, quote: "Setiap langkah adalah sebuah awal yang baru.", author: "Anonim" },
-    { quote_id: 60, quote: "Belajar sepanjang hayat.", author: "Anonim" },
-    { quote_id: 61, quote: "Kata-kata memiliki kekuatan untuk membangun dan meruntuhkan.", author: "Anonim" },
-    { quote_id: 62, quote: "Sastra adalah cara kita memahami dunia dengan lebih dalam.", author: "Goenawan Mohamad" },
-    { quote_id: 63, quote: "Puisi adalah napas kata-kata.", author: "Joko Pinurbo" },
-    { quote_id: 64, quote: "Di dalam sajak, aku menemukan diriku yang lain.", author: "Joko Pinurbo" },
-    { quote_id: 65, quote: "Sejarah adalah cermin bagi generasi masa kini dan masa depan.", author: "Sartono Kartodirdjo" },
-    { quote_id: 66, quote: "Memahami sejarah adalah memahami jati diri bangsa.", author: "Sartono Kartodirdjo" },
-    { quote_id: 67, quote: "Kopi pertama pagi ini: pahit, seperti rindu yang tak sampai.", author: "Fiersa Besari" },
-    { quote_id: 68, quote: "Beberapa orang tinggal dalam hidupmu agar kau belajar, beberapa pergi agar kau lebih bijaksana.", author: "Fiersa Besari" },
-    { quote_id: 69, quote: "Humor adalah cara Tuhan menghibur kita di tengah keseriusan dunia.", author: "Abdurrahman Wahid (Gus Dur)" },
-    { quote_id: 70, quote: "Perbedaan adalah rahmat.", author: "Abdurrahman Wahid (Gus Dur)" },
-    { quote_id: 71, quote: "Seni adalah kebohongan yang membuat kita menyadari kebenaran.", author: "Pablo Picasso (diadaptasi)" },
-    { quote_id: 72, quote: "Musik adalah bahasa universal umat manusia.", author: "Henry Wadsworth Longfellow (diadaptasi)" },
-    { quote_id: 73, quote: "Tawa adalah musik terindah dari jiwa.", author: "Anonim" },
-    { quote_id: 74, quote: "Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan.", author: "Anonim" },
-    { quote_id: 75, quote: "Kebaikan adalah investasi yang tak pernah merugi.", author: "Anonim" },
-    { quote_id: 76, quote: "Berbagi tidak akan membuatmu miskin.", author: "Anonim" },
-    { quote_id: 77, quote: "Syukur adalah kunci pintu kebahagiaan.", author: "Anonim" },
-    { quote_id: 78, quote: "Setiap hari adalah kesempatan kedua.", author: "Anonim" },
-    { quote_id: 79, quote: "Fokus pada tujuan, abaikan gangguan.", author: "Anonim" },
-    { quote_id: 80, quote: "Kerja keras mengalahkan bakat ketika bakat tidak bekerja keras.", author: "Tim Notke (diadaptasi)" },
-    { quote_id: 81, quote: "Keberanian adalah awal dari kemenangan.", author: "Anonim" },
-    { quote_id: 82, quote: "Waktu adalah aset paling berharga. Gunakan dengan bijak.", author: "Anonim" },
-    { quote_id: 83, quote: "Impian tidak akan terwujud dengan sendirinya, butuh aksi nyata.", author: "Anonim" },
-    { quote_id: 84, quote: "Jadilah versi terbaik dari dirimu sendiri.", author: "Anonim" },
-    { quote_id: 85, quote: "Kesalahan adalah bukti bahwa kamu sedang mencoba.", author: "Anonim" },
-    { quote_id: 86, quote: "Jangan bandingkan dirimu dengan orang lain. Bandingkan dengan dirimu yang kemarin.", author: "Anonim" },
-    { quote_id: 87, quote: "Rintangan adalah ujian untuk melihat seberapa besar keinginanmu.", author: "Anonim" },
-    { quote_id: 88, quote: "Berpikir besar, mulai dari yang kecil.", author: "Anonim" },
-    { quote_id: 89, quote: "Lingkungan yang baik akan membentuk karakter yang baik.", author: "Anonim" },
-    { quote_id: 90, quote: "Kesehatan adalah kekayaan yang sesungguhnya.", author: "Anonim" },
-    { quote_id: 91, quote: "Cinta sejati adalah ketika dua jiwa saling menyempurnakan.", author: "Anonim" },
-    { quote_id: 92, quote: "Keluarga adalah tempat di mana hidup dimulai dan cinta tak pernah berakhir.", author: "Anonim" },
-    { quote_id: 93, quote: "Sahabat adalah saudara yang kita pilih sendiri.", author: "Anonim" },
-    { quote_id: 94, quote: "Maafkanlah, agar hatimu damai.", author: "Anonim" },
-    { quote_id: 95, quote: "Ikhlas adalah puncak tertinggi dari ilmu.", author: "Anonim" },
-    { quote_id: 96, quote: "Percaya pada proses, nikmati perjalanannya.", author: "Anonim" },
-    { quote_id: 97, quote: "Setiap awan gelap pasti memiliki sisi terang.", author: "Anonim" },
-    { quote_id: 98, quote: "Hidup ini indah jika kita tahu cara menikmatinya.", author: "Anonim" },
-    { quote_id: 99, quote: "Teruslah bergerak maju, jangan pernah menyerah.", author: "Anonim" },
-    { quote_id: 100, quote: "Jadilah cahaya, bahkan dalam kegelapan.", author: "Anonim" }
+    { quote: "Jangan takut salah, karena dari kesalahan kita belajar.", author: "Anonim" },
+    { quote: "Konsistensi adalah kunci kesuksesan.", author: "Anonim" },
+    { quote: "Kesabaran adalah seni dalam berharap.", author: "Anonim" },
+    { quote: "Cinta kepada sesama adalah wujud cinta kepada Tuhan.", author: "Gus Dur" },
+    { quote: "Tuhan tidak akan mengubah nasib suatu bangsa sebelum bangsa itu mengubah nasibnya sendiri.", author: "Soekarno" },
+    { quote: "Beri aku 1.000 orang tua, niscaya akan kucabut semeru dari akarnya. Beri aku 10 pemuda niscaya akan kuguncangkan dunia.", author: "Soekarno" },
+    { quote: "Lebih baik kita hancur lebur daripada tidak merdeka.", author: "Bung Tomo" },
+    { quote: "Kemerdekaan hanyalah didapat dan dimiliki oleh bangsa yang jiwanya berkobar-kobar dengan tekad 'Merdeka, merdeka atau mati'!", author: "Jenderal Soedirman" },
+    { quote: "Terkadang, kesulitan harus kamu rasakan terlebih dahulu sebelum kebahagiaan yang sempurna datang kepadamu.", author: "R.A. Kartini" },
+    { quote: "Cita-cita persatuan Indonesia itu bukan omong kosong, tetapi benar-benar didukung oleh kekuatan-kekuatan yang timbul pada akar sejarah bangsa kita sendiri.", author: "Mohammad Yamin" },
+    { quote: "Kurang cerdas dapat diperbaiki dengan belajar, kurang cakap dapat dihilangkan dengan pengalaman. Namun tidak jujur itu sulit diperbaiki.", author: "Mohammad Hatta" },
+    { quote: "Jatuh bangunnya negara ini, sangat tergantung dari bangsa ini sendiri.", author: "Mohammad Hatta" },
+    { quote: "Pahlawan yang setia itu berkorban, bukan buat dikenal namanya, tetapi semata-mata untuk membela cita-cita.", author: "Mohammad Hatta" },
+    { quote: "Keberanian bukanlah ketidakhadiran rasa takut, melainkan kemenangan atasnya.", author: "Nelson Mandela (diadaptasi)" },
+    { quote: "Masa lalu adalah pelajaran, masa kini adalah kenyataan, dan masa depan adalah harapan.", author: "Anonim" },
+    { quote: "Hargai waktu, karena waktu tidak akan pernah kembali.", author: "Anonim" },
+    { quote: "Kejujuran adalah mata uang yang berlaku di mana saja.", author: "Anonim" },
+    { quote: "Senyum adalah ibadah termudah.", author: "Anonim" },
+    { quote: "Berpikir positif akan membawamu pada hasil yang positif.", author: "Anonim" },
+    { quote: "Jangan biarkan hari kemarin menyita terlalu banyak hari ini.", author: "Will Rogers (diadaptasi)" },
+    { quote: "Hidup itu seperti bersepeda. Untuk menjaga keseimbangan, kamu harus terus bergerak.", author: "Albert Einstein (diadaptasi)" },
+    { quote: "Dalam setiap kesulitan, selalu ada kesempatan.", author: "Anonim" },
+    { quote: "Jadilah dirimu sendiri, orang lain sudah ada.", author: "Oscar Wilde (diadaptasi)" },
+    { quote: "Keindahan sejati terpancar dari hati yang baik.", author: "Anonim" },
+    { quote: "Doa adalah senjata orang beriman.", author: "Anonim" },
+    { quote: "Kebersihan adalah sebagian dari iman.", author: "Hadis" },
+    { quote: "Setiap langkah adalah sebuah awal yang baru.", author: "Anonim" },
+    { quote: "Belajar sepanjang hayat.", author: "Anonim" },
+    { quote: "Kata-kata memiliki kekuatan untuk membangun dan meruntuhkan.", author: "Anonim" },
+    { quote: "Sastra adalah cara kita memahami dunia dengan lebih dalam.", author: "Goenawan Mohamad" },
+    { quote: "Puisi adalah napas kata-kata.", author: "Joko Pinurbo" },
+    { quote: "Di dalam sajak, aku menemukan diriku yang lain.", author: "Joko Pinurbo" },
+    { quote: "Sejarah adalah cermin bagi generasi masa kini dan masa depan.", author: "Sartono Kartodirdjo" },
+    { quote: "Memahami sejarah adalah memahami jati diri bangsa.", author: "Sartono Kartodirdjo" },
+    { quote: "Kopi pertama pagi ini: pahit, seperti rindu yang tak sampai.", author: "Fiersa Besari" },
+    { quote: "Beberapa orang tinggal dalam hidupmu agar kau belajar, beberapa pergi agar kau lebih bijaksana.", author: "Fiersa Besari" },
+    { quote: "Humor adalah cara Tuhan menghibur kita di tengah keseriusan dunia.", author: "Abdurrahman Wahid (Gus Dur)" },
+    { quote: "Perbedaan adalah rahmat.", author: "Abdurrahman Wahid (Gus Dur)" },
+    { quote: "Seni adalah kebohongan yang membuat kita menyadari kebenaran.", author: "Pablo Picasso (diadaptasi)" },
+    { quote: "Musik adalah bahasa universal umat manusia.", author: "Henry Wadsworth Longfellow (diadaptasi)" },
+    { quote: "Tawa adalah musik terindah dari jiwa.", author: "Anonim" },
+    { quote: "Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan.", author: "Anonim" },
+    { quote: "Kebaikan adalah investasi yang tak pernah merugi.", author: "Anonim" },
+    { quote: "Berbagi tidak akan membuatmu miskin.", author: "Anonim" },
+    { quote: "Syukur adalah kunci pintu kebahagiaan.", author: "Anonim" },
+    { quote: "Setiap hari adalah kesempatan kedua.", author: "Anonim" },
+    { quote: "Fokus pada tujuan, abaikan gangguan.", author: "Anonim" },
+    { quote: "Kerja keras mengalahkan bakat ketika bakat tidak bekerja keras.", author: "Tim Notke (diadaptasi)" },
+    { quote: "Keberanian adalah awal dari kemenangan.", author: "Anonim" },
+    { quote: "Waktu adalah aset paling berharga. Gunakan dengan bijak.", author: "Anonim" },
+    { quote: "Impian tidak akan terwujud dengan sendirinya, butuh aksi nyata.", author: "Anonim" },
+    { quote: "Jadilah versi terbaik dari dirimu sendiri.", author: "Anonim" },
+    { quote: "Kesalahan adalah bukti bahwa kamu sedang mencoba.", author: "Anonim" },
+    { quote: "Jangan bandingkan dirimu dengan orang lain. Bandingkan dengan dirimu yang kemarin.", author: "Anonim" },
+    { quote: "Rintangan adalah ujian untuk melihat seberapa besar keinginanmu.", author: "Anonim" },
+    { quote: "Berpikir besar, mulai dari yang kecil.", author: "Anonim" },
+    { quote: "Lingkungan yang baik akan membentuk karakter yang baik.", author: "Anonim" },
+    { quote: "Kesehatan adalah kekayaan yang sesungguhnya.", author: "Anonim" },
+    { quote: "Cinta sejati adalah ketika dua jiwa saling menyempurnakan.", author: "Anonim" },
+    { quote: "Keluarga adalah tempat di mana hidup dimulai dan cinta tak pernah berakhir.", author: "Anonim" },
+    { quote: "Sahabat adalah saudara yang kita pilih sendiri.", author: "Anonim" },
+    { quote: "Maafkanlah, agar hatimu damai.", author: "Anonim" },
+    { quote: "Ikhlas adalah puncak tertinggi dari ilmu.", author: "Anonim" },
+    { quote: "Percaya pada proses, nikmati perjalanannya.", author: "Anonim" },
+    { quote: "Setiap awan gelap pasti memiliki sisi terang.", author: "Anonim" },
+    { quote: "Hidup ini indah jika kita tahu cara menikmatinya.", author: "Anonim" },
+    { quote: "Teruslah bergerak maju, jangan pernah menyerah.", author: "Anonim" },
+    { quote: "Jadilah cahaya, bahkan dalam kegelapan.", author: "Anonim" }
 ];
 
 const scientificSources = [
@@ -135,6 +134,19 @@ const screenTimeData = [
   { day: 'Fri', hours: 8 },
   { day: 'Sat', hours: 9 },
   { day: 'Sun', hours: 7.5 },
+];
+
+const HOBBY_LIST = ['Sports', 'Music', 'Coding', 'Art', 'Cooking', 'Photography'];
+
+const PIE_CHART_COLORS = [
+    'hsl(var(--chart-1))',
+    'hsl(var(--chart-2))',
+    'hsl(var(--chart-3))',
+    'hsl(var(--chart-4))',
+    'hsl(var(--chart-5))',
+    '#A0522D', // Sienna
+    '#D2691E', // Chocolate
+    '#8A2BE2', // BlueViolet
 ];
 
 function DeviceUsageBreak() {
@@ -162,9 +174,90 @@ function DeviceUsageBreak() {
     );
 }
 
+function TimeWellSpent({ brainTime }: { brainTime: number }) {
+    const { t } = useLanguage();
+    const [hobbies, setHobbies] = React.useState<{ [key: string]: number }>({ 'Brain Time': brainTime });
+    const [selectedHobby, setSelectedHobby] = React.useState(HOBBY_LIST[0]);
+    const [hobbyDuration, setHobbyDuration] = React.useState('');
+
+    React.useEffect(() => {
+        setHobbies(prev => ({ ...prev, 'Brain Time': brainTime }));
+    }, [brainTime]);
+
+    const handleLogHobby = () => {
+        const duration = parseInt(hobbyDuration);
+        if (!isNaN(duration) && duration > 0) {
+            setHobbies(prev => ({
+                ...prev,
+                [selectedHobby]: (prev[selectedHobby] || 0) + duration,
+            }));
+            setHobbyDuration('');
+        }
+    };
+
+    const chartData = Object.entries(hobbies).map(([name, value]) => ({ name, value }));
+
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Activity /> {t('timeWellSpent')}</CardTitle>
+                <CardDescription>{t('timeWellSpentDescription')}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                 <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                        <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                             {chartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                    </PieChart>
+                </ResponsiveContainer>
+                <div className="space-y-2">
+                    <Label>{t('logHobby')}</Label>
+                    <div className="flex gap-2">
+                        <Select value={selectedHobby} onValueChange={setSelectedHobby}>
+                            <SelectTrigger>
+                                <SelectValue placeholder={t('selectHobby')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {HOBBY_LIST.map(hobby => <SelectItem key={hobby} value={hobby}>{t(hobby.toLowerCase() as any) || hobby}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                        <Input 
+                            type="number" 
+                            placeholder={t('durationInMinutes')}
+                            value={hobbyDuration}
+                            onChange={(e) => setHobbyDuration(e.target.value)}
+                        />
+                        <Button onClick={handleLogHobby}>{t('log')}</Button>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    )
+
+}
 
 export default function ReadingPage() {
     const { t } = useLanguage();
+    const [readingDuration, setReadingDuration] = React.useState(0);
+    const [startTime, setStartTime] = React.useState('');
+
+    const handleTrackReading = () => {
+        if (startTime) {
+            const start = new Date(`1970-01-01T${startTime}`);
+            const now = new Date();
+            const nowTime = new Date(`1970-01-01T${now.toTimeString().split(' ')[0]}`);
+            const diffMs = nowTime.getTime() - start.getTime();
+            if (diffMs > 0) {
+                setReadingDuration(prev => prev + Math.round(diffMs / 60000)); // add minutes
+            }
+        }
+    };
+
     return (
         <div className="p-4 sm:p-6 space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -235,10 +328,10 @@ export default function ReadingPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="start-time">{t('startTime')}</Label>
-                                    <Input id="start-time" type="time" />
+                                    <Input id="start-time" type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
                                 </div>
                             </div>
-                            <Button className="w-full">{t('trackReading')}</Button>
+                            <Button className="w-full" onClick={handleTrackReading}>{t('trackReading')}</Button>
                             <Accordion type="single" collapsible className="w-full">
                                 <AccordionItem value="history">
                                     <AccordionTrigger>
@@ -268,6 +361,7 @@ export default function ReadingPage() {
                 </div>
                 <div className="lg:col-span-1 space-y-6">
                     <DeviceUsageBreak />
+                    <TimeWellSpent brainTime={readingDuration} />
                 </div>
             </div>
         </div>
