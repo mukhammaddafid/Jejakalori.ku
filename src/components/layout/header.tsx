@@ -83,7 +83,7 @@ export function Header() {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ImageIcon className="mr-2 h-4 w-4" />
-              <span>{t('background' as any)}</span>
+              <span>{t('avatar')}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
