@@ -75,7 +75,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
     setOpenDialog(false);
     toast({
       title: t('foodAdded'),
-      description: t('foodAddedDescription', { servings: mealLog.servings, name: mealLog.food.name, meal: mealNames[currentMeal] }),
+      description: t('foodAddedDescription', { servings: mealLog.servings, name: t(mealLog.food.id as any), meal: mealNames[currentMeal] }),
     });
   };
 
@@ -108,7 +108,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                           <div className="flex items-center gap-3">
                             <FoodItemIcon foodId={item.food.id} />
                             <div>
-                              <p className="font-medium">{item.food.name}</p>
+                              <p className="font-medium">{t(item.food.id as any)}</p>
                               <p className="text-sm text-muted-foreground">{item.servings} {t('servings')}</p>
                             </div>
                           </div>

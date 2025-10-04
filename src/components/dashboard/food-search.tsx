@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Plus } from 'lucide-react';
 import { useLanguage } from '@/lib/language-provider';
+import { translations } from '@/lib/translations';
 
 interface FoodSearchProps {
   onAddFood: (mealLog: MealLog) => void;
@@ -21,14 +22,17 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
 
   React.useEffect(() => {
     if (query.length > 1) {
-      const filtered = foodDatabase.filter(food =>
-        food.name.toLowerCase().includes(query.toLowerCase())
-      );
+      const lowerCaseQuery = query.toLowerCase();
+      const filtered = foodDatabase.filter(food => {
+        const nameEn = translations.en[food.id as keyof typeof translations.en]?.toLowerCase() || '';
+        const nameId = translations.id[food.id as keyof typeof translations.id]?.toLowerCase() || '';
+        return nameEn.includes(lowerCaseQuery) || nameId.includes(lowerCaseQuery);
+      });
       setResults(filtered.slice(0, 5));
     } else {
       setResults([]);
     }
-  }, [query]);
+  }, [query, t]);
 
   const handleAdd = (food: Food) => {
     const numServings = servings[food.id] || 1;
@@ -56,7 +60,7 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
             {results.map(food => (
               <li key={food.id} className="flex items-center justify-between gap-2 p-2 rounded-md hover:bg-secondary">
                 <div>
-                  <p className="font-semibold">{food.name}</p>
+                  <p className="font-semibold">{t(food.id as any)}</p>
                   <p className="text-xs text-muted-foreground">
                     {food.calories} kcal, {food.servingSize}
                   </p>

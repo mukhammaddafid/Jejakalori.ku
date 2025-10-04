@@ -2,20 +2,29 @@
 
 import { generateDailySummaryAndSuggestions } from '@/ai/flows/generate-daily-summary-and-suggestions';
 import type { DailyLog, UserData } from '@/lib/types';
+import { translations } from '@/lib/translations';
 
 function formatFoodIntake(log: DailyLog): string {
   let intake = '';
+  const formatItems = (items: any[]) => {
+    return items.map(item => {
+      // Always use English name for the AI prompt
+      const foodName = translations.en[item.food.id as keyof typeof translations.en] || item.food.id;
+      return `${item.servings} serving(s) of ${foodName}`;
+    }).join(', ');
+  }
+
   if (log.breakfast.length > 0) {
-    intake += 'Breakfast: ' + log.breakfast.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
+    intake += 'Breakfast: ' + formatItems(log.breakfast) + '. ';
   }
   if (log.lunch.length > 0) {
-    intake += 'Lunch: ' + log.lunch.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
+    intake += 'Lunch: ' + formatItems(log.lunch) + '. ';
   }
   if (log.dinner.length > 0) {
-    intake += 'Dinner: ' + log.dinner.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
+    intake += 'Dinner: ' + formatItems(log.dinner) + '. ';
   }
   if (log.snacks.length > 0) {
-    intake += 'Snacks: ' + log.snacks.map(item => `${item.servings} serving(s) of ${item.food.name}`).join(', ') + '. ';
+    intake += 'Snacks: ' + formatItems(log.snacks) + '. ';
   }
   return intake.trim() || 'No food logged for today.';
 }

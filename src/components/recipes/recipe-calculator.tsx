@@ -68,7 +68,7 @@ export function RecipeCalculator() {
     setIngredients(prev => [...prev, ingredient]);
     toast({
       title: t('ingredientAdded'),
-      description: t('ingredientAddedDescription', { servings: ingredient.servings, name: ingredient.food.name }),
+      description: t('ingredientAddedDescription', { servings: ingredient.servings, name: t(ingredient.food.id as any) }),
     })
   };
 
@@ -144,7 +144,7 @@ export function RecipeCalculator() {
                     {ingredients.length > 0 ? ingredients.map((item, index) => (
                         <div key={index} className="flex justify-between items-center p-2 rounded-md bg-secondary">
                             <div>
-                                <p className="font-medium">{item.food.name}</p>
+                                <p className="font-medium">{t(item.food.id as any)}</p>
                                 <p className="text-sm text-muted-foreground">{item.servings} {t('servings')}</p>
                             </div>
                             <Button variant="ghost" size="icon" onClick={() => removeIngredient(index)}>

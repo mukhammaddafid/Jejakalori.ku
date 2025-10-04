@@ -1,6 +1,5 @@
 export interface Food {
   id: string;
-  name: string;
   calories: number;
   protein: number;
   carbs: number;
@@ -78,5 +77,3 @@ export interface NutrientTotals {
 }
 
 export type TranslationKey = keyof import('./translations').translations['en'];
-
-    
