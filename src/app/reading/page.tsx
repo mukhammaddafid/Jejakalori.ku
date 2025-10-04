@@ -312,13 +312,13 @@ export default function ReadingPage() {
     const { t } = useLanguage();
     const [readingDuration, setReadingDuration] = React.useState(0);
     const [startTime, setStartTime] = React.useState('');
+    const [finishTime, setFinishTime] = React.useState('');
 
     const handleTrackReading = () => {
-        if (startTime) {
-            const start = new Date(`1970-01-01T${startTime}`);
-            const now = new Date();
-            const nowTime = new Date(`1970-01-01T${now.toTimeString().split(' ')[0]}`);
-            const diffMs = nowTime.getTime() - start.getTime();
+        if (startTime && finishTime) {
+            const start = new Date(startTime);
+            const finish = new Date(finishTime);
+            const diffMs = finish.getTime() - start.getTime();
             if (diffMs > 0) {
                 setReadingDuration(prev => prev + Math.round(diffMs / 60000)); // add minutes
             }
@@ -391,11 +391,11 @@ export default function ReadingPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="start-date">{t('startDate')}</Label>
-                                    <Input id="start-date" type="date" />
+                                    <Input id="start-date" type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="start-time">{t('startTime')}</Label>
-                                    <Input id="start-time" type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                                    <Label htmlFor="finish-date">{t('finishDate')}</Label>
+                                    <Input id="finish-date" type="datetime-local" value={finishTime} onChange={(e) => setFinishTime(e.target.value)} />
                                 </div>
                             </div>
                             <Button className="w-full" onClick={handleTrackReading}>{t('trackReading')}</Button>
@@ -436,6 +436,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
