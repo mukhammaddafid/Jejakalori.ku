@@ -226,7 +226,6 @@ function DateTimePicker({
           selected={date}
           onSelect={handleDateChange}
           initialFocus
-          disabled={props => props.mode === 'single' && props.selected}
         />
         <div className="p-3 border-t border-border">
           <div className="flex items-center gap-2">
@@ -481,7 +480,6 @@ export default function ReadingPage() {
                                     <Input id="book-title" placeholder="e.g., Sapiens" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="start-date">{t('startDate')}</Label>
                                     <DateTimePicker 
                                         date={startTime}
                                         setDate={setStartTime}
@@ -490,7 +488,6 @@ export default function ReadingPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="finish-date">{t('finishDate')}</Label>
                                     <DateTimePicker 
                                         date={finishTime}
                                         setDate={setFinishTime}
@@ -537,6 +534,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
