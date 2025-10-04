@@ -89,6 +89,9 @@ export default function WelcomePage() {
             </DropdownMenuContent>
           </DropdownMenu>
           <Link href="/login" passHref>
+             <Button variant="ghost">{t('login')}</Button>
+          </Link>
+          <Link href="/signup" passHref>
             <Button>{t('signUp')}</Button>
           </Link>
         </nav>
@@ -107,7 +110,7 @@ export default function WelcomePage() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                    <Link href="/login" passHref>
+                    <Link href="/signup" passHref>
                         <Button size="lg">{t('startToday')}</Button>
                     </Link>
                 </div>
