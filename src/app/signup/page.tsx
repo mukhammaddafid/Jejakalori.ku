@@ -8,6 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
@@ -20,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { quotes } from '@/app/reading/page';
 
 const countries = [
   { value: 'id', label: 'Indonesia' },
@@ -36,11 +44,51 @@ const countries = [
   { value: 'za', label: 'South Africa' },
 ];
 
+function QuoteCarousel() {
+    // 3 Indonesian, 7 International quotes
+    const selectedQuotes = [
+      quotes[0], // Pramoedya
+      quotes[1], // Andrea Hirata
+      quotes[10], // Hatta
+      quotes[20], // Steve Jobs
+      quotes[21], // Lao Tzu
+      quotes[22], // Nietzsche
+      quotes[25], // Gandhi
+      quotes[32], // Churchill
+      quotes[33], // Mandela
+      quotes[72], // Walt Disney
+    ];
+
+    return (
+        <Carousel
+            opts={{
+                align: "start",
+            }}
+            className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto"
+        >
+            <CarouselContent>
+                {selectedQuotes.map((q, i) => (
+                    <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="p-1 h-full">
+                            <Card className="p-4 rounded-lg shadow-md bg-card flex flex-col justify-center h-full transform hover:scale-105 transition-transform duration-300">
+                                <blockquote className="text-xs sm:text-sm italic flex-grow">"{q.quote}"</blockquote>
+                                <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
+                            </Card>
+                        </div>
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex" />
+            <CarouselNext className="hidden sm:flex" />
+        </Carousel>
+    );
+}
+
 export default function SignUpPage() {
   const { t } = useLanguage();
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-secondary/20">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-secondary/20 py-12">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
@@ -95,6 +143,9 @@ export default function SignUpPage() {
           </p>
         </CardFooter>
       </Card>
+      <div className="mt-16 w-full px-4">
+        <QuoteCarousel />
+      </div>
     </div>
   )
 }

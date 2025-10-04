@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Flame, Monitor, Tablet, Smartphone, BookOpen, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,59 +14,11 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from '@/lib/language-provider';
-import { quotes } from '@/app/reading/page';
-import { Card } from '@/components/ui/card';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-
-
-function QuoteCarousel() {
-    // 3 Indonesian, 7 International quotes
-    const selectedQuotes = [
-      quotes[0], // Pramoedya
-      quotes[1], // Andrea Hirata
-      quotes[10], // Hatta
-      quotes[20], // Steve Jobs
-      quotes[21], // Lao Tzu
-      quotes[22], // Nietzsche
-      quotes[25], // Gandhi
-      quotes[32], // Churchill
-      quotes[33], // Mandela
-      quotes[72], // Walt Disney
-    ];
-
-    return (
-        <Carousel
-            opts={{
-                align: "start",
-            }}
-            className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto"
-        >
-            <CarouselContent>
-                {selectedQuotes.map((q, i) => (
-                    <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
-                        <div className="p-1 h-full">
-                            <Card className="p-4 rounded-lg shadow-md bg-card flex flex-col justify-center h-full transform hover:scale-105 transition-transform duration-300">
-                                <blockquote className="text-xs sm:text-sm italic flex-grow">"{q.quote}"</blockquote>
-                                <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
-                            </Card>
-                        </div>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex" />
-            <CarouselNext className="hidden sm:flex" />
-        </Carousel>
-    );
-}
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function WelcomePage() {
   const { t, language, setLanguage } = useLanguage();
+  const welcomeHeroImage = PlaceHolderImages.find(img => img.id === 'welcome-hero');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -134,9 +87,18 @@ export default function WelcomePage() {
                 </Link>
               </div>
             </div>
-            <div className="mt-16">
-              <QuoteCarousel />
-            </div>
+            {welcomeHeroImage && (
+              <div className="mt-16 flex justify-center">
+                <Image
+                  src={welcomeHeroImage.imageUrl}
+                  alt={welcomeHeroImage.description}
+                  data-ai-hint={welcomeHeroImage.imageHint}
+                  width={600}
+                  height={400}
+                  className="rounded-lg object-cover"
+                />
+              </div>
+            )}
           </div>
         </section>
       </main>
