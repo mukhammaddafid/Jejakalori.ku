@@ -302,7 +302,7 @@ export const translations = {
     limitationsTitle: 'Limitations and Support',
     limitationsContent: 'It is important to remember that this application is a tool and not a substitute for professional medical advice. The estimates provided are based on standard formulas and may not be 100% accurate for every individual due to genetic factors and unique health conditions. Always consult with a doctor or nutritionist before making significant changes to your diet or lifestyle.',
     apiSupportTitle: 'API Support & Customization',
-    apiSupportContent: 'This application is designed to be flexible. The AI summary feature on the dashboard supports the use of various AI model providers. You can enter an API key from services like Gemini (Google), Replicate, or even other models like IBM Granite by selecting the "Other" option and entering the provider\'s name. This gives you the freedom to use your preferred AI model for daily analysis.',
+    apiSupportContent: 'This application is designed to be flexible. The AI summary feature on the dashboard supports the use of various AI model providers. You can enter an API key from services like Gemini (Google), Replicate with IBM Granite models by selecting the "Other" option and entering the provider\'s name. This gives you the freedom to use your preferred AI model for daily analysis.',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -611,7 +611,7 @@ export const translations = {
     limitationsTitle: 'Keterbatasan dan Dukungan',
     limitationsContent: 'Penting untuk diingat bahwa aplikasi ini adalah alat bantu dan bukan pengganti nasihat medis profesional. Estimasi yang diberikan adalah berdasarkan formula standar dan mungkin tidak 100% akurat untuk setiap individu karena faktor genetika dan kondisi kesehatan yang unik. Selalu konsultasikan dengan dokter atau ahli gizi sebelum membuat perubahan signifikan pada diet atau gaya hidup Anda.',
     apiSupportTitle: 'Dukungan API & Kustomisasi',
-    apiSupportContent: 'Aplikasi ini dirancang agar fleksibel. Fitur ringkasan AI di dasbor mendukung penggunaan berbagai penyedia model AI. Anda dapat memasukkan kunci API dari layanan seperti Gemini (Google), Replicate, atau bahkan model lain seperti IBM Granite dengan memilih opsi "Lainnya" dan memasukkan nama penyedianya. Ini memberi Anda kebebasan untuk menggunakan model AI pilihan Anda untuk analisis harian.',
+    apiSupportContent: 'Aplikasi ini dirancang agar fleksibel. Fitur ringkasan AI di dasbor mendukung penggunaan berbagai penyedia model AI. Anda dapat memasukkan kunci API dari layanan seperti Gemini (Google) dan Replicate dengan model IBM Granite dengan memilih opsi "Lainnya" dan memasukkan nama penyedianya. Ini memberi Anda kebebasan untuk menggunakan model AI pilihan Anda untuk analisis harian.',
   }
 };
 
