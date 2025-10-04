@@ -17,7 +17,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
-import { format, set } from 'date-fns';
+import { format, set, isDate } from 'date-fns';
 
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
@@ -177,8 +177,8 @@ function DateTimePicker({
   placeholder: string;
 }) {
   const [time, setTime] = React.useState({
-    hour: date ? date.getHours() : 0,
-    minute: date ? date.getMinutes() : 0,
+    hour: date && isDate(date) ? date.getHours() : 0,
+    minute: date && isDate(date) ? date.getMinutes() : 0,
   });
 
   const handleDateChange = (selectedDate: Date | undefined) => {
@@ -188,17 +188,15 @@ function DateTimePicker({
         minutes: time.minute,
       });
       setDate(newDate);
-    } else {
-      setDate(undefined);
     }
   };
 
   const handleTimeChange = (part: 'hour' | 'minute', value: string) => {
-    const intValue = parseInt(value);
+    const intValue = parseInt(value, 10);
     if (!isNaN(intValue)) {
       const newTime = { ...time, [part]: intValue };
       setTime(newTime);
-      if (date) {
+      if (date && isDate(date)) {
         const newDate = set(date, {
           hours: newTime.hour,
           minutes: newTime.minute,
@@ -219,7 +217,7 @@ function DateTimePicker({
           )}
         >
           {icon}
-          {date ? format(date, 'PPP HH:mm') : <span>{placeholder}</span>}
+          {date && isDate(date) ? format(date, 'PPP HH:mm') : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
@@ -228,6 +226,7 @@ function DateTimePicker({
           selected={date}
           onSelect={handleDateChange}
           initialFocus
+          disabled={props => props.mode === 'single' && props.selected}
         />
         <div className="p-3 border-t border-border">
           <div className="flex items-center gap-2">
@@ -538,6 +537,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
