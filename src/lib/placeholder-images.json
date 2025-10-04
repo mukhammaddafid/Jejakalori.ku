@@ -2,21 +2,21 @@
   "placeholderImages": [
     {
       "id": "user-avatar-1",
-      "description": "Grey",
-      "imageUrl": "https://images.unsplash.com/photo-1639747280804-dd2d6b3d88ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHwyZCUyMGNoYXJhY3RlciUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MTE0NDQ0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "2d character"
+      "description": "Lego Man",
+      "imageUrl": "https://images.unsplash.com/photo-1618842676289-7f867f457c66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsZWdvJTIwbWFufGVufDB8fHx8MTc2Mzg1MjYyNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lego man"
     },
     {
       "id": "user-avatar-2",
-      "description": "Sage",
-      "imageUrl": "https://images.unsplash.com/photo-1655720233483-a9295c55d674?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXhlbCUyMGFydCUyMGNoYXJhY3RlcnxlbnwwfHx8fDE3NjM4NTEzMDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "pixel art"
+      "description": "Lego Woman",
+      "imageUrl": "https://images.unsplash.com/photo-1599421497959-a06a6833ea40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsZWdvJTIwd29tYW58ZW58MHx8fHwxNzYzODUyNjQ1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lego woman"
     },
     {
       "id": "user-avatar-3",
-      "description": "Skyblue",
-      "imageUrl": "https://images.unsplash.com/photo-1645830181931-518384f5f082?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2Mzg1MTM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "minimalist character"
+      "description": "Lego Group",
+      "imageUrl": "https://images.unsplash.com/photo-1588640306581-2292b3a0a34f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsZWdvJTIwZ3JvdXB8ZW58MHx8fHwxNzYzODUyNjk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lego group"
     },
     {
       "id": "user-avatar-4",

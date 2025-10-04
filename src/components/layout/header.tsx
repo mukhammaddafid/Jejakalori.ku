@@ -80,6 +80,12 @@ export function Header() {
               <span>{t('profile')}</span>
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/about">
+              <Info className="mr-2 h-4 w-4" />
+              <span>{t('about')}</span>
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ImageIcon className="mr-2 h-4 w-4" />
@@ -88,9 +94,9 @@ export function Header() {
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={selectedAvatarId} onValueChange={setSelectedAvatarId}>
-                  <DropdownMenuRadioItem value="user-avatar-1">Grey</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="user-avatar-2">Sage</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="user-avatar-3">Skyblue</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-1">Lego Man</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-2">Lego Woman</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="user-avatar-3">Lego Group</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
