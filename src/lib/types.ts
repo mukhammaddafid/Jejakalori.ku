@@ -31,11 +31,13 @@ export interface Recipe {
   name: string;
   servings: number;
   ingredients: MealLog[];
+  instructions: string[];
 }
 
 export interface RecipeWithIngredients {
   name: string;
   ingredients: MealLog[];
+  instructions: string[];
 }
 
 export interface UserGoals {
