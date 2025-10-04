@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Smartphone, BookOpen, Clock, Calendar, BarChart as BarChartIcon, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart as PieChartIcon, Activity, Dumbbell, Music, Code, Brush, CookingPot, Camera } from 'lucide-react';
+import { Smartphone, BookOpen, Clock, Calendar, BarChart as BarChartIcon, LineChart as LineChartIcon, FileText, FlaskConical, Brain, MoreVertical, PieChart as PieChartIcon, Activity, Dumbbell, Music, Code, Brush, CookingPot, Camera, CalendarDays, CalendarClock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +14,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import { format, set } from 'date-fns';
 
 
 const readingData = Array.from({ length: 12 }, (_, i) => ({
@@ -160,6 +164,96 @@ const PIE_CHART_COLORS = [
     '#D2691E', // Chocolate
     '#8A2BE2', // BlueViolet
 ];
+
+function DateTimePicker({
+  date,
+  setDate,
+  icon,
+  placeholder,
+}: {
+  date: Date | undefined;
+  setDate: (date: Date | undefined) => void;
+  icon: React.ReactNode;
+  placeholder: string;
+}) {
+  const [time, setTime] = React.useState({
+    hour: date ? date.getHours() : 0,
+    minute: date ? date.getMinutes() : 0,
+  });
+
+  const handleDateChange = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      const newDate = set(selectedDate, {
+        hours: time.hour,
+        minutes: time.minute,
+      });
+      setDate(newDate);
+    } else {
+      setDate(undefined);
+    }
+  };
+
+  const handleTimeChange = (part: 'hour' | 'minute', value: string) => {
+    const intValue = parseInt(value);
+    if (!isNaN(intValue)) {
+      const newTime = { ...time, [part]: intValue };
+      setTime(newTime);
+      if (date) {
+        const newDate = set(date, {
+          hours: newTime.hour,
+          minutes: newTime.minute,
+        });
+        setDate(newDate);
+      }
+    }
+  };
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={'outline'}
+          className={cn(
+            'w-full justify-start text-left font-normal',
+            !date && 'text-muted-foreground'
+          )}
+        >
+          {icon}
+          {date ? format(date, 'PPP HH:mm') : <span>{placeholder}</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <CalendarComponent
+          mode="single"
+          selected={date}
+          onSelect={handleDateChange}
+          initialFocus
+        />
+        <div className="p-3 border-t border-border">
+          <div className="flex items-center gap-2">
+            <Input
+              type="number"
+              min="0"
+              max="23"
+              value={String(time.hour).padStart(2, '0')}
+              onChange={(e) => handleTimeChange('hour', e.target.value)}
+              className="w-16"
+            />
+            <span>:</span>
+            <Input
+              type="number"
+              min="0"
+              max="59"
+              value={String(time.minute).padStart(2, '0')}
+              onChange={(e) => handleTimeChange('minute', e.target.value)}
+              className="w-16"
+            />
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
 
 function WellnessHub({ brainTime }: { brainTime: number }) {
     const { t } = useLanguage();
@@ -311,14 +405,12 @@ function WellnessHub({ brainTime }: { brainTime: number }) {
 export default function ReadingPage() {
     const { t } = useLanguage();
     const [readingDuration, setReadingDuration] = React.useState(0);
-    const [startTime, setStartTime] = React.useState('');
-    const [finishTime, setFinishTime] = React.useState('');
+    const [startTime, setStartTime] = React.useState<Date | undefined>();
+    const [finishTime, setFinishTime] = React.useState<Date | undefined>();
 
     const handleTrackReading = () => {
         if (startTime && finishTime) {
-            const start = new Date(startTime);
-            const finish = new Date(finishTime);
-            const diffMs = finish.getTime() - start.getTime();
+            const diffMs = finishTime.getTime() - startTime.getTime();
             if (diffMs > 0) {
                 setReadingDuration(prev => prev + Math.round(diffMs / 60000)); // add minutes
             }
@@ -391,11 +483,21 @@ export default function ReadingPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="start-date">{t('startDate')}</Label>
-                                    <Input id="start-date" type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                                    <DateTimePicker 
+                                        date={startTime}
+                                        setDate={setStartTime}
+                                        icon={<CalendarDays className="mr-2 h-4 w-4" />}
+                                        placeholder={t('startDate')}
+                                    />
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="finish-date">{t('finishDate')}</Label>
-                                    <Input id="finish-date" type="datetime-local" value={finishTime} onChange={(e) => setFinishTime(e.target.value)} />
+                                    <DateTimePicker 
+                                        date={finishTime}
+                                        setDate={setFinishTime}
+                                        icon={<CalendarClock className="mr-2 h-4 w-4" />}
+                                        placeholder={t('finishDate')}
+                                    />
                                 </div>
                             </div>
                             <Button className="w-full" onClick={handleTrackReading}>{t('trackReading')}</Button>
@@ -436,6 +538,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
