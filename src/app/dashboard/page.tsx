@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { motion } from 'framer-motion';
 import { mockUserData } from '@/lib/data';
 import type { DailyLog, NutrientTotals, MealLog } from '@/lib/types';
 import { CalorieSummary } from '@/components/dashboard/calorie-summary';
@@ -162,27 +163,40 @@ const PremiumFeatureWithTrial: React.FC<{
   const isFeatureLocked = !isTrialActive && isTrialEnded;
 
   return (
-    <Card className="relative overflow-hidden">
-        <CardHeader>
-            <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-            {React.cloneElement(children as React.ReactElement, { trialTimeRemaining: getTimeRemaining(), isTrialActive: isTrialActive && !isTrialEnded })}
-        </CardContent>
-        {isFeatureLocked && (
-            <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-                <div className="text-center p-4">
-                    <Zap className="mx-auto h-12 w-12 text-primary" />
-                    <h3 className="mt-2 text-lg font-semibold">{t('unlock')} {title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                        {t('trialEndedDescription')}
-                    </p>
-                    <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">{t('upgradeToPremium')}</Button>
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+    >
+        <Card className="relative overflow-hidden">
+            <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1" className="border-b-0">
+                    <AccordionTrigger className="p-6 hover:no-underline">
+                        <div className="w-full text-left">
+                            <CardTitle className="flex items-center gap-2">{icon} {title}</CardTitle>
+                            <CardDescription className="mt-1">{description}</CardDescription>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 pb-6">
+                         {React.cloneElement(children as React.ReactElement, { trialTimeRemaining: getTimeRemaining(), isTrialActive: isTrialActive && !isTrialEnded })}
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+
+            {isFeatureLocked && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+                    <div className="text-center p-4">
+                        <Zap className="mx-auto h-12 w-12 text-primary" />
+                        <h3 className="mt-2 text-lg font-semibold">{t('unlock')} {title}</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                            {t('trialEndedDescription')}
+                        </p>
+                        <Button className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90">{t('upgradeToPremium')}</Button>
+                    </div>
                 </div>
-            </div>
-        )}
-    </Card>
+            )}
+        </Card>
+    </motion.div>
   );
 };
 
@@ -290,13 +304,12 @@ const WorkoutPlanVisualizer = ({ selectedWorkouts }: { selectedWorkouts: { [key:
 };
 
 const AnalysisFeature: React.FC<{ 
-    title: string; 
     buttonText: string;
     visualization: 'analysis' | 'workout';
     children: React.ReactElement; 
     trialTimeRemaining?: string; 
     isTrialActive?: boolean;
-}> = ({ title, buttonText, visualization, children, trialTimeRemaining, isTrialActive }) => {
+}> = ({ buttonText, visualization, children, trialTimeRemaining, isTrialActive }) => {
     const [showVisualization, setShowVisualization] = React.useState(false);
     const { t } = useLanguage();
     
@@ -317,12 +330,7 @@ const AnalysisFeature: React.FC<{
     }
   
     return (
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>
-            <span className="font-semibold">{title}</span>
-          </AccordionTrigger>
-          <AccordionContent className="space-y-4 pt-4">
+        <div className="space-y-4">
             {isTrialActive && (
                 <div className="rounded-lg bg-primary/10 p-3 text-center text-sm text-primary-foreground">
                     <p className="font-semibold text-primary">{t('premiumTrialActive')}</p>
@@ -334,9 +342,7 @@ const AnalysisFeature: React.FC<{
               {showVisualization ? t('hideCalendar') : buttonText}
             </Button>
             {showVisualization && renderVisualization()}
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+        </div>
     );
 };
 
@@ -476,7 +482,7 @@ export default function DashboardPage() {
             trialDays={3}
             storageKey="habitAnalysisTrialEnd"
            >
-            <AnalysisFeature title={t('selectAnalysisType')} buttonText="Visualize Plan" visualization="analysis">
+            <AnalysisFeature buttonText="Visualize Plan" visualization="analysis">
                 <HabitAnalysisSelector />
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
@@ -487,7 +493,7 @@ export default function DashboardPage() {
             trialDays={5}
             storageKey="workoutPlanTrialEnd"
            >
-            <AnalysisFeature title={t('selectWorkoutGoal')} buttonText="Generate Plan & Analysis" visualization="workout">
+            <AnalysisFeature buttonText="Generate Plan & Analysis" visualization="workout">
                 <WorkoutSelector />
             </AnalysisFeature>
            </PremiumFeatureWithTrial>
