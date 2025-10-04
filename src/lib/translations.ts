@@ -445,7 +445,9 @@ export const translations = {
     dataPrivacyTitle: "Data Storage",
     dataPrivacyContent: "Your personal data, including your profile, goals, and logs, is stored securely and exclusively on your local device. We do not collect or store your personal information on our servers.",
     communicationPreferences: "Communication Preferences",
-    communicationPreferencesContent: "We will only contact you for essential account-related matters. We respect your privacy and will not send marketing emails without your consent."
+    communicationPreferencesContent: "We will only contact you for essential account-related matters. We respect your privacy and will not send marketing emails without your consent.",
+    twoFactorAuth: 'Two-Factor Authentication',
+    twoFactorAuthDescription: 'Add an extra layer of security to your account.'
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -896,7 +898,9 @@ f8: 'Telur',
     dataPrivacyTitle: "Penyimpanan Data",
     dataPrivacyContent: "Data pribadi Anda, termasuk profil, tujuan, dan catatan Anda, disimpan dengan aman dan eksklusif di perangkat lokal Anda. Kami tidak mengumpulkan atau menyimpan informasi pribadi Anda di server kami.",
     communicationPreferences: "Preferensi Komunikasi",
-    communicationPreferencesContent: "Kami hanya akan menghubungi Anda untuk urusan penting terkait akun. Kami menghargai privasi Anda dan tidak akan mengirim email pemasaran tanpa persetujuan Anda."
+    communicationPreferencesContent: "Kami hanya akan menghubungi Anda untuk urusan penting terkait akun. Kami menghargai privasi Anda dan tidak akan mengirim email pemasaran tanpa persetujuan Anda.",
+    twoFactorAuth: 'Autentikasi Dua Faktor',
+    twoFactorAuthDescription: 'Tambahkan lapisan keamanan ekstra ke akun Anda.'
   }
 };
 

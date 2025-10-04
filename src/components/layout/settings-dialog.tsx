@@ -67,6 +67,14 @@ export function SettingsDialog() {
                     <Label className="flex items-center gap-2"><KeyRound />{t('password')}</Label>
                     <Button variant="outline" className="w-full">{t('changePassword')}</Button>
                 </div>
+                <Separator />
+                <div className="space-y-4">
+                  <Label className="flex items-center gap-2"><Shield />{t('twoFactorAuth')}</Label>
+                  <div className="flex items-center justify-between rounded-lg border p-3">
+                      <p className="text-sm text-muted-foreground">{t('twoFactorAuthDescription')}</p>
+                      <Switch id="two-factor-auth" />
+                  </div>
+                </div>
             </TabsContent>
             <TabsContent value="sync" className="m-0 space-y-4">
                 <div className="flex items-center justify-between rounded-lg border p-3">
