@@ -28,6 +28,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { quotes } from '@/app/reading/page';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { useRouter } from "next/navigation";
 
 const countries = [
   { value: 'id', label: 'Indonesia' },
@@ -43,6 +48,13 @@ const countries = [
   { value: 'br', label: 'Brazil' },
   { value: 'za', label: 'South Africa' },
 ];
+
+const formSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required.' }),
+  email: z.string().email({ message: 'Please enter a valid email.' }),
+  country: z.string().min(1, { message: 'Please select a country.' }),
+  password: z.string().min(1, { message: 'Password is required.' }),
+});
 
 function QuoteCarousel() {
     // 3 Indonesian, 7 International quotes
@@ -87,6 +99,22 @@ function QuoteCarousel() {
 
 export default function SignUpPage() {
   const { t } = useLanguage();
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      country: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+    router.push('/dashboard');
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-secondary/20 py-12 px-4">
@@ -106,46 +134,84 @@ export default function SignUpPage() {
             {t('signUpDescription')}
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="name">{t('name')}</Label>
-            <Input id="name" placeholder="Jane Doe" required />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">{t('email')}</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="country">{t('country')}</Label>
-            <Select>
-              <SelectTrigger id="country">
-                <SelectValue placeholder={t('selectCountry')} />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map((country) => (
-                  <SelectItem key={country.value} value={country.value}>
-                    {country.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">{t('password')}</Label>
-            <Input id="password" type="password" required />
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-4">
-            <Link href="/dashboard" className="w-full">
-                <Button className="w-full">{t('signUp')}</Button>
-            </Link>
-          <p className="text-xs text-center text-muted-foreground">
-            {t('alreadyHaveAccount')}{" "}
-            <Link href="/login" className="underline">
-              {t('login')}
-            </Link>
-          </p>
-        </CardFooter>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <CardContent className="grid gap-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="grid gap-2">
+                    <Label htmlFor="name">{t('name')}</Label>
+                    <FormControl>
+                      <Input id="name" placeholder="Jane Doe" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="grid gap-2">
+                    <Label htmlFor="email">{t('email')}</Label>
+                    <FormControl>
+                      <Input id="email" type="email" placeholder="m@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem className="grid gap-2">
+                    <Label htmlFor="country">{t('country')}</Label>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger id="country">
+                          <SelectValue placeholder={t('selectCountry')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {countries.map((country) => (
+                          <SelectItem key={country.value} value={country.value}>
+                            {country.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="grid gap-2">
+                    <Label htmlFor="password">{t('password')}</Label>
+                    <FormControl>
+                      <Input id="password" type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+              <Button type="submit" className="w-full">{t('signUp')}</Button>
+              <p className="text-xs text-center text-muted-foreground">
+                {t('alreadyHaveAccount')}{" "}
+                <Link href="/login" className="underline">
+                  {t('login')}
+                </Link>
+              </p>
+            </CardFooter>
+          </form>
+        </Form>
       </Card>
     </div>
   )

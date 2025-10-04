@@ -81,21 +81,21 @@ export function SettingsDialog() {
                 <div className="flex items-center justify-between rounded-lg border p-3">
                     <div className="flex items-center gap-3">
                         <Smartphone />
-                        <Label htmlFor="sync-smartphone" className="font-medium">{t('smartphoneSync')}</Label>
+                        <Label htmlFor="sync-smartphone" className="font-medium">{t('smartphone')}</Label>
                     </div>
                     <Switch id="sync-smartphone" defaultChecked />
                 </div>
                 <div className="flex items-center justify-between rounded-lg border p-3">
                     <div className="flex items-center gap-3">
                         <Monitor />
-                        <Label htmlFor="sync-desktop" className="font-medium">{t('desktopSync')}</Label>
+                        <Label htmlFor="sync-desktop" className="font-medium">{t('desktop')}</Label>
                     </div>
                     <Switch id="sync-desktop" defaultChecked />
                 </div>
                 <div className="flex items-center justify-between rounded-lg border p-3">
                     <div className="flex items-center gap-3">
                         <Watch />
-                        <Label htmlFor="sync-smartwatch" className="font-medium">{t('smartwatchSync')}</Label>
+                        <Label htmlFor="sync-smartwatch" className="font-medium">{t('smartwatch')}</Label>
                     </div>
                     <Switch id="sync-smartwatch" />
                 </div>
