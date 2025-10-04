@@ -23,7 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone, LifeBuoy, LogOut } from 'lucide-react';
+import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone, LifeBuoy, LogOut, Info } from 'lucide-react';
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
 import Link from 'next/link';
