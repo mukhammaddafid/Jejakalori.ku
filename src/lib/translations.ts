@@ -447,7 +447,11 @@ export const translations = {
     communicationPreferences: "Communication Preferences",
     communicationPreferencesContent: "We will only contact you for essential account-related matters. We respect your privacy and will not send marketing emails without your consent.",
     twoFactorAuth: 'Two-Factor Authentication',
-    twoFactorAuthDescription: 'Add an extra layer of security to your account.'
+    twoFactorAuthDescription: 'Add an extra layer of security to your account.',
+    viewMode: 'View Mode',
+    desktop: 'Desktop',
+    tablet: 'Tablet',
+    mobile: 'Mobile'
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -900,7 +904,11 @@ f42: 'Semangka',
     communicationPreferences: "Preferensi Komunikasi",
     communicationPreferencesContent: "Kami hanya akan menghubungi Anda untuk urusan penting terkait akun. Kami menghargai privasi Anda dan tidak akan mengirim email pemasaran tanpa persetujuan Anda.",
     twoFactorAuth: 'Autentikasi Dua Faktor',
-    twoFactorAuthDescription: 'Tambahkan lapisan keamanan ekstra ke akun Anda.'
+    twoFactorAuthDescription: 'Tambahkan lapisan keamanan ekstra ke akun Anda.',
+    viewMode: 'Mode Tampilan',
+    desktop: 'Desktop',
+    tablet: 'Tablet',
+    mobile: 'Mobile'
   }
 };
 

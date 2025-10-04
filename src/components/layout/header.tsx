@@ -27,6 +27,7 @@ import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphon
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
 import Link from 'next/link';
+import { useViewport } from '@/lib/viewport-provider';
 
 function getPageTitle(pathname: string, t: (key: string) => string) {
   const menuItems = getMenuItems(t);
@@ -40,6 +41,7 @@ function getPageTitle(pathname: string, t: (key: string) => string) {
 export function Header() {
   const pathname = usePathname();
   const { t, language, setLanguage } = useLanguage();
+  const { setViewport } = useViewport();
   const pageTitle = getPageTitle(pathname, t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
   
@@ -98,21 +100,21 @@ export function Header() {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <Smartphone className="mr-2 h-4 w-4" />
-              <span>{t('theme')}</span>
+              <span>{t('viewMode')}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setViewport('desktop')}>
                   <Monitor className="mr-2 h-4 w-4" />
-                  <span>Desktop</span>
+                  <span>{t('desktop')}</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setViewport('tablet')}>
                   <Tablet className="mr-2 h-4 w-4" />
-                  <span>Tablet</span>
+                  <span>{t('tablet')}</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setViewport('mobile')}>
                   <Smartphone className="mr-2 h-4 w-4" />
-                  <span>Mobile</span>
+                  <span>{t('mobile')}</span>
                 </DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>

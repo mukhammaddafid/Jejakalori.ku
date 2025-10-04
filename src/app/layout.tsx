@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/lib/language-provider';
+import { ViewportProvider } from '@/lib/viewport-provider';
 
 export const metadata: Metadata = {
   title: 'CalorieTracker.me',
@@ -29,7 +30,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <ViewportProvider>
+              {children}
+            </ViewportProvider>
             <Toaster />
           </ThemeProvider>
         </LanguageProvider>
