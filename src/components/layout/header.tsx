@@ -23,7 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone, LifeBuoy, LogOut, Info } from 'lucide-react';
+import { Globe, User as UserIcon, Image as ImageIcon, Monitor, Tablet, Smartphone, LifeBuoy, LogOut, Wrench, AlertTriangle } from 'lucide-react';
 import { getMenuItems } from './main-nav';
 import { useLanguage } from '@/lib/language-provider';
 import Link from 'next/link';
@@ -78,12 +78,6 @@ export function Header() {
             <Link href="/profile">
               <UserIcon className="mr-2 h-4 w-4" />
               <span>{t('profile')}</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="/about">
-              <Info className="mr-2 h-4 w-4" />
-              <span>{t('about')}</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSub>
@@ -144,9 +138,18 @@ export function Header() {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>{t('helpCenter')}</DropdownMenuItem>
-                <DropdownMenuItem>{t('reportProblem')}</DropdownMenuItem>
-                <DropdownMenuItem>{t('contactUs')}</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/about">
+                        <Wrench className="mr-2 h-4 w-4" />
+                        <span>{t('apiSupportTitle')}</span>
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/about">
+                        <AlertTriangle className="mr-2 h-4 w-4" />
+                        <span>{t('limitationsTitle')}</span>
+                    </Link>
+                </DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>

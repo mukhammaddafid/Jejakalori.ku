@@ -42,6 +42,11 @@ export const getMenuItems = (t: (key: string) => string) => [
     label: t('reading'),
     icon: BookOpen,
   },
+  {
+    href: '/about',
+    label: t('about'),
+    icon: Info,
+  },
 ];
 
 export function MainNav() {
@@ -80,18 +85,6 @@ export function MainNav() {
               <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
             </Avatar>
             <span>{t('profile')}</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-      <SidebarMenuItem>
-        <SidebarMenuButton
-          asChild
-          isActive={pathname.startsWith('/about')}
-          tooltip={t('about')}
-        >
-          <Link href="/about">
-            <Info />
-            <span>{t('about')}</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
