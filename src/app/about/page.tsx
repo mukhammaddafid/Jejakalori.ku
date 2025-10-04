@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useLanguage } from '@/lib/language-provider';
-import { Info, Target, FlaskConical, Rocket, AlertTriangle, Wrench, Image as ImageIcon, Drumstick, Wheat, Carrot, Fish, Apple, Nut, Egg, Milk, Salad, Beef, Croissant, Cookie, CupSoda, Candy, Coffee, Pizza, Beer, Sandwich, Wine, Soup, Popcorn, Donut, Burger, CakeSlice, IceCream, Cherry, Cheese } from 'lucide-react';
+import { Info, Target, FlaskConical, Rocket, AlertTriangle, Wrench, Image as ImageIcon, Drumstick, Wheat, Carrot, Fish, Apple, Nut, Egg, Milk, Salad, Beef, Croissant, Cookie, CupSoda, Candy, Coffee, Pizza, Beer, Sandwich, Wine, Soup, Popcorn, Donut, CakeSlice, IceCream, Cherry } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const Section: React.FC<{
@@ -90,14 +90,14 @@ export default function AboutPage() {
                                     <IconExplanation icon={<Soup className="h-6 w-6" />} name={t('f21')} description={t('vegetableSource')} />
                                     <IconExplanation icon={<Popcorn className="h-6 w-6" />} name={t('f22')} description={t('snacks')} />
                                     <IconExplanation icon={<Donut className="h-6 w-6" />} name={t('f23')} description={t('snacks')} />
-                                    <IconExplanation icon={<Burger className="h-6 w-6" />} name={t('f24')} description={t('carbohydrateSource')} />
+                                    <IconExplanation icon={<Wheat className="h-6 w-6" />} name={t('f24')} description={t('carbohydrateSource')} />
                                     <IconExplanation icon={<CakeSlice className="h-6 w-6" />} name={t('f25')} description={t('snacks')} />
                                     <IconExplanation icon={<IceCream className="h-6 w-6" />} name={t('f26')} description={t('snacks')} />
                                     <IconExplanation icon={<Cherry className="h-6 w-6" />} name={t('f27')} description={t('fruitSource')} />
                                     <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f28')} description={t('healthyFatSource')} />
                                     <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f29')} description={t('vegetableSource')} />
                                     <IconExplanation icon={<Wheat className="h-6 w-6" />} name={t('f30')} description={t('carbohydrateSource')} />
-                                    <IconExplanation icon={<Cheese className="h-6 w-6" />} name={t('f31')} description={t('dairySource')} />
+                                    <IconExplanation icon={<Milk className="h-6 w-6" />} name={t('f31')} description={t('dairySource')} />
                                     <IconExplanation icon={<Fish className="h-6 w-6" />} name={t('f32')} description={t('proteinSource')} />
                                     <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f33')} description={t('vegetableSource')} />
                                     <IconExplanation icon={<Wheat className="h-6 w-6" />} name={t('f34')} description={t('carbohydrateSource')} />
