@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { Zap, ShieldCheck, Leaf, Bone, Droplets, Sun } from 'lucide-react';
+import { Zap, ShieldCheck, Leaf, Bone, Droplets, Sun, Brain, Dna, Bot, HeartPulse, Wheat, Eye } from 'lucide-react';
 import type { NutrientTotals } from '@/lib/types';
 import { micronutrientGoals, foodDatabase } from '@/lib/data';
 import { useLanguage } from '@/lib/language-provider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
-type MicroNutrient = 'fiber' | 'iron' | 'calcium' | 'vitaminC' | 'vitaminD';
+type MicroNutrient = 'fiber' | 'iron' | 'calcium' | 'vitaminC' | 'vitaminD' | 'potassium' | 'magnesium' | 'vitaminA' | 'vitaminB1' | 'vitaminB6' | 'vitaminB12' | 'vitaminE' | 'vitaminK';
 
 const microInfo: Record<MicroNutrient, {
     icon: React.ReactNode;
@@ -55,6 +56,62 @@ const microInfo: Record<MicroNutrient, {
         recipeLink: '/recipes',
         unit: 'IU'
     },
+    potassium: {
+        icon: <HeartPulse className="h-5 w-5 text-rose-500" />,
+        analysisKey: 'potassiumAnalysis',
+        foodIds: ['f44', 'f10', 'f35', 'f28'],
+        recipeLink: '/recipes',
+        unit: 'mg'
+    },
+    magnesium: {
+        icon: <Bot className="h-5 w-5 text-cyan-500" />,
+        analysisKey: 'magnesiumAnalysis',
+        foodIds: ['f6', 'f10', 'f28', 'f2'],
+        recipeLink: '/recipes',
+        unit: 'mg'
+    },
+    vitaminA: {
+        icon: <Eye className="h-5 w-5 text-blue-500" />,
+        analysisKey: 'vitaminAAnalysis',
+        foodIds: ['f3', 'f10', 'f8', 'f45'],
+        recipeLink: '/recipes',
+        unit: 'mcg'
+    },
+    vitaminB1: {
+        icon: <Brain className="h-5 w-5 text-purple-500" />,
+        analysisKey: 'vitaminB1Analysis',
+        foodIds: ['f11', 'f4', 'f2', 'f7'],
+        recipeLink: '/recipes',
+        unit: 'mg'
+    },
+    vitaminB6: {
+        icon: <Brain className="h-5 w-5 text-indigo-500" />,
+        analysisKey: 'vitaminB6Analysis',
+        foodIds: ['f1', 'f4', 'f44', 'f35'],
+        recipeLink: '/recipes',
+        unit: 'mg'
+    },
+    vitaminB12: {
+        icon: <Dna className="h-5 w-5 text-violet-500" />,
+        analysisKey: 'vitaminB12Analysis',
+        foodIds: ['f11', 'f4', 'f8', 'f9'],
+        recipeLink: '/recipes',
+        unit: 'mcg'
+    },
+    vitaminE: {
+        icon: <Zap className="h-5 w-5 text-amber-500" />,
+        analysisKey: 'vitaminEAnalysis',
+        foodIds: ['f6', 'f10', 'f28', 'f4'],
+        recipeLink: '/recipes',
+        unit: 'mg'
+    },
+    vitaminK: {
+        icon: <Wheat className="h-5 w-5 text-lime-500" />,
+        analysisKey: 'vitaminKAnalysis',
+        foodIds: ['f10', 'f3', 'f1', 'f49'],
+        recipeLink: '/recipes',
+        unit: 'mcg'
+    },
 };
 
 interface MicronutrientTrackerProps {
@@ -66,14 +123,23 @@ function MicroNutrientPopover({ nutrient, consumed, goal }: { nutrient: MicroNut
     const info = microInfo[nutrient];
     const percentage = goal > 0 ? (consumed / goal) * 100 : 0;
     const recommendedFoods = info.foodIds.map(id => foodDatabase.find(f => f.id === id)).filter(Boolean) as any[];
-    const label = nutrient === 'vitaminC' || nutrient === 'vitaminD' ? t(nutrient as any) : t(nutrient);
+    
+    let label = t(nutrient as any);
+    if (nutrient === 'vitaminC') label = t('Vitamin C');
+    if (nutrient === 'vitaminD') label = t('Vitamin D');
+    if (nutrient === 'vitaminA') label = t('vitaminA');
+    if (nutrient === 'vitaminB1') label = t('vitaminB1');
+    if (nutrient === 'vitaminB6') label = t('vitaminB6');
+    if (nutrient === 'vitaminB12') label = t('vitaminB12');
+    if (nutrient === 'vitaminE') label = t('vitaminE');
+    if (nutrient === 'vitaminK') label = t('vitaminK');
 
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <div className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg hover:bg-muted cursor-pointer">
+                <div className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg hover:bg-muted cursor-pointer w-16">
                     {info.icon}
-                    <p className="text-xs font-medium">{label}</p>
+                    <p className="text-xs font-medium text-center truncate w-full">{label}</p>
                     <Progress value={percentage} className="h-1 w-12" />
                 </div>
             </PopoverTrigger>
@@ -163,6 +229,10 @@ export function MicronutrientTracker({ totals }: MicronutrientTrackerProps) {
     return `${days} ${t('days')} ${hours} ${t('hours')} ${t('remaining')}`;
   };
 
+  const mainMicros: MicroNutrient[] = ['fiber', 'iron', 'calcium', 'vitaminC', 'vitaminD'];
+  const otherMicros: MicroNutrient[] = ['potassium', 'magnesium', 'vitaminA', 'vitaminK', 'vitaminE'];
+  const vitaminBMicros: MicroNutrient[] = ['vitaminB1', 'vitaminB6', 'vitaminB12'];
+
   return (
     <Card className="relative overflow-hidden">
       <CardHeader>
@@ -176,13 +246,32 @@ export function MicronutrientTracker({ totals }: MicronutrientTrackerProps) {
         <CardDescription>{t('micronutrientsDescription')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
-            <MicroNutrientPopover nutrient="fiber" consumed={totals.fiber} goal={micronutrientGoals.fiber} />
-            <MicroNutrientPopover nutrient="iron" consumed={totals.iron} goal={micronutrientGoals.iron} />
-            <MicroNutrientPopover nutrient="calcium" consumed={totals.calcium} goal={micronutrientGoals.calcium} />
-            <MicroNutrientPopover nutrient="vitaminC" consumed={totals.vitaminC} goal={micronutrientGoals.vitaminC} />
-            <MicroNutrientPopover nutrient="vitaminD" consumed={totals.vitaminD} goal={micronutrientGoals.vitaminD} />
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-y-2">
+            {mainMicros.map(key => (
+                <MicroNutrientPopover key={key} nutrient={key} consumed={totals[key]} goal={micronutrientGoals[key]} />
+            ))}
         </div>
+        <Accordion type="single" collapsible>
+            <AccordionItem value="more-micros" className="border-b-0">
+                <AccordionTrigger className="text-sm justify-center py-2 -mx-2 px-2 hover:no-underline rounded-md hover:bg-muted">
+                    {t('showMoreNutrients')}
+                </AccordionTrigger>
+                <AccordionContent className="pt-2">
+                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-y-2">
+                        {otherMicros.map(key => (
+                            <MicroNutrientPopover key={key} nutrient={key} consumed={totals[key]} goal={micronutrientGoals[key]} />
+                        ))}
+                    </div>
+                     <h4 className="font-semibold text-sm mt-4 mb-2 ml-1">Vitamin B Complex</h4>
+                     <div className="grid grid-cols-3 sm:grid-cols-5 gap-y-2">
+                        {vitaminBMicros.map(key => (
+                            <MicroNutrientPopover key={key} nutrient={key} consumed={totals[key]} goal={micronutrientGoals[key]} />
+                        ))}
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+
         {!isTrialActive && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="text-center p-4">
@@ -216,3 +305,5 @@ export function MicronutrientTracker({ totals }: MicronutrientTrackerProps) {
     </Card>
   );
 }
+
+    

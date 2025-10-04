@@ -398,6 +398,23 @@ export const translations = {
     vitaminDAnalysis: 'Important for bone health and immune function. Get it from sunlight, fatty fish, and fortified milk.',
     recommendedFoods: 'Recommended Foods',
     findRecipes: 'Find Recipes',
+    potassium: 'Potassium',
+    magnesium: 'Magnesium',
+    vitaminA: 'Vitamin A',
+    vitaminB1: 'Vitamin B1',
+    vitaminB6: 'Vitamin B6',
+    vitaminB12: 'Vitamin B12',
+    vitaminE: 'Vitamin E',
+    vitaminK: 'Vitamin K',
+    potassiumAnalysis: 'Regulates fluid balance and blood pressure. Found in bananas, potatoes, and spinach.',
+    magnesiumAnalysis: 'Involved in muscle function and energy production. Sources include almonds, spinach, and avocado.',
+    vitaminAAnalysis: 'Crucial for vision and immune function. Carrots, sweet potatoes, and spinach are rich sources.',
+    vitaminB1Analysis: 'Known as Thiamine, helps convert food into energy. Found in pork, salmon, and brown rice.',
+    vitaminB6Analysis: 'Important for brain development and function. Found in chicken, salmon, and bananas.',
+    vitaminB12Analysis: 'Essential for nerve function and red blood cell formation. Found in meat, fish, and dairy.',
+    vitaminEAnalysis: 'An antioxidant that protects cells from damage. Found in almonds, spinach, and avocado.',
+    vitaminKAnalysis: 'Important for blood clotting and bone health. Abundant in leafy greens like spinach and broccoli.',
+    showMoreNutrients: 'Show More Nutrients',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -801,9 +818,28 @@ export const translations = {
     vitaminDAnalysis: 'Penting untuk kesehatan tulang dan fungsi imun. Dapatkan dari sinar matahari, ikan berlemak, dan susu yang difortifikasi.',
     recommendedFoods: 'Makanan yang Direkomendasikan',
     findRecipes: 'Cari Resep',
+    potassium: 'Kalium',
+    magnesium: 'Magnesium',
+    vitaminA: 'Vitamin A',
+    vitaminB1: 'Vitamin B1',
+    vitaminB6: 'Vitamin B6',
+    vitaminB12: 'Vitamin B12',
+    vitaminE: 'Vitamin E',
+    vitaminK: 'Vitamin K',
+    potassiumAnalysis: 'Mengatur keseimbangan cairan dan tekanan darah. Ditemukan pada pisang, kentang, dan bayam.',
+    magnesiumAnalysis: 'Terlibat dalam fungsi otot dan produksi energi. Sumbernya meliputi almond, bayam, dan alpukat.',
+    vitaminAAnalysis: 'Penting untuk penglihatan dan fungsi kekebalan tubuh. Wortel, ubi jalar, dan bayam adalah sumber yang kaya.',
+    vitaminB1Analysis: 'Dikenal sebagai Tiamin, membantu mengubah makanan menjadi energi. Ditemukan pada daging babi, salmon, dan nasi merah.',
+    vitaminB6Analysis: 'Penting untuk perkembangan dan fungsi otak. Ditemukan pada ayam, salmon, dan pisang.',
+    vitaminB12Analysis: 'Penting untuk fungsi saraf dan pembentukan sel darah merah. Ditemukan pada daging, ikan, dan produk susu.',
+    vitaminEAnalysis: 'Antioksidan yang melindungi sel dari kerusakan. Ditemukan pada almond, bayam, dan alpukat.',
+    vitaminKAnalysis: 'Penting untuk pembekuan darah dan kesehatan tulang. Melimpah pada sayuran hijau seperti bayam dan brokoli.',
+    showMoreNutrients: 'Tampilkan Lebih Banyak Nutrisi',
   }
 };
 
 export type TranslationKey = keyof typeof translations['en'];
+
+    
 
     

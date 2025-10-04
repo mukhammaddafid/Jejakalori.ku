@@ -38,6 +38,14 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     calcium: 0,
     iron: 0,
     vitaminD: 0,
+    potassium: 0,
+    magnesium: 0,
+    vitaminA: 0,
+    vitaminB1: 0,
+    vitaminB6: 0,
+    vitaminB12: 0,
+    vitaminE: 0,
+    vitaminK: 0,
   };
 
   const allMeals = [
@@ -52,17 +60,27 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     totals.protein += (item.food.protein || 0) * item.servings;
     totals.carbs += (item.food.carbs || 0) * item.servings;
     totals.fat += (item.food.fat || 0) * item.servings;
-    totals.saturatedFat += (item.food.nutrients.saturatedFat || 0) * item.servings;
-    totals.unsaturatedFat += (item.food.nutrients.unsaturatedFat || 0) * item.servings;
-    totals.animalProtein += (item.food.nutrients.animalProtein || 0) * item.servings;
-    totals.plantProtein += (item.food.nutrients.plantProtein || 0) * item.servings;
-    totals.starch += (item.food.nutrients.starch || 0) * item.servings;
-    totals.sugar += (item.food.nutrients.sugar || 0) * item.servings;
-    totals.fiber += (item.food.nutrients.fiber || 0) * item.servings;
-    totals.vitaminC += (item.food.nutrients.vitaminC || 0) * item.servings;
-    totals.calcium += (item.food.nutrients.calcium || 0) * item.servings;
-    totals.iron += (item.food.nutrients.iron || 0) * item.servings;
-    totals.vitaminD += (item.food.nutrients.vitaminD || 0) * item.servings;
+    
+    const nutrients = item.food.nutrients;
+    totals.saturatedFat += (nutrients.saturatedFat || 0) * item.servings;
+    totals.unsaturatedFat += (nutrients.unsaturatedFat || 0) * item.servings;
+    totals.animalProtein += (nutrients.animalProtein || 0) * item.servings;
+    totals.plantProtein += (nutrients.plantProtein || 0) * item.servings;
+    totals.starch += (nutrients.starch || 0) * item.servings;
+    totals.sugar += (nutrients.sugar || 0) * item.servings;
+    totals.fiber += (nutrients.fiber || 0) * item.servings;
+    totals.vitaminC += (nutrients.vitaminC || 0) * item.servings;
+    totals.calcium += (nutrients.calcium || 0) * item.servings;
+    totals.iron += (nutrients.iron || 0) * item.servings;
+    totals.vitaminD += (nutrients.vitaminD || 0) * item.servings;
+    totals.potassium += (nutrients.potassium || 0) * item.servings;
+    totals.magnesium += (nutrients.magnesium || 0) * item.servings;
+    totals.vitaminA += (nutrients.vitaminA || 0) * item.servings;
+    totals.vitaminB1 += (nutrients.vitaminB1 || 0) * item.servings;
+    totals.vitaminB6 += (nutrients.vitaminB6 || 0) * item.servings;
+    totals.vitaminB12 += (nutrients.vitaminB12 || 0) * item.servings;
+    totals.vitaminE += (nutrients.vitaminE || 0) * item.servings;
+    totals.vitaminK += (nutrients.vitaminK || 0) * item.servings;
   });
 
   return totals;
@@ -478,3 +496,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    

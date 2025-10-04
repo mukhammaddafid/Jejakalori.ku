@@ -78,6 +78,16 @@ export interface NutrientTotals {
     calcium: number;
     iron: number;
     vitaminD: number;
+    potassium: number;
+    magnesium: number;
+    vitaminA: number;
+    vitaminB1: number;
+    vitaminB6: number;
+    vitaminB12: number;
+    vitaminE: number;
+    vitaminK: number;
 }
 
 export type TranslationKey = keyof import('./translations').translations['en'];
+
+    
