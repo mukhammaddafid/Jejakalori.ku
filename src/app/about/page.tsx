@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useLanguage } from '@/lib/language-provider';
-import { Info, Target, FlaskConical, Rocket, AlertTriangle, Wrench, Image as ImageIcon, Drumstick, Wheat, Carrot, Fish, Apple, Nut, Egg, Milk, Salad, Beef, Croissant, Cookie, CupSoda, Candy, Coffee, Pizza, Sandwich, Soup, Popcorn, Donut, CakeSlice, IceCream, Cherry } from 'lucide-react';
+import { Info, Target, FlaskConical, Rocket, AlertTriangle, Wrench, Utensils, Drumstick, Wheat, Carrot, Fish, Apple, Nut, Egg, Milk, Salad, Beef, Croissant, Cookie, CupSoda, Candy, Coffee, Pizza, Sandwich, Soup, Popcorn, Donut, CakeSlice, IceCream, Cherry } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const Section: React.FC<{
@@ -147,7 +147,7 @@ export default function AboutPage() {
                     <Accordion type="single" collapsible>
                         <AccordionItem value="image-icons">
                             <AccordionTrigger>
-                                <Section icon={<ImageIcon className="h-7 w-7" />} title={t('foodAndBeverageTitle')}>
+                                <Section icon={<Utensils className="h-7 w-7" />} title={t('foodAndBeverageTitle')}>
                                     <p>{t('foodAndBeverageContent')}</p>
                                 </Section>
                             </AccordionTrigger>
@@ -200,7 +200,7 @@ export default function AboutPage() {
                         <div className="flex justify-center items-center gap-6 mt-4 text-muted-foreground">
                             <TechLogo name="Next.js" logo={
                                 <svg width="48" height="48" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="black"/>
+                                    <path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="currentColor"/>
                                     <path d="M99.2365 38.8365L59.0231 92.1153V65.8076L40.7307 38.8365H99.2365ZM107 30.8365H31L67.0192 80.1153V103L107 30.8365Z" fill="white"/>
                                 </svg>
                             } />
