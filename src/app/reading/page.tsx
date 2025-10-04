@@ -177,7 +177,7 @@ function DateTimePicker({
   placeholder: string;
 }) {
   const [time, setTime] = React.useState({
-    hour: date && isDate(date) ? date.getHours() : 0,
+    hour: date && isDate(date) ? date.getHours() : 10,
     minute: date && isDate(date) ? date.getMinutes() : 0,
   });
 
@@ -217,7 +217,7 @@ function DateTimePicker({
           )}
         >
           {icon}
-          {date && isDate(date) ? format(date, 'PPP HH:mm') : <span>{placeholder}</span>}
+          {date && isDate(date) ? format(date, 'MM/dd/yy HH:mm') : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
@@ -474,27 +474,20 @@ export default function ReadingPage() {
                             <CardDescription>{t('brainTimeDescription')}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="book-title">{t('bookTitle')}</Label>
-                                    <Input id="book-title" placeholder="e.g., Sapiens" />
-                                </div>
-                                <div className="space-y-2">
-                                    <DateTimePicker 
-                                        date={startTime}
-                                        setDate={setStartTime}
-                                        icon={<CalendarDays className="mr-2 h-4 w-4" />}
-                                        placeholder={t('startDate')}
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <DateTimePicker 
-                                        date={finishTime}
-                                        setDate={setFinishTime}
-                                        icon={<CalendarClock className="mr-2 h-4 w-4" />}
-                                        placeholder={t('finishDate')}
-                                    />
-                                </div>
+                            <div className="grid grid-cols-1 gap-4">
+                                <Input id="book-title" placeholder={t('bookTitle')} />
+                                <DateTimePicker 
+                                    date={startTime}
+                                    setDate={setStartTime}
+                                    icon={<CalendarDays className="mr-2 h-4 w-4" />}
+                                    placeholder={t('startDate')}
+                                />
+                                <DateTimePicker 
+                                    date={finishTime}
+                                    setDate={setFinishTime}
+                                    icon={<CalendarClock className="mr-2 h-4 w-4" />}
+                                    placeholder={t('finishDate')}
+                                />
                             </div>
                             <Button className="w-full" onClick={handleTrackReading}>{t('trackReading')}</Button>
                             <Accordion type="single" collapsible className="w-full">
@@ -534,6 +527,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
