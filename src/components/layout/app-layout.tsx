@@ -25,7 +25,7 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
   const { t } = useLanguage();
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <div className="flex">
+      <div className="flex h-screen">
         <Sidebar className="sticky top-0 h-screen">
           <SidebarHeader>
             <div className="flex items-center justify-between w-full">
@@ -49,7 +49,7 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
             </div>
           </SidebarFooter>
         </Sidebar>
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <Header />
           <main className="flex-1 overflow-y-auto bg-secondary/20">
               {children}
