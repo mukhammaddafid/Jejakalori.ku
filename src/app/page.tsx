@@ -13,33 +13,36 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from '@/lib/language-provider';
+import { quotes } from '@/app/reading/page';
+import { Card } from '@/components/ui/card';
 
-function ChartCollage() {
+function QuoteCollage() {
+    const { t } = useLanguage();
+    // 3 Indonesian, 7 International quotes
+    const selectedQuotes = [
+      quotes[0], // Pramoedya
+      quotes[1], // Andrea Hirata
+      quotes[10], // Hatta
+      quotes[20], // Steve Jobs
+      quotes[21], // Lao Tzu
+      quotes[22], // Nietzsche
+      quotes[25], // Gandhi
+      quotes[32], // Churchill
+      quotes[33], // Mandela
+      quotes[72], // Walt Disney
+    ];
+
     return (
-        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-4">
-          <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-inner">
-                <BookOpen className="w-16 h-16 text-red-600" />
-            </div>
-          </div>
-          <div className="p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            <div className="relative w-24 h-24">
-                <div className="w-full h-full rounded-full bg-gradient-to-tr from-green-300 via-green-500 to-green-700"></div>
-            </div>
-          </div>
-          <div className="col-span-2 p-4 bg-card rounded-xl shadow-lg flex items-center justify-center">
-            <div className="w-full h-32 flex items-end justify-around gap-2 p-2">
-                <div className="h-1/2 w-8 bg-primary/30 rounded-t-lg"></div>
-                <div className="h-3/4 w-8 bg-primary/60 rounded-t-lg"></div>
-                <div className="h-full w-8 bg-primary rounded-t-lg"></div>
-                <div className="h-1/4 w-8 bg-primary/40 rounded-t-lg"></div>
-                <div className="h-2/3 w-8 bg-primary/80 rounded-t-lg"></div>
-            </div>
-          </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {selectedQuotes.map((q, i) => (
+                 <Card key={i} className="p-4 rounded-lg shadow-md bg-card flex flex-col justify-center transform hover:scale-105 transition-transform duration-300">
+                     <blockquote className="text-xs sm:text-sm italic flex-grow">"{q.quote}"</blockquote>
+                     <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
+                 </Card>
+            ))}
         </div>
     );
 }
-
 
 export default function WelcomePage() {
   const { t, language, setLanguage } = useLanguage();
@@ -88,34 +91,31 @@ export default function WelcomePage() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Link href="/login" passHref>
-             <Button variant="ghost">{t('login')}</Button>
-          </Link>
           <Link href="/signup" passHref>
             <Button>{t('signUp')}</Button>
           </Link>
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+        <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="flex flex-col justify-center space-y-4">
+            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+              <div className="flex flex-col justify-center space-y-4 text-center lg:text-left">
                 <div className="space-y-4">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
                     {t('welcomeTitle')}
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground text-xs">
+                  <p className="max-w-[600px] text-muted-foreground text-base mx-auto lg:mx-0">
                     {t('welcomeSubtitle')}
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                    <Link href="/signup" passHref>
-                        <Button size="lg">{t('startToday')}</Button>
-                    </Link>
-                </div>
               </div>
-              <ChartCollage />
+              <QuoteCollage />
+            </div>
+             <div className="flex justify-center mt-12">
+                <Link href="/signup" passHref>
+                    <Button size="lg" className="text-lg px-8 py-6">{t('startToday')}</Button>
+                </Link>
             </div>
           </div>
         </section>

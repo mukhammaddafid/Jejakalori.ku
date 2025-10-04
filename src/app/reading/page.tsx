@@ -22,8 +22,8 @@ const readingData = Array.from({ length: 12 }, (_, i) => ({
   duration: Math.floor(Math.random() * 20) + 5,
 }));
 
-const quotes = [
-    // 20 Indonesian Quotes
+export const quotes = [
+    // 10 Indonesian Quotes
     { quote: "Orang boleh pandai setinggi langit, tapi selama ia tidak menulis, ia akan hilang di dalam masyarakat dan dari sejarah.", author: "Pramoedya Ananta Toer" },
     { quote: "Bermimpilah, karena Tuhan akan memeluk mimpi-mimpimu.", author: "Andrea Hirata" },
     { quote: "Seperti dendam, rindu harus dibayar tuntas.", author: "Eka Kurniawan" },
@@ -35,17 +35,8 @@ const quotes = [
     { quote: "Kebenaran akan terus hidup, sekalipun kau lenyapkan. Jangan berharap kebenaran akan mati.", author: "Wiji Thukul" },
     { quote: "Beri aku 1.000 orang tua, niscaya akan kucabut semeru dari akarnya. Beri aku 10 pemuda niscaya akan kuguncangkan dunia.", author: "Soekarno" },
     { quote: "Kurang cerdas dapat diperbaiki dengan belajar, kurang cakap dapat dihilangkan dengan pengalaman. Namun tidak jujur itu sulit diperbaiki.", author: "Mohammad Hatta" },
-    { quote: "Pahlawan yang setia itu berkorban, bukan buat dikenal namanya, tetapi semata-mata untuk membela cita-cita.", author: "Mohammad Hatta" },
-    { quote: "Cinta kepada sesama adalah wujud cinta kepada Tuhan.", author: "Gus Dur" },
-    { quote: "Sastra adalah cara kita memahami dunia dengan lebih dalam.", author: "Goenawan Mohamad" },
-    { quote: "Di dalam sajak, aku menemukan diriku yang lain.", author: "Joko Pinurbo" },
-    { quote: "Memahami sejarah adalah memahami jati diri bangsa.", author: "Sartono Kartodirdjo" },
-    { quote: "Kopi pertama pagi ini: pahit, seperti rindu yang tak sampai.", author: "Fiersa Besari" },
-    { quote: "Humor adalah cara Tuhan menghibur kita di tengah keseriusan dunia.", author: "Abdurrahman Wahid (Gus Dur)" },
-    { quote: "Perbedaan adalah rahmat.", author: "Abdurrahman Wahid (Gus Dur)" },
-    { quote: "Setiap kisah cinta adalah sebuah semesta kecil.", author: "Dewi Lestari" },
-
-    // 80 International Quotes
+    
+    // 70 International Quotes
     { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
     { quote: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
     { quote: "That which does not kill us makes us stronger.", author: "Friedrich Nietzsche" },
@@ -445,6 +436,7 @@ export default function ReadingPage() {
     
 
     
+
 
 
 
