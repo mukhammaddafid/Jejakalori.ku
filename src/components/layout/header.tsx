@@ -41,7 +41,7 @@ function getPageTitle(pathname: string, t: (key: string) => string) {
 export function Header() {
   const pathname = usePathname();
   const { t, language, setLanguage } = useLanguage();
-  const { setViewport } = useViewport();
+  const { viewport, setViewport } = useViewport();
   const pageTitle = getPageTitle(pathname, t);
   const [selectedAvatarId, setSelectedAvatarId] = React.useState('user-avatar-1');
   
@@ -104,18 +104,20 @@ export function Header() {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem onClick={() => setViewport('desktop')}>
-                  <Monitor className="mr-2 h-4 w-4" />
-                  <span>{t('desktop')}</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setViewport('tablet')}>
-                  <Tablet className="mr-2 h-4 w-4" />
-                  <span>{t('tablet')}</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setViewport('mobile')}>
-                  <Smartphone className="mr-2 h-4 w-4" />
-                  <span>{t('mobile')}</span>
-                </DropdownMenuItem>
+                <DropdownMenuRadioGroup value={viewport} onValueChange={(value) => setViewport(value as 'desktop' | 'tablet' | 'mobile')}>
+                    <DropdownMenuRadioItem value="desktop">
+                      <Monitor className="mr-2 h-4 w-4" />
+                      <span>{t('desktop')}</span>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="tablet">
+                      <Tablet className="mr-2 h-4 w-4" />
+                      <span>{t('tablet')}</span>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="mobile">
+                      <Smartphone className="mr-2 h-4 w-4" />
+                      <span>{t('mobile')}</span>
+                    </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
