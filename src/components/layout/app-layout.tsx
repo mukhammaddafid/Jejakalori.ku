@@ -25,34 +25,36 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
   const { t } = useLanguage();
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <Sidebar className="sticky top-0 h-svh">
-        <SidebarHeader>
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2 overflow-hidden">
-              <Flame className="h-6 w-6 shrink-0 text-primary" />
-              <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">{t('appName')}</span>
+      <div className="flex">
+        <Sidebar className="sticky top-0 h-screen">
+          <SidebarHeader>
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <Flame className="h-6 w-6 shrink-0 text-primary" />
+                <span className="font-headline text-lg font-bold whitespace-nowrap group-data-[state=collapsed]:hidden">{t('appName')}</span>
+              </div>
+              <SidebarTrigger className="group-data-[state=collapsed]:hidden"/>
             </div>
-            <SidebarTrigger className="group-data-[state=collapsed]:hidden"/>
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <MainNav />
-        </SidebarContent>
-        <SidebarFooter>
-          <Separator className="my-2" />
-          <div className="p-3 flex items-center justify-between">
-            <SettingsDialog />
-            <div className="group-data-[state=expanded]:hidden">
-                <SidebarTrigger/>
+          </SidebarHeader>
+          <SidebarContent>
+            <MainNav />
+          </SidebarContent>
+          <SidebarFooter>
+            <Separator className="my-2" />
+            <div className="p-3 flex items-center justify-between">
+              <SettingsDialog />
+              <div className="group-data-[state=expanded]:hidden">
+                  <SidebarTrigger/>
+              </div>
             </div>
-          </div>
-        </SidebarFooter>
-      </Sidebar>
-      <div className="flex flex-col flex-1">
-        <Header />
-        <main className="flex-1 overflow-y-auto bg-secondary/20">
-            {children}
-        </main>
+          </SidebarFooter>
+        </Sidebar>
+        <div className="flex flex-col flex-1">
+          <Header />
+          <main className="flex-1 overflow-y-auto bg-secondary/20">
+              {children}
+          </main>
+        </div>
       </div>
     </SidebarProvider>
   );
