@@ -29,3 +29,4 @@ Accuracy is key. The main calculation in this app, Total Daily Energy Expenditur
 *   **How to Customize**: You can use services like Gemini (Google) or Replicate with IBM Granite models by selecting "Other", entering the provider's name, and providing your API key. This gives you the freedom to use your preferred AI model.
 # Jejakalori.ku
 # Jejakalori.ku
+# Jejakalori.ku
