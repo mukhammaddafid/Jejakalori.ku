@@ -90,7 +90,7 @@ export default function AboutPage() {
             { id: 'f12', icon: <Croissant className="h-6 w-6" />, desc: 'carbohydrateSource' },
             { id: 'f17', icon: <Pizza className="h-6 w-6" />, desc: 'carbohydrateSource' },
             { id: 'f19', icon: <Sandwich className="h-6 w-6" />, desc: 'carbohydrateSource' },
-            { id: 'f30', icon: <Croissant className="h-6 w-6" />, desc: 'carbohydrateSource' },
+            { id: 'f30', icon: <Wheat className="h-6 w-6" />, desc: 'carbohydrateSource' },
             { id: 'f34', icon: <Wheat className="h-6 w-6" />, desc: 'carbohydrateSource' },
             { id: 'f35', icon: <Wheat className="h-6 w-6" />, desc: 'carbohydrateSource' },
         ],
