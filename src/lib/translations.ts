@@ -48,7 +48,7 @@ export const translations = {
     saturatedFat: 'Saturated Fat',
     unsaturatedFat: 'Unsaturated Fat',
     micronutrients: 'Micronutrients',
-    micronutrientsDescription: 'Track key vitamins and minerals.',
+    micronutrientsDescription: 'Hover over a nutrient for more info.',
     premium: 'Premium',
     fiber: 'Fiber',
     iron: 'Iron',
@@ -389,6 +389,12 @@ export const translations = {
     f55: 'Plum',
     nutrientDetails: 'Nutrient Details',
     relatedRecipes: 'Related Recipes',
+    fiberAnalysis: 'Helps digestion and keeps you full. Aim for whole grains, fruits, and vegetables.',
+    ironAnalysis: 'Essential for energy and blood health. Found in red meat, spinach, and legumes.',
+    calciumAnalysis: 'Crucial for bone strength. Dairy, leafy greens, and almonds are great sources.',
+    vitaminCAnalysis: 'Boosts immunity and skin health. Abundant in citrus fruits, bell peppers, and broccoli.',
+    recommendedFoods: 'Recommended Foods',
+    findRecipes: 'Find Recipes',
   },
   id: {
     appName: 'Jejakalori.ku',
@@ -438,7 +444,7 @@ export const translations = {
     saturatedFat: 'Lemak Jenuh',
     unsaturatedFat: 'Lemak Tak Jenuh',
     micronutrients: 'Mikronutrien',
-    micronutrientsDescription: 'Lacak vitamin dan mineral penting.',
+    micronutrientsDescription: 'Arahkan kursor ke nutrisi untuk info lebih lanjut.',
     premium: 'Premium',
     fiber: 'Serat',
     iron: 'Zat Besi',
@@ -783,6 +789,12 @@ export const translations = {
     f55: 'Plum',
     nutrientDetails: 'Rincian Nutrisi',
     relatedRecipes: 'Resep Terkait',
+    fiberAnalysis: 'Membantu pencernaan dan membuat kenyang. Utamakan biji-bijian utuh, buah, dan sayuran.',
+    ironAnalysis: 'Penting untuk energi dan kesehatan darah. Ditemukan dalam daging merah, bayam, dan kacang-kacangan.',
+    calciumAnalysis: 'Penting untuk kekuatan tulang. Susu, sayuran hijau, dan almond adalah sumber yang bagus.',
+    vitaminCAnalysis: 'Meningkatkan kekebalan tubuh dan kesehatan kulit. Melimpah di buah jeruk, paprika, dan brokoli.',
+    recommendedFoods: 'Makanan yang Direkomendasikan',
+    findRecipes: 'Cari Resep',
   }
 };
 

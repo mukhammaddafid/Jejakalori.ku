@@ -74,6 +74,9 @@ export interface NutrientTotals {
     starch: number;
     sugar: number;
     fiber: number;
+    vitaminC: number;
+    calcium: number;
+    iron: number;
 }
 
 export type TranslationKey = keyof import('./translations').translations['en'];

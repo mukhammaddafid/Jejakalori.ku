@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { FoodSearch } from './food-search';
-import { Plus, Salad, Sandwich, Utensils, Apple, Drumstick, Wheat, Carrot, Fish, Egg, Milk, Nut, BookOpen } from 'lucide-react';
+import { Plus, Salad, Sandwich, Utensils, Apple, Drumstick, Wheat, Carrot, Fish, Egg, Milk, Nut, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language-provider';
 
@@ -43,11 +43,11 @@ function FoodItemIcon({ foodId }: { foodId: string }) {
 }
 
 interface FoodLogProps {
-  initialLog: DailyLog;
+  log: DailyLog;
+  onLogChange: (log: DailyLog) => void;
 }
 
-export function FoodLog({ initialLog }: FoodLogProps) {
-  const [log, setLog] = React.useState<DailyLog>(initialLog);
+export function FoodLog({ log, onLogChange }: FoodLogProps) {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [currentMeal, setCurrentMeal] = React.useState<MealName>('breakfast');
   const { toast } = useToast();
@@ -68,15 +68,21 @@ export function FoodLog({ initialLog }: FoodLogProps) {
   };
 
   const handleAddFood = (mealLog: MealLog) => {
-    setLog(prevLog => {
-      const updatedMeal = [...prevLog[currentMeal], mealLog];
-      return { ...prevLog, [currentMeal]: updatedMeal };
-    });
+    const updatedLog = { ...log };
+    updatedLog[currentMeal] = [...updatedLog[currentMeal], mealLog];
+    onLogChange(updatedLog);
+
     setOpenDialog(false);
     toast({
       title: t('foodAdded'),
       description: t('foodAddedDescription', { servings: mealLog.servings, name: t(mealLog.food.id as any), meal: mealNames[currentMeal] }),
     });
+  };
+
+  const handleRemoveFood = (mealName: MealName, index: number) => {
+    const updatedLog = { ...log };
+    updatedLog[mealName] = updatedLog[mealName].filter((_, i) => i !== index);
+    onLogChange(updatedLog);
   };
 
   const openAddFoodDialog = (meal: MealName) => {
@@ -104,7 +110,7 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                   <div className="space-y-2">
                     {log[mealName].length > 0 ? (
                       log[mealName].map((item, index) => (
-                        <div key={index} className="flex justify-between items-center p-2 rounded-md bg-secondary">
+                        <div key={index} className="flex justify-between items-center p-2 rounded-md hover:bg-secondary/80 group">
                           <div className="flex items-center gap-3">
                             <FoodItemIcon foodId={item.food.id} />
                             <div>
@@ -112,7 +118,12 @@ export function FoodLog({ initialLog }: FoodLogProps) {
                               <p className="text-sm text-muted-foreground">{item.servings} {t('servings')}</p>
                             </div>
                           </div>
-                          <p className="font-mono text-sm">{Math.round(item.food.calories * item.servings)} kcal</p>
+                          <div className='flex items-center'>
+                            <p className="font-mono text-sm mr-2">{Math.round(item.food.calories * item.servings)} kcal</p>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100" onClick={() => handleRemoveFood(mealName, index)}>
+                                <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </div>
                         </div>
                       ))
                     ) : (

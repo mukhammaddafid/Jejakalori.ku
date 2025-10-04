@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { mockUserData } from '@/lib/data';
-import type { DailyLog, NutrientTotals } from '@/lib/types';
+import type { DailyLog, NutrientTotals, MealLog } from '@/lib/types';
 import { CalorieSummary } from '@/components/dashboard/calorie-summary';
 import { MacroSummary } from '@/components/dashboard/macro-summary';
 import { FoodLog } from '@/components/dashboard/food-log';
@@ -34,6 +34,9 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     starch: 0,
     sugar: 0,
     fiber: 0,
+    vitaminC: 0,
+    calcium: 0,
+    iron: 0,
   };
 
   const allMeals = [
@@ -55,6 +58,9 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     totals.starch += (item.food.nutrients.starch || 0) * item.servings;
     totals.sugar += (item.food.nutrients.sugar || 0) * item.servings;
     totals.fiber += (item.food.nutrients.fiber || 0) * item.servings;
+    totals.vitaminC += (item.food.nutrients.vitaminC || 0) * item.servings;
+    totals.calcium += (item.food.nutrients.calcium || 0) * item.servings;
+    totals.iron += (item.food.nutrients.iron || 0) * item.servings;
   });
 
   return totals;
@@ -404,10 +410,15 @@ const HabitAnalysisSelector = () => {
 
 
 export default function DashboardPage() {
-  const userData = mockUserData;
-  const totals = calculateTotals(userData.log);
+  const [log, setLog] = React.useState<DailyLog>(mockUserData.log);
+  const totals = React.useMemo(() => calculateTotals(log), [log]);
   const [isClient, setIsClient] = React.useState(false);
   const { t } = useLanguage();
+
+  const userData = React.useMemo(() => ({
+    ...mockUserData,
+    log,
+  }), [log]);
 
   React.useEffect(() => {
     setIsClient(true);
@@ -430,14 +441,14 @@ export default function DashboardPage() {
               <MacroSummary totals={totals} goals={userData.goals} />
             </div>
           </div>
-          <FoodLog initialLog={userData.log} />
+          <FoodLog log={log} onLogChange={setLog} />
         </div>
 
         {/* Right Column */}
         <div className="lg:col-span-1 space-y-6">
           <AiSummaryCard userData={userData} />
           <WeeklyTrends />
-          <MicronutrientTracker log={userData.log} />
+          <MicronutrientTracker totals={totals} />
            <PremiumFeatureWithTrial
             icon={<BrainCircuit />}
             title={t('habitAnalysis')}
