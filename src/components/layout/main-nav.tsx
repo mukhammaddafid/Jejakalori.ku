@@ -8,6 +8,7 @@ import {
   ChefHat,
   Trophy,
   BookOpen,
+  Info,
 } from 'lucide-react';
 
 import {
@@ -40,6 +41,11 @@ export const getMenuItems = (t: (key: string) => string) => [
     href: '/reading',
     label: t('reading'),
     icon: BookOpen,
+  },
+  {
+    href: '/about',
+    label: t('about'),
+    icon: Info,
   },
 ];
 
