@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Flame, Monitor, Tablet, Smartphone, BookOpen, Globe } from 'lucide-react';
+import { Flame, Monitor, Tablet, Smartphone, BookOpen, Globe, BarChart, PieChart, LineChart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -15,10 +15,33 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useLanguage } from '@/lib/language-provider';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Card, CardContent } from '@/components/ui/card';
+
+function ChartCollage() {
+  const chartIcons = [
+    { icon: <BarChart className="h-10 w-10 text-primary" />, rotation: '-rotate-12' },
+    { icon: <BookOpen className="h-12 w-12 text-accent" />, rotation: 'rotate-15' },
+    { icon: <LineChart className="h-10 w-10 text-chart-2" />, rotation: 'rotate-6' },
+    { icon: <PieChart className="h-12 w-12 text-chart-3" />, rotation: '-rotate-8' },
+  ];
+
+  return (
+    <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+      {chartIcons.map((item, index) => (
+        <div key={index} className="flex justify-center items-center">
+          <Card className={`p-4 sm:p-6 bg-muted/50 transform ${item.rotation} hover:scale-110 transition-transform duration-300`}>
+            <CardContent className="p-0">
+              {item.icon}
+            </CardContent>
+          </Card>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function WelcomePage() {
   const { t, language, setLanguage } = useLanguage();
-  const welcomeHeroImage = PlaceHolderImages.find(img => img.id === 'welcome-hero');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -87,18 +110,7 @@ export default function WelcomePage() {
                 </Link>
               </div>
             </div>
-            {welcomeHeroImage && (
-              <div className="mt-16 flex justify-center">
-                <Image
-                  src={welcomeHeroImage.imageUrl}
-                  alt={welcomeHeroImage.description}
-                  data-ai-hint={welcomeHeroImage.imageHint}
-                  width={600}
-                  height={400}
-                  className="rounded-lg object-cover"
-                />
-              </div>
-            )}
+            <ChartCollage />
           </div>
         </section>
       </main>
