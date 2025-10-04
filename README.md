@@ -30,3 +30,4 @@ Accuracy is key. The main calculation in this app, Total Daily Energy Expenditur
 # Jejakalori.ku
 # Jejakalori.ku
 # Jejakalori.ku
+# Jejakalori.ku
