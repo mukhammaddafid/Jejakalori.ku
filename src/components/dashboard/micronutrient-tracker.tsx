@@ -20,97 +20,125 @@ const microInfo: Record<MicroNutrient, {
     foodIds: string[];
     recipeLink: string;
     unit: string;
+    labelKey: any;
+    shortLabelKey: any;
 }> = {
     fiber: {
         icon: <Leaf className="h-5 w-5 text-green-500" />,
         analysisKey: 'fiberAnalysis',
         foodIds: ['f2', 'f3', 'f5', 'f6', 'f7', 'f10', 'f28'],
         recipeLink: '/recipes',
-        unit: 'g'
+        unit: 'g',
+        labelKey: 'fiber',
+        shortLabelKey: 'fiber_short'
     },
     iron: {
         icon: <Droplets className="h-5 w-5 text-red-500" />,
         analysisKey: 'ironAnalysis',
         foodIds: ['f1', 'f10', 'f11', 'f7'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'iron',
+        shortLabelKey: 'iron_short'
     },
     calcium: {
         icon: <Bone className="h-5 w-5 text-slate-400" />,
         analysisKey: 'calciumAnalysis',
         foodIds: ['f9', 'f10', 'f6', 'f31'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'calcium',
+        shortLabelKey: 'calcium_short'
     },
     vitaminC: {
         icon: <Sun className="h-5 w-5 text-orange-500" />,
         analysisKey: 'vitaminCAnalysis',
         foodIds: ['f3', 'f5', 'f10', 'f28', 'f41', 'f45', 'f51'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'vitaminC',
+        shortLabelKey: 'vitaminC_short'
     },
     vitaminD: {
         icon: <Sun className="h-5 w-5 text-yellow-500" />,
         analysisKey: 'vitaminDAnalysis',
         foodIds: ['f4', 'f8', 'f29', 'f31'],
         recipeLink: '/recipes',
-        unit: 'IU'
+        unit: 'IU',
+        labelKey: 'vitaminD',
+        shortLabelKey: 'vitaminD_short'
     },
     potassium: {
         icon: <HeartPulse className="h-5 w-5 text-rose-500" />,
         analysisKey: 'potassiumAnalysis',
         foodIds: ['f44', 'f10', 'f35', 'f28'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'potassium',
+        shortLabelKey: 'potassium_short'
     },
     magnesium: {
         icon: <Bot className="h-5 w-5 text-cyan-500" />,
         analysisKey: 'magnesiumAnalysis',
         foodIds: ['f6', 'f10', 'f28', 'f2'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'magnesium',
+        shortLabelKey: 'magnesium_short'
     },
     vitaminA: {
         icon: <Eye className="h-5 w-5 text-blue-500" />,
         analysisKey: 'vitaminAAnalysis',
         foodIds: ['f3', 'f10', 'f8', 'f45'],
         recipeLink: '/recipes',
-        unit: 'mcg'
+        unit: 'mcg',
+        labelKey: 'vitaminA',
+        shortLabelKey: 'vitaminA_short'
     },
     vitaminB1: {
         icon: <Brain className="h-5 w-5 text-purple-500" />,
         analysisKey: 'vitaminB1Analysis',
         foodIds: ['f11', 'f4', 'f2', 'f7'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'vitaminB1',
+        shortLabelKey: 'vitaminB1_short'
     },
     vitaminB6: {
         icon: <Brain className="h-5 w-5 text-indigo-500" />,
         analysisKey: 'vitaminB6Analysis',
         foodIds: ['f1', 'f4', 'f44', 'f35'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'vitaminB6',
+        shortLabelKey: 'vitaminB6_short'
     },
     vitaminB12: {
         icon: <Dna className="h-5 w-5 text-violet-500" />,
         analysisKey: 'vitaminB12Analysis',
         foodIds: ['f11', 'f4', 'f8', 'f9'],
         recipeLink: '/recipes',
-        unit: 'mcg'
+        unit: 'mcg',
+        labelKey: 'vitaminB12',
+        shortLabelKey: 'vitaminB12_short'
     },
     vitaminE: {
         icon: <Zap className="h-5 w-5 text-amber-500" />,
         analysisKey: 'vitaminEAnalysis',
         foodIds: ['f6', 'f10', 'f28', 'f4'],
         recipeLink: '/recipes',
-        unit: 'mg'
+        unit: 'mg',
+        labelKey: 'vitaminE',
+        shortLabelKey: 'vitaminE_short'
     },
     vitaminK: {
         icon: <Wheat className="h-5 w-5 text-lime-500" />,
         analysisKey: 'vitaminKAnalysis',
         foodIds: ['f10', 'f3', 'f1', 'f49'],
         recipeLink: '/recipes',
-        unit: 'mcg'
+        unit: 'mcg',
+        labelKey: 'vitaminK',
+        shortLabelKey: 'vitaminK_short'
     },
 };
 
@@ -124,22 +152,15 @@ function MicroNutrientPopover({ nutrient, consumed, goal }: { nutrient: MicroNut
     const percentage = goal > 0 ? (consumed / goal) * 100 : 0;
     const recommendedFoods = info.foodIds.map(id => foodDatabase.find(f => f.id === id)).filter(Boolean) as any[];
     
-    let label = t(nutrient as any);
-    if (nutrient === 'vitaminC') label = t('Vitamin C');
-    if (nutrient === 'vitaminD') label = t('Vitamin D');
-    if (nutrient === 'vitaminA') label = t('vitaminA');
-    if (nutrient === 'vitaminB1') label = t('vitaminB1');
-    if (nutrient === 'vitaminB6') label = t('vitaminB6');
-    if (nutrient === 'vitaminB12') label = t('vitaminB12');
-    if (nutrient === 'vitaminE') label = t('vitaminE');
-    if (nutrient === 'vitaminK') label = t('vitaminK');
+    let label = t(info.labelKey);
+    const shortLabel = t(info.shortLabelKey);
 
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <div className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg hover:bg-muted cursor-pointer w-16">
                     {info.icon}
-                    <p className="text-xs font-medium text-center truncate w-full">{label}</p>
+                    <p className="text-xs font-medium text-center truncate w-full">{shortLabel}</p>
                     <Progress value={percentage} className="h-1 w-12" />
                 </div>
             </PopoverTrigger>
@@ -305,5 +326,3 @@ export function MicronutrientTracker({ totals }: MicronutrientTrackerProps) {
     </Card>
   );
 }
-
-    
