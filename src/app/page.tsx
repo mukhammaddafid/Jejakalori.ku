@@ -87,8 +87,8 @@ export default function WelcomePage() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Link href="/signup" passHref>
-            <Button>{t('signUp')}</Button>
+          <Link href="/login" passHref>
+            <Button>{t('login')}</Button>
           </Link>
         </nav>
       </header>
