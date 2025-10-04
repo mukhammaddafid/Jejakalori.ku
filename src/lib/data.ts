@@ -112,39 +112,39 @@ export const micronutrientGoals = {
 };
 
 const detailedInternationalMenu: RecipeWithIngredients[] = [
-    { name: 'Oatmeal with berries and nuts', ingredients: [{ food: foodDatabase[6], servings: 1 }, { food: foodDatabase[4], servings: 0.5 }, { food: foodDatabase[5], servings: 0.25 }] },
-    { name: 'Grilled Chicken Salad', ingredients: [{ food: foodDatabase[0], servings: 1.5 }, { food: foodDatabase[9], servings: 2 }, { food: foodDatabase[3], servings: 0.5 }] },
-    { name: 'Salmon with Quinoa and Asparagus', ingredients: [{ food: foodDatabase[3], servings: 1.5 }, { food: foodDatabase[1], servings: 1 }, { food: foodDatabase[2], servings: 0.5 }] },
-    { name: 'Scrambled eggs with spinach and whole wheat toast', ingredients: [{ food: foodDatabase[7], servings: 2 }, { food: foodDatabase[9], servings: 1 }, { food: foodDatabase[1], servings: 0.5 }] },
-    { name: 'Lentil Soup and a side salad', ingredients: [{ food: foodDatabase[9], servings: 2 }] },
-    { name: 'Beef Stir-fry with mixed vegetables', ingredients: [] },
-    { name: 'Greek yogurt with granola and honey', ingredients: [{ food: foodDatabase[8], servings: 1 }] },
-    { name: 'Turkey and avocado wrap', ingredients: [] },
-    { name: 'Pasta with marinara sauce and a side of broccoli', ingredients: [{ food: foodDatabase[2], servings: 1 }] },
-    { name: 'Smoothie with protein powder, banana, and almond milk', ingredients: [{ food: foodDatabase[5], servings: 0.5 }] },
-    { name: 'Tuna salad sandwich on whole wheat', ingredients: [] },
-    { name: 'Baked cod with roasted potatoes and green beans', ingredients: [] },
+    { name: 'Oatmeal with berries and nuts', ingredients: [{ food: foodDatabase.find(f=>f.id==='f7')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f47')!, servings: 0.5 }, { food: foodDatabase.find(f=>f.id==='f6')!, servings: 0.25 }] },
+    { name: 'Grilled Chicken Salad', ingredients: [{ food: foodDatabase.find(f=>f.id==='f1')!, servings: 1.5 }, { food: foodDatabase.find(f=>f.id==='f10')!, servings: 2 }, { food: foodDatabase.find(f=>f.id==='f37')!, servings: 0.5 }] },
+    { name: 'Salmon with Quinoa and Asparagus', ingredients: [{ food: foodDatabase.find(f=>f.id==='f4')!, servings: 1.5 }, { food: foodDatabase.find(f=>f.id==='f2')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f3')!, servings: 0.5 }] },
+    { name: 'Scrambled eggs with spinach and whole wheat toast', ingredients: [{ food: foodDatabase.find(f=>f.id==='f8')!, servings: 2 }, { food: foodDatabase.find(f=>f.id==='f10')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f30')!, servings: 1 }] },
+    { name: 'Lentil Soup and a side salad', ingredients: [{ food: foodDatabase.find(f=>f.id==='f10')!, servings: 2 }] },
+    { name: 'Beef Stir-fry with mixed vegetables', ingredients: [{ food: foodDatabase.find(f=>f.id==='f11')!, servings: 1.5 }, { food: foodDatabase.find(f=>f.id==='f3')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f41')!, servings: 1 }] },
+    { name: 'Greek yogurt with granola and honey', ingredients: [{ food: foodDatabase.find(f=>f.id==='f9')!, servings: 1 }] },
+    { name: 'Avocado Toast', ingredients: [{ food: foodDatabase.find(f=>f.id==='f28')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f30')!, servings: 2 }] },
+    { name: 'Pasta with marinara sauce and a side of broccoli', ingredients: [{ food: foodDatabase.find(f=>f.id==='f3')!, servings: 1 }] },
+    { name: 'Smoothie with protein powder, banana, and almond milk', ingredients: [{ food: foodDatabase.find(f=>f.id==='f44')!, servings: 0.5 }] },
+    { name: 'Tuna salad sandwich on whole wheat', ingredients: [{ food: foodDatabase.find(f=>f.id==='f30')!, servings: 2 }] },
+    { name: 'Baked cod with roasted potatoes and green beans', ingredients: [{ food: foodDatabase.find(f=>f.id==='f35')!, servings: 2 }] },
     { name: 'Cottage cheese with peaches', ingredients: [] },
-    { name: 'Leftover beef stir-fry', ingredients: [] },
-    { name: 'Chicken and vegetable skewers', ingredients: [{ food: foodDatabase[0], servings: 1 }] },
+    { name: 'Leftover beef stir-fry', ingredients: [{ food: foodDatabase.find(f=>f.id==='f11')!, servings: 1.5 }, { food: foodDatabase.find(f=>f.id==='f3')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f41')!, servings: 1 }] },
+    { name: 'Chicken and vegetable skewers', ingredients: [{ food: foodDatabase.find(f=>f.id==='f1')!, servings: 1 }] },
 ];
 
 const detailedNusantaraMenu: RecipeWithIngredients[] = [
-    { name: 'Bubur ayam tanpa kerupuk', ingredients: [{ food: foodDatabase[0], servings: 1 }] },
-    { name: 'Gado-gado dengan sedikit saus kacang', ingredients: [{ food: foodDatabase[7], servings: 1 }, { food: foodDatabase[9], servings: 1 }] },
-    { name: 'Pepes ikan dengan nasi merah', ingredients: [{ food: foodDatabase[3], servings: 1.5 }, { food: foodDatabase[1], servings: 1 }] },
-    { name: 'Nasi uduk (porsi kecil) dengan telur dadar', ingredients: [{ food: foodDatabase[1], servings: 0.8 }, { food: foodDatabase[7], servings: 1 }] },
-    { name: 'Soto ayam bening dengan bihun', ingredients: [{ food: foodDatabase[0], servings: 1.2 }] },
-    { name: 'Sayur asem dengan ikan bakar', ingredients: [{ food: foodDatabase[3], servings: 1 }] },
+    { name: 'Bubur ayam tanpa kerupuk', ingredients: [{ food: foodDatabase.find(f=>f.id==='f1')!, servings: 1 }] },
+    { name: 'Gado-gado dengan sedikit saus kacang', ingredients: [{ food: foodDatabase.find(f=>f.id==='f8')!, servings: 1 }, { food: foodDatabase.find(f=>f.id==='f10')!, servings: 1 }] },
+    { name: 'Pepes ikan dengan nasi merah', ingredients: [{ food: foodDatabase.find(f=>f.id==='f4')!, servings: 1.5 }, { food: foodDatabase.find(f=>f.id==='f2')!, servings: 1 }] },
+    { name: 'Nasi uduk (porsi kecil) dengan telur dadar', ingredients: [{ food: foodDatabase.find(f=>f.id==='f34')!, servings: 0.8 }, { food: foodDatabase.find(f=>f.id==='f8')!, servings: 1 }] },
+    { name: 'Soto ayam bening dengan bihun', ingredients: [{ food: foodDatabase.find(f=>f.id==='f1')!, servings: 1.2 }] },
+    { name: 'Sayur asem dengan ikan bakar', ingredients: [{ food: foodDatabase.find(f=>f.id==='f4')!, servings: 1 }] },
     { name: 'Lontong sayur dengan tahu dan tempe', ingredients: [] },
-    { name: 'Urap sayuran dengan dada ayam rebus', ingredients: [{ food: foodDatabase[0], servings: 1 }] },
-    { name: 'Tumis kangkung dengan udang', ingredients: [] },
+    { name: 'Urap sayuran dengan dada ayam rebus', ingredients: [{ food: foodDatabase.find(f=>f.id==='f1')!, servings: 1 }] },
+    { name: 'Tumis kangkung dengan udang', ingredients: [{ food: foodDatabase.find(f=>f.id==='f32')!, servings: 1 }] },
     { name: 'Ketan serundeng', ingredients: [] },
-    { name: 'Ikan pindang kuah bening', ingredients: [{ food: foodDatabase[3], servings: 1 }] },
-    { name: 'Sate ayam (tanpa lemak) dengan lontong', ingredients: [{ food: foodDatabase[0], servings: 1.5 }] },
+    { name: 'Ikan pindang kuah bening', ingredients: [{ food: foodDatabase.find(f=>f.id==='f4')!, servings: 1 }] },
+    { name: 'Sate ayam (tanpa lemak) dengan lontong', ingredients: [{ food: foodDatabase.find(f=>f.id==='f1')!, servings: 1.5 }] },
     { name: 'Bubur kacang hijau tanpa santan', ingredients: [] },
     { name: 'Leftover sayur asem', ingredients: [] },
-    { name: 'Gulai ikan patin (kuah lebih encer)', ingredients: [{ food: foodDatabase[3], servings: 1 }] },
+    { name: 'Gulai ikan patin (kuah lebih encer)', ingredients: [{ food: foodDatabase.find(f=>f.id==='f4')!, servings: 1 }] },
 ];
 
 const internationalMenu = Array.from({ length: 30 }, (_, i) => {
@@ -178,7 +178,7 @@ export const mealPlan30Days = {
     id: {
         international: internationalMenu.map(day => ({
             breakfast: day.breakfast.replace('Oatmeal with berries and nuts', 'Oatmeal dengan buah beri dan kacang').replace('Scrambled eggs with spinach and whole wheat toast', 'Telur orak-arik dengan bayam dan roti gandum').replace('Greek yogurt with granola and honey', 'Yogurt Yunani dengan granola dan madu').replace('Smoothie with protein powder, banana, and almond milk', 'Smoothie dengan bubuk protein, pisang, dan susu almond').replace('Cottage cheese with peaches', 'Keju cottage dengan buah persik').replace('Grilled Chicken Salad', 'Salad Ayam Panggang'),
-            lunch: day.lunch.replace('Grilled Chicken Salad', 'Salad Ayam Panggang').replace('Lentil Soup and a side salad', 'Sup Lentil dan salad pendamping').replace('Turkey and avocado wrap', 'Wrap kalkun dan alpukat').replace('Tuna salad sandwich on whole wheat', 'Sandwich salad tuna dengan roti gandum').replace('Leftover beef stir-fry', 'Sisa tumis daging sapi'),
+            lunch: day.lunch.replace('Grilled Chicken Salad', 'Salad Ayam Panggang').replace('Lentil Soup and a side salad', 'Sup Lentil dan salad pendamping').replace('Avocado Toast', 'Roti Panggang Alpukat').replace('Tuna salad sandwich on whole wheat', 'Sandwich salad tuna dengan roti gandum').replace('Leftover beef stir-fry', 'Sisa tumis daging sapi'),
             dinner: day.dinner.replace('Salmon with Quinoa and Asparagus', 'Salmon dengan Quinoa dan Asparagus').replace('Beef Stir-fry with mixed vegetables', 'Tumis daging sapi dengan sayuran campur').replace('Pasta with marinara sauce and a side of broccoli', 'Pasta dengan saus marinara dan brokoli').replace('Baked cod with roasted potatoes and green beans', 'Ikan kod panggang dengan kentang panggang dan buncis').replace('Chicken and vegetable skewers', 'Sate ayam dan sayuran'),
         })),
         nusantara: nusantaraMenu
@@ -208,5 +208,3 @@ export const detailedRecipes = {
 export const motivationalQuotes = (t: (key: TranslationKey) => string) => {
     return Array.from({ length: 40 }, (_, i) => t(`quote${i + 1}` as TranslationKey));
 };
-
-    
