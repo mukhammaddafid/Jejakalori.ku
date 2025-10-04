@@ -37,6 +37,7 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     vitaminC: 0,
     calcium: 0,
     iron: 0,
+    vitaminD: 0,
   };
 
   const allMeals = [
@@ -61,6 +62,7 @@ function calculateTotals(log: DailyLog): NutrientTotals {
     totals.vitaminC += (item.food.nutrients.vitaminC || 0) * item.servings;
     totals.calcium += (item.food.nutrients.calcium || 0) * item.servings;
     totals.iron += (item.food.nutrients.iron || 0) * item.servings;
+    totals.vitaminD += (item.food.nutrients.vitaminD || 0) * item.servings;
   });
 
   return totals;
