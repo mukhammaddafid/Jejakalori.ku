@@ -14,6 +14,7 @@ import { MainNav } from '@/components/layout/main-nav';
 import { Header } from '@/components/layout/header';
 import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/lib/language-provider';
+import { SettingsDialog } from './settings-dialog';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -39,7 +40,8 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
         </SidebarContent>
         <SidebarFooter>
           <Separator className="my-2" />
-          <div className="p-3 flex items-center justify-center">
+          <div className="p-3 flex items-center justify-between">
+            <SettingsDialog />
             <SidebarTrigger className="group-data-[state=expanded]:hidden"/>
           </div>
         </SidebarFooter>
