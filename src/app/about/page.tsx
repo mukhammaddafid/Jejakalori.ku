@@ -45,6 +45,13 @@ const IconCategoryCard: React.FC<{ title: string; children: React.ReactNode }> =
     </Card>
 );
 
+const TechLogo: React.FC<{ name: string, logo: React.ReactNode }> = ({ name, logo }) => (
+    <div className="flex flex-col items-center gap-2 text-center">
+        <div className="h-12 w-12 flex items-center justify-center">{logo}</div>
+        <span className="text-xs font-semibold">{name}</span>
+    </div>
+);
+
 export default function AboutPage() {
     const { t } = useLanguage();
 
@@ -140,8 +147,8 @@ export default function AboutPage() {
                     <Accordion type="single" collapsible>
                         <AccordionItem value="image-icons">
                             <AccordionTrigger>
-                                <Section icon={<ImageIcon className="h-7 w-7" />} title={t('imageIconExplanationTitle')}>
-                                    <p>{t('imageIconExplanationContent')}</p>
+                                <Section icon={<ImageIcon className="h-7 w-7" />} title={t('foodAndBeverageTitle')}>
+                                    <p>{t('foodAndBeverageContent')}</p>
                                 </Section>
                             </AccordionTrigger>
                             <AccordionContent className="pt-4 space-y-6">
@@ -164,7 +171,6 @@ export default function AboutPage() {
                         </AccordionItem>
                     </Accordion>
 
-
                     <Section icon={<Rocket className="h-7 w-7" />} title={t('potentialTitle')}>
                         <ul className="list-disc list-outside ml-5 space-y-2">
                             <li><strong>{t('potentialContent1Title')}</strong>: {t('potentialContent1')}</li>
@@ -175,12 +181,46 @@ export default function AboutPage() {
                     </Section>
 
                     <Section icon={<Wrench className="h-7 w-7" />} title={t('apiSupportTitle')}>
-                         <p>{t('apiSupportContent')}</p>
+                         <ul className="list-disc list-outside ml-5 space-y-2">
+                            <li><strong>{t('apiSupport1Title')}</strong>: {t('apiSupport1')}</li>
+                            <li><strong>{t('apiSupport2Title')}</strong>: {t('apiSupport2')}</li>
+                        </ul>
                     </Section>
 
                     <Section icon={<AlertTriangle className="h-7 w-7 text-amber-500" />} title={t('limitationsTitle')}>
-                        <p>{t('limitationsContent')}</p>
+                        <ul className="list-disc list-outside ml-5 space-y-2">
+                            <li><strong>{t('limitations1Title')}</strong>: {t('limitations1')}</li>
+                            <li><strong>{t('limitations2Title')}</strong>: {t('limitations2')}</li>
+                            <li><strong>{t('limitations3Title')}</strong>: {t('limitations3')}</li>
+                        </ul>
                     </Section>
+
+                    <div className="text-center pt-4">
+                        <p className="text-sm text-muted-foreground">{t('builtWith')}</p>
+                        <div className="flex justify-center items-center gap-6 mt-4 text-muted-foreground">
+                            <TechLogo name="Next.js" logo={
+                                <svg width="48" height="48" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="black"/>
+                                    <path d="M99.2365 38.8365L59.0231 92.1153V65.8076L40.7307 38.8365H99.2365ZM107 30.8365H31L67.0192 80.1153V103L107 30.8365Z" fill="white"/>
+                                </svg>
+                            } />
+                            <TechLogo name="React" logo={
+                                 <svg width="48" height="48" viewBox="-10.5 -9.45 21 18.9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="0" cy="0" r="2" fill="currentColor" fillOpacity="0.8"></circle>
+                                    <g stroke="currentColor" strokeOpacity="0.8" stroke-width="1" fill="none">
+                                        <ellipse rx="10" ry="4.5"></ellipse>
+                                        <ellipse rx="10" ry="4.5" transform="rotate(60)"></ellipse>
+                                        <ellipse rx="10" ry="4.5" transform="rotate(120)"></ellipse>
+                                    </g>
+                                </svg>
+                            } />
+                            <TechLogo name="Tailwind CSS" logo={
+                               <svg width="48" height="48" fill="none" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 2.25C17.3827 2.25 21.7501 6.61741 21.7501 12C21.7501 17.3826 17.3827 21.75 12.0001 21.75C6.6175 21.75 2.25006 17.3826 2.25006 12C2.25006 6.61741 6.6175 2.25 12.0001 2.25ZM10.059 15.0211C12.0353 15.0211 13.568 13.9147 14.282 12.0166H10.106V9.08864H16.8941V10.6321C16.143 13.435 13.9013 15.75 10.059 15.75C6.73286 15.75 4.69111 13.8211 4.50006 10.5976H7.89209C7.99444 12.0721 8.87786 12.9376 10.059 12.9376ZM8.01602 6.25C11.3081 6.25 13.3498 8.17894 13.5068 11.4024H10.1148C10.0125 9.92791 9.12902 9.06243 8.01602 9.06243C6.03969 9.06243 4.50702 10.1688 3.79302 12.0669H7.96902V15.021H1.18109V13.4475C1.93209 10.6125 4.17384 6.25 8.01602 6.25Z" fill="currentColor" fill-opacity="0.8"></path>
+                                </svg>
+                            } />
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>
