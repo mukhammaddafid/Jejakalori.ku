@@ -1,3 +1,4 @@
+
 export const translations = {
   en: {
     appName: 'CalorieTracker.me',
@@ -304,11 +305,11 @@ export const translations = {
     potentialContent4Title: 'Lifestyle Balance',
     potentialContent4: 'By tracking non-exercise activities like reading and other hobbies, this app encourages a balance between physical and mental health.',
     limitationsTitle: 'Limitations and Support',
-    limitationsContent: 'It is important to remember that this application is a tool and not a substitute for professional medical advice. The estimates provided are based on standard formulas and may not be 100% accurate for every individual due to genetic factors and unique health conditions. Always consult with a doctor or nutritionist before making significant changes to your diet or lifestyle.',
+    limitationsContent: 'This app is a tool, not a substitute for professional medical advice. Calculations are estimates. The app is built with Next.js, React, Tailwind CSS, and other modern web tools. Your personal data is stored locally in your browser and is not sent to any server, ensuring your privacy.',
     apiSupportTitle: 'API Support & Customization',
     apiSupportContent: 'This application is designed to be flexible. The AI summary feature on the dashboard supports the use of various AI model providers. You can enter an API key from services like Gemini (Google) or Replicate with IBM Granite models by selecting the "Other" option and entering the provider\'s name. This gives you the freedom to use your preferred AI model for daily analysis.',
-    imageIconExplanationTitle: 'Food and Beverage',
-    imageIconExplanationContent: 'To provide quick visual cues, we use icons to represent different food groups. Here is what they mean:',
+    foodAndBeverageTitle: 'Food and Beverage',
+    foodAndBeverageContent: 'To provide quick visual cues, we use icons to represent different food groups. Here is what they mean:',
     proteinSource: 'Protein Source',
     carbohydrateSource: 'Carbohydrate Source',
     vegetableSource: 'Vegetable',
@@ -369,7 +370,7 @@ export const translations = {
     f45: 'Orange',
     f46: 'Pineapple',
     f47: 'Strawberry',
-f48: 'Blueberry',
+    f48: 'Blueberry',
     f49: 'Lemon',
     f50: 'Coconut',
     f51: 'Kiwi',
@@ -687,11 +688,11 @@ f48: 'Blueberry',
     potentialContent4Title: 'Keseimbangan Gaya Hidup',
     potentialContent4: 'Dengan melacak aktivitas di luar olahraga seperti membaca dan hobi lainnya, aplikasi ini mendorong keseimbangan antara kesehatan fisik dan mental.',
     limitationsTitle: 'Keterbatasan dan Dukungan',
-    limitationsContent: 'Penting untuk diingat bahwa aplikasi ini adalah alat bantu dan bukan pengganti nasihat medis profesional. Estimasi yang diberikan adalah berdasarkan formula standar dan mungkin tidak 100% akurat untuk setiap individu karena faktor genetika dan kondisi kesehatan yang unik. Selalu konsultasikan dengan dokter atau ahli gizi sebelum membuat perubahan signifikan pada diet atau gaya hidup Anda.',
+    limitationsContent: 'Aplikasi ini adalah alat bantu, bukan pengganti nasihat medis profesional. Perhitungan bersifat estimasi. Aplikasi ini dibangun dengan Next.js, React, Tailwind CSS, dan alat web modern lainnya. Data pribadi Anda disimpan secara lokal di peramban Anda dan tidak dikirim ke server mana pun, untuk memastikan privasi Anda.',
     apiSupportTitle: 'Dukungan API & Kustomisasi',
     apiSupportContent: 'Aplikasi ini dirancang agar fleksibel. Fitur ringkasan AI di dasbor mendukung penggunaan berbagai penyedia model AI. Anda dapat memasukkan kunci API dari layanan seperti Gemini (Google) atau Replicate dengan model IBM Granite dengan memilih opsi "Lainnya" dan memasukkan nama penyedianya. Ini memberi Anda kebebasan untuk menggunakan model AI pilihan Anda untuk analisis harian.',
-    imageIconExplanationTitle: 'Makanan dan Minuman',
-    imageIconExplanationContent: 'Untuk memberikan isyarat visual cepat, kami menggunakan ikon untuk mewakili berbagai kelompok makanan. Inilah artinya:',
+    foodAndBeverageTitle: 'Makanan dan Minuman',
+    foodAndBeverageContent: 'Untuk memberikan isyarat visual cepat, kami menggunakan ikon untuk mewakili berbagai kelompok makanan. Inilah artinya:',
     proteinSource: 'Sumber Protein',
     carbohydrateSource: 'Sumber Karbohidrat',
     vegetableSource: 'Sayuran',
@@ -764,3 +765,5 @@ f48: 'Blueberry',
 };
 
 export type TranslationKey = keyof typeof translations['en'];
+
+    
