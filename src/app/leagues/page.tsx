@@ -87,12 +87,29 @@ const FortyDegreeChallenge = () => {
                 </CardTitle>
                 <CardDescription>{t('40WeekChallengeDescription')}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-6">
                  <div className="space-y-2">
                     <Progress value={progress} className="h-2" />
                     <div className="flex justify-between text-sm text-muted-foreground">
                         <span>{t('week')} {currentWeek}</span>
                         <span>{progress.toFixed(0)}% {t('complete')}</span>
+                    </div>
+                </div>
+                 <div>
+                    <h4 className="font-semibold mb-3 flex items-center gap-2"><Target /> {t('weeklyChallenge')}</h4>
+                    <div className="space-y-3">
+                        <div className="flex items-center space-x-2">
+                            <Checkbox id="challenge1" defaultChecked />
+                            <Label htmlFor="challenge1" className="font-normal">{t('challenge1')}</Label>
+                        </div>
+                            <div className="flex items-center space-x-2">
+                            <Checkbox id="challenge2" />
+                            <Label htmlFor="challenge2" className="font-normal">{t('challenge2')}</Label>
+                        </div>
+                            <div className="flex items-center space-x-2">
+                            <Checkbox id="challenge3" />
+                            <Label htmlFor="challenge3" className="font-normal">{t('challenge3')}</Label>
+                        </div>
                     </div>
                 </div>
             </CardContent>
@@ -216,31 +233,13 @@ export default function LeaguesPage() {
                             </Accordion>
                         </CardContent>
                     </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2"><Target /> {t('weeklyChallenge')}</CardTitle>
-                            <CardDescription>{t('weeklyChallengeDescription')}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="challenge1" defaultChecked />
-                                <Label htmlFor="challenge1">{t('challenge1')}</Label>
-                            </div>
-                             <div className="flex items-center space-x-2">
-                                <Checkbox id="challenge2" />
-                                <Label htmlFor="challenge2">{t('challenge2')}</Label>
-                            </div>
-                             <div className="flex items-center space-x-2">
-                                <Checkbox id="challenge3" />
-                                <Label htmlFor="challenge3">{t('challenge3')}</Label>
-                            </div>
-                        </CardContent>
-                    </Card>
                 </div>
             </div>
         </div>
     );
 }
+    
+
     
 
     

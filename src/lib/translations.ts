@@ -606,14 +606,14 @@ export const translations = {
     comingSoonDescription: 'Fungsionalitas peningkatan premium akan segera tersedia.',
     sleepTracking: 'Pelacakan Tidur',
     sleepDurationTrackerDescription: 'Pantau kualitas dan durasi tidur Anda untuk pemulihan optimal.',
-    weeklySleepTrend: 'Tren Tidur Pekan',
+    weeklySleepTrend: 'Tren Tidur Pekanan',
     monthlySleepView: 'Tampilan Tidur Bulanan',
     hoursSlept: 'Jam Tidur',
     viewFullSleepReport: 'Lihat Laporan Tidur Lengkap',
     deviceUsageBreak: 'Jeda Penggunaan Gawai',
     deviceUsageBreakDescription: 'Seimbangkan waktu layar Anda. Catat hobi untuk melihat bagaimana waktu Anda dihabiskan.',
     dailyUsage: 'Penggunaan Harian',
-    weeklyTrend: 'Tren Pekan',
+    weeklyTrend: 'Tren Pekanan',
     setBreakReminder: 'Atur Pengingat Istirahat',
     letsCountCalories: 'Ayo Hitung Kalori Anda!',
     letsCountCaloriesDescription: 'Buat resep Anda sendiri dan lihat rincian nutrisinya secara instan.',
@@ -722,8 +722,8 @@ export const translations = {
     showMoreTiers: 'Tampilkan Lebih Banyak Tingkatan',
     week: 'Pekan',
     '40WeekChallenge': 'Tantangan Konsistensi 40 Minggu',
-    '40WeekChallengeDescription': 'Centang setiap minggu untuk membangun kebiasaan konsistensi yang kuat.',
-    weeklyChallenge: 'Tantangan Pekan',
+    '40WeekChallengeDescription': 'Centang setiap pekan untuk membangun kebiasaan konsistensi yang kuat.',
+    weeklyChallenge: 'Tantangan Pekanan',
     weeklyChallengeDescription: 'Selesaikan tugas-tugas ini untuk poin bonus!',
     challenge1: 'Catat makanan selama 7 hari berturut-turut',
     challenge2: 'Coba 3 resep sehat baru',
@@ -921,5 +921,7 @@ f42: 'Semangka',
 };
 
 export type TranslationKey = keyof typeof translations['en'];
+
+    
 
     
