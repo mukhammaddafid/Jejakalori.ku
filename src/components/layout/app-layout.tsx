@@ -42,7 +42,9 @@ export function AppLayout({ children, defaultOpen = true }: AppLayoutProps) {
           <Separator className="my-2" />
           <div className="p-3 flex items-center justify-between">
             <SettingsDialog />
-            <SidebarTrigger className="group-data-[state=expanded]:hidden"/>
+            <div className="group-data-[state=expanded]:hidden">
+                <SidebarTrigger/>
+            </div>
           </div>
         </SidebarFooter>
       </Sidebar>

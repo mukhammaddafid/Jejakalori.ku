@@ -20,6 +20,7 @@ import { useLanguage } from '@/lib/language-provider';
 import { mockUserData } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '../ui/separator';
+import { SidebarMenuButton } from '../ui/sidebar';
 
 export function SettingsDialog() {
   const { t } = useLanguage();
@@ -37,10 +38,10 @@ export function SettingsDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9 group-data-[state=collapsed]:h-10 group-data-[state=collapsed]:w-10">
-          <Settings className="h-5 w-5" />
-          <span className="sr-only">{t('settings')}</span>
-        </Button>
+        <SidebarMenuButton variant="ghost" className="w-full justify-start h-10 p-2" tooltip={t('settings')}>
+            <Settings />
+            <span>{t('settings')}</span>
+        </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
