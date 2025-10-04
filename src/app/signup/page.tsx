@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { Flame } from "lucide-react";
+import { Flame, FileText } from "lucide-react";
 import { useLanguage } from "@/lib/language-provider";
 import {
   Select,
@@ -70,8 +70,9 @@ function QuoteCarousel() {
                 {selectedQuotes.map((q, i) => (
                     <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
                         <div className="p-1 h-full">
-                            <Card className="p-4 rounded-lg shadow-md bg-card flex flex-col justify-center h-full transform hover:scale-105 transition-transform duration-300">
-                                <blockquote className="text-xs sm:text-sm italic flex-grow">"{q.quote}"</blockquote>
+                            <Card className="flex flex-col justify-center p-4 bg-muted/50 h-full transform hover:scale-105 transition-transform duration-300">
+                                <FileText className="h-6 w-6 mb-2 text-muted-foreground" />
+                                <blockquote className="text-sm italic flex-grow">"{q.quote}"</blockquote>
                                 <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
                             </Card>
                         </div>
@@ -88,7 +89,10 @@ export default function SignUpPage() {
   const { t } = useLanguage();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-secondary/20 py-12">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-secondary/20 py-12 px-4">
+      <div className="mb-8 w-full">
+        <QuoteCarousel />
+      </div>
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
@@ -143,9 +147,6 @@ export default function SignUpPage() {
           </p>
         </CardFooter>
       </Card>
-      <div className="mt-16 w-full px-4">
-        <QuoteCarousel />
-      </div>
     </div>
   )
 }
