@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Flame, Monitor, Tablet, Smartphone, BookOpen, Globe, BarChart, PieChart, LineChart } from 'lucide-react';
+import { Flame, Monitor, Tablet, Smartphone, BookOpen, Globe, BarChart, LineChart, ChefHat } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -22,7 +22,7 @@ function ChartCollage() {
     { icon: <BarChart className="h-10 w-10 text-primary" />, rotation: '-rotate-12' },
     { icon: <BookOpen className="h-12 w-12 text-accent" />, rotation: 'rotate-15' },
     { icon: <LineChart className="h-10 w-10 text-chart-2" />, rotation: 'rotate-6' },
-    { icon: <PieChart className="h-12 w-12 text-chart-3" />, rotation: '-rotate-8' },
+    { icon: <ChefHat className="h-12 w-12 text-chart-3" />, rotation: '-rotate-8' },
   ];
 
   return (
