@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useLanguage } from '@/lib/language-provider';
-import { Info, Target, FlaskConical, Rocket, AlertTriangle, Wrench, Image as ImageIcon, Drumstick, Wheat, Carrot, Fish, Apple, Nut, Egg, Milk, Salad, Beef, Croissant, Cookie, CupSoda, Candy, Coffee, Pizza, Beer, Sandwich, Wine, Soup, Popcorn, Donut, Burger, CakeSlice, IceCream, Cherry, Avocado, Mushroom, Bread, Cheese, Shrimp, Broccoli, Rice, Potato, Corn, Tomato, Onion, Garlic, Cucumber, BellPepper, Watermelon, Grapes, Banana, Orange, Pineapple, Strawberry, Blueberry, Lemon, Coconut, Kiwi, Mango, Pear, Peach, Plum } from 'lucide-react';
+import { Info, Target, FlaskConical, Rocket, AlertTriangle, Wrench, Image as ImageIcon, Drumstick, Wheat, Carrot, Fish, Apple, Nut, Egg, Milk, Salad, Beef, Croissant, Cookie, CupSoda, Candy, Coffee, Pizza, Beer, Sandwich, Wine, Soup, Popcorn, Donut, Burger, CakeSlice, IceCream, Cherry, Cheese } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const Section: React.FC<{
@@ -94,34 +94,34 @@ export default function AboutPage() {
                                     <IconExplanation icon={<CakeSlice className="h-6 w-6" />} name={t('f25')} description={t('snacks')} />
                                     <IconExplanation icon={<IceCream className="h-6 w-6" />} name={t('f26')} description={t('snacks')} />
                                     <IconExplanation icon={<Cherry className="h-6 w-6" />} name={t('f27')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Avocado className="h-6 w-6" />} name={t('f28')} description={t('healthyFatSource')} />
-                                    <IconExplanation icon={<Mushroom className="h-6 w-6" />} name={t('f29')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Bread className="h-6 w-6" />} name={t('f30')} description={t('carbohydrateSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f28')} description={t('healthyFatSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f29')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Wheat className="h-6 w-6" />} name={t('f30')} description={t('carbohydrateSource')} />
                                     <IconExplanation icon={<Cheese className="h-6 w-6" />} name={t('f31')} description={t('dairySource')} />
-                                    <IconExplanation icon={<Shrimp className="h-6 w-6" />} name={t('f32')} description={t('proteinSource')} />
-                                    <IconExplanation icon={<Broccoli className="h-6 w-6" />} name={t('f33')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Rice className="h-6 w-6" />} name={t('f34')} description={t('carbohydrateSource')} />
-                                    <IconExplanation icon={<Potato className="h-6 w-6" />} name={t('f35')} description={t('carbohydrateSource')} />
-                                    <IconExplanation icon={<Corn className="h-6 w-6" />} name={t('f36')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Tomato className="h-6 w-6" />} name={t('f37')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Onion className="h-6 w-6" />} name={t('f38')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Garlic className="h-6 w-6" />} name={t('f39')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Cucumber className="h-6 w-6" />} name={t('f40')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<BellPepper className="h-6 w-6" />} name={t('f41')} description={t('vegetableSource')} />
-                                    <IconExplanation icon={<Watermelon className="h-6 w-6" />} name={t('f42')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Grapes className="h-6 w-6" />} name={t('f43')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Banana className="h-6 w-6" />} name={t('f44')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Orange className="h-6 w-6" />} name={t('f45')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Pineapple className="h-6 w-6" />} name={t('f46')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Strawberry className="h-6 w-6" />} name={t('f47')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Blueberry className="h-6 w-6" />} name={t('f48')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Lemon className="h-6 w-6" />} name={t('f49')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Coconut className="h-6 w-6" />} name={t('f50')} description={t('healthyFatSource')} />
-                                    <IconExplanation icon={<Kiwi className="h-6 w-6" />} name={t('f51')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Mango className="h-6 w-6" />} name={t('f52')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Pear className="h-6 w-6" />} name={t('f53')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Peach className="h-6 w-6" />} name={t('f54')} description={t('fruitSource')} />
-                                    <IconExplanation icon={<Plum className="h-6 w-6" />} name={t('f55')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Fish className="h-6 w-6" />} name={t('f32')} description={t('proteinSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f33')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Wheat className="h-6 w-6" />} name={t('f34')} description={t('carbohydrateSource')} />
+                                    <IconExplanation icon={<Wheat className="h-6 w-6" />} name={t('f35')} description={t('carbohydrateSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f36')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f37')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f38')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f39')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f40')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Carrot className="h-6 w-6" />} name={t('f41')} description={t('vegetableSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f42')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f43')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f44')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f45')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f46')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f47')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f48')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f49')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Nut className="h-6 w-6" />} name={t('f50')} description={t('healthyFatSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f51')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f52')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f53')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f54')} description={t('fruitSource')} />
+                                    <IconExplanation icon={<Apple className="h-6 w-6" />} name={t('f55')} description={t('fruitSource')} />
                                 </div>
                             </AccordionContent>
                         </AccordionItem>
