@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { cn } from './utils';
 
 type Viewport = 'desktop' | 'tablet' | 'mobile';
@@ -20,7 +20,12 @@ const viewportConfig = {
 
 export const ViewportProvider = ({ children }: { children: ReactNode }) => {
   const [viewport, setViewport] = useState<Viewport>('desktop');
-  
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const viewportStyle = {
       width: viewportConfig[viewport].width,
       height: viewportConfig[viewport].height,
@@ -29,14 +34,20 @@ export const ViewportProvider = ({ children }: { children: ReactNode }) => {
       transition: 'width 0.3s ease-in-out, height 0.3s ease-in-out',
       overflow: 'hidden',
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'column' as 'column',
   };
 
   return (
     <ViewportContext.Provider value={{ viewport, setViewport }}>
-      <div style={viewportStyle}>
-        {children}
-      </div>
+        {isClient ? (
+            <div style={viewportStyle}>
+                {children}
+            </div>
+        ) : (
+             <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
+                {children}
+            </div>
+        )}
     </ViewportContext.Provider>
   );
 };
