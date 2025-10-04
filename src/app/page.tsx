@@ -15,9 +15,16 @@ import {
 import { useLanguage } from '@/lib/language-provider';
 import { quotes } from '@/app/reading/page';
 import { Card } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
-function QuoteCollage() {
-    const { t } = useLanguage();
+
+function QuoteCarousel() {
     // 3 Indonesian, 7 International quotes
     const selectedQuotes = [
       quotes[0], // Pramoedya
@@ -33,14 +40,27 @@ function QuoteCollage() {
     ];
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {selectedQuotes.map((q, i) => (
-                 <Card key={i} className="p-4 rounded-lg shadow-md bg-card flex flex-col justify-center transform hover:scale-105 transition-transform duration-300">
-                     <blockquote className="text-xs sm:text-sm italic flex-grow">"{q.quote}"</blockquote>
-                     <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
-                 </Card>
-            ))}
-        </div>
+        <Carousel
+            opts={{
+                align: "start",
+            }}
+            className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto"
+        >
+            <CarouselContent>
+                {selectedQuotes.map((q, i) => (
+                    <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="p-1 h-full">
+                            <Card className="p-4 rounded-lg shadow-md bg-card flex flex-col justify-center h-full transform hover:scale-105 transition-transform duration-300">
+                                <blockquote className="text-xs sm:text-sm italic flex-grow">"{q.quote}"</blockquote>
+                                <p className="text-xs text-right mt-2 font-semibold">- {q.author}</p>
+                            </Card>
+                        </div>
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex" />
+            <CarouselNext className="hidden sm:flex" />
+        </Carousel>
     );
 }
 
@@ -98,24 +118,24 @@ export default function WelcomePage() {
       </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col justify-center space-y-4 text-center lg:text-left">
-                <div className="space-y-4">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
-                    {t('welcomeTitle')}
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground text-base mx-auto lg:mx-0">
-                    {t('welcomeSubtitle')}
-                  </p>
-                </div>
+          <div className="container px-4 md:px-6 text-center">
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <div className="space-y-4">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
+                  {t('welcomeTitle')}
+                </h1>
+                <p className="max-w-[600px] text-muted-foreground text-base mx-auto">
+                  {t('welcomeSubtitle')}
+                </p>
               </div>
-              <QuoteCollage />
-            </div>
-             <div className="flex justify-center mt-12">
+              <div className="mt-8">
                 <Link href="/signup" passHref>
                     <Button size="lg" className="text-lg px-8 py-6">{t('startToday')}</Button>
                 </Link>
+              </div>
+            </div>
+            <div className="mt-16">
+              <QuoteCarousel />
             </div>
           </div>
         </section>
