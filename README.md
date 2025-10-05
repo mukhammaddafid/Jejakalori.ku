@@ -10,6 +10,29 @@ This application is designed as a personal health assistant. Its goal is to help
 
 Accuracy is key. The main calculation in this app, Total Daily Energy Expenditure (TDEE), is based on the Mifflin-St Jeor Equation. This equation is considered a gold standard for estimating Basal Metabolic Rate (BMR) and has been validated by numerous studies, including one published in the Journal of the American Dietetic Association. The activity multipliers used to calculate TDEE from BMR are also based on long-standing standards in the field of nutrition, originating from studies by Harris & Benedict.
 
+## Technical Specifications
+
+### Programming Language & Frameworks
+
+This application is built with a modern and robust technology stack to ensure a fast, responsive, and scalable user experience:
+
+*   **Programming Language**: **TypeScript** is used for type safety and improved code quality.
+*   **Framework**: **Next.js** (using the App Router) serves as the primary framework, enabling Server-Side Rendering (SSR) and efficient routing.
+*   **User Interface (UI)**: The UI is built with **React**, leveraging **ShadCN UI** for a comprehensive set of pre-built, accessible components, and styled with **Tailwind CSS** for a utility-first styling approach.
+*   **Artificial Intelligence (AI)**: AI-powered features, such as the daily summary, are implemented using **Genkit**, an open-source framework from Google for building production-ready AI applications.
+
+### Developed Features
+
+The application includes a rich set of features designed to provide a holistic approach to health and wellness tracking:
+
+*   **Dashboard**: A central hub to monitor daily calorie and macronutrient intake, view a detailed food log, analyze weekly eating trends, and receive an AI-generated summary of your day.
+*   **Recipes & Meal Planning**: A recipe calculator to determine the nutritional value of custom meals and a 30-day healthy meal plan (available in International and Nusantara menus) to guide your eating habits.
+*   **Leagues & Gamification**: A consistency league with a tier and leaderboard system to motivate users. It includes the "40th Degree Challenge" which integrates weekly tasks to build long-term habits.
+*   **Wellness & Hobbies**: A "Reading" page that expands into a wellness hub, allowing users to track time spent on various hobbies (like reading, sports, and music) and monitor their device usage to encourage a balanced lifestyle.
+*   **Profile & Goals**: A comprehensive profile section featuring a TDEE calculator, a goal setter for nutritional targets, and premium features like a sleep tracker.
+*   **Authentication**: Simple and clean sign-up and login pages to manage user access.
+*   **Internationalization (i18n)**: Full support for both English and Bahasa Indonesia, allowing users to switch languages seamlessly.
+
 ## Potential Usage
 
 *   **Meal Planning**: With recipe features and meal plans, you can plan meals that fit your calorie and macro targets.
